@@ -1,0 +1,20 @@
+<container>
+    <form method="post" action="">
+        <div>
+            <h2>Create Category</h2>
+            <div>
+                <label for="">Category Name</label>
+                <input type="text" class="form-control" />
+            </div>
+            <button type="submit" class="btn">Create</button>
+            <a asp-controller="Category" asp-action="Index">Back</a>
+        </div>
+<partial name="_testPartialFromShared" />
+    </form>
+</container>
+
+@section Scripts{
+    @{
+        <partial name="_testPartialFromShared" />
+    }
+}
