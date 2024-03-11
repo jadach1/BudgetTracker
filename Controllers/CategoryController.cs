@@ -10,18 +10,25 @@ namespace Budget_Man.Controllers{
             _db=db;
         }
         public IActionResult Index(){
-            
-            return View();
+            List<Category> objCategoryList= _db.Categories.ToList();
+            return View(objCategoryList);
         }
          public IActionResult Create(){
             
             return View();
         }
         [HttpPost]
-        public void Create(Category obj){
+        public IActionResult Create(Category obj){
+            Console.WriteLine(obj);
             _db.Categories.Add(obj);
             _db.SaveChanges();
             Console.WriteLine("Created object");
+            return View();
+        }
+
+        [HttpDelete]
+        public void Delete(){
+
         }
     }
 }
