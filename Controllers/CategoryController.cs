@@ -26,6 +26,17 @@ namespace Budget_Man.Controllers{
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Edit(Category obj){
+            Console.WriteLine(obj.Id);
+            Console.WriteLine("hello");
+            Console.WriteLine(obj.Name);
+            _db.Categories.Update(obj);
+            _db.SaveChanges();
+            Console.WriteLine("Created object");
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Delete(int id){
             if(id != null && id != 0 ){
                 Category obj = _db.Categories.Find(id);

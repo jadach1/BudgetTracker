@@ -1,23 +1,7 @@
 @model List<Category>
 
-@{
-    var joker = "joker2";
-}
-@functions {
-    public bool test(string str)
-    {
-        Console.WriteLine("reading " + str);
-        return false;
-    }
 
-    public string hi()
-    {
-        Console.WriteLine("why are you active");
-        return "why";
-    }
-}
-
-<h1>CATEGORIES</h1>
+<h1 class="text-center">CATEGORIES</h1>
 <div>
     <div class="row">
         <a asp-controller="Category" asp-action="Create" class="btn btn-secondary mb-3">
@@ -44,17 +28,18 @@
                     <td id=@displayName> @obj.Name</td>
                     <!--Edit name form-->
                     <td id=@editName hidden=true>
-                        <form method="post">
+                        <form method="post" asp-controller="Category" asp-action="Edit">
+                            <input hidden name="Id" class="form-control" value=@obj.Id >
                             <label for="Name">Edit Category Name</label>
-                            <input class="bg-primary" name="Name" type="text" value=@obj.Name>
-                        </form>
+                            <input class="bg-primary form-control" name="Name" type="text" value=@obj.Name>    
                         <!--DISPLAY name-->
                         <div class="btn-group my-1">
-                            <button class="bg-primary btn offset-1 col-2"
+                            <button  class="bg-primary btn offset-1 col-2"
                                 onclick="">done</button>
-                            <button class="bg-secondary btn offset-1 col-3"
-                                onclick="editName(@obj.Id,true);">back</button>
-                        </div>
+                            <a class="bg-secondary btn offset-1 col-3"
+                                onclick="editName(@obj.Id,true);">back</a>
+                            </div>
+                       </form>
                     </td>
                   
                     <!--BUTTONS - edit and delete-->
