@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Budget Man")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50e782a56488337cb83dd31da8cab95ea80f62e6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba0d5328e7cf83e5e0086e27771539430566bd8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Budget Man")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Budget Man")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

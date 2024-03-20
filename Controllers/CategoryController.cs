@@ -26,9 +26,19 @@ namespace Budget_Man.Controllers{
             return View();
         }
 
-        [HttpDelete]
-        public void Delete(){
-
+        public IActionResult Delete(int id){
+            if(id != null && id != 0 ){
+                Category obj = _db.Categories.Find(id);
+                _db.Categories.Remove(obj);
+                _db.SaveChanges();
+                Console.WriteLine("Deleted object");
+                Console.WriteLine(obj);
+                return RedirectToAction("Index");
+            } else {
+                Console.WriteLine(id);
+                return Content("Id " + id+ "not found");
+            }
+         
         }
     }
 }

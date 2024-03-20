@@ -149,6 +149,10 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrapOriginal.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrapOriginal.min.css"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },

@@ -1,31 +1,99 @@
 @model List<Category>
 
+@{
+    var joker = "joker2";
+}
+@functions {
+    public bool test(string str)
+    {
+        Console.WriteLine("reading " + str);
+        return false;
+    }
+
+    public string hi()
+    {
+        Console.WriteLine("why are you active");
+        return "why";
+    }
+}
+
 <h1>CATEGORIES</h1>
 <div>
-   <div class="row">
-     <a asp-controller="Category" asp-action="Create" class="btn btn-secondary mb-3">
-       <i class="bi bi-plus-circle"></i> Create New Category
-    </a>
-   </div>
-    <table>
+    <div class="row">
+        <a asp-controller="Category" asp-action="Create" class="btn btn-secondary mb-3">
+            <i class="bi bi-plus-circle"></i> Create New Category
+        </a>
+    </div>
+    <table class="table table-striped">
         <thead>
-            <tr>Category Name</tr>
+            <tr>
+                <bold>Category Name</bold>
+            </tr>
         </thead>
         <tbody>
-            @foreach(var obj in Model.OrderBy(u=>u.Name)){
+            @foreach (var obj in Model.OrderBy(u => u.Name))
+            {
+
+                // dynamically create ID's for elements below
+                var displayName = "displayName" + @obj.Id;
+                var editName = "editName" + @obj.Id;
+                var editButton = "editButton" + @obj.Id;
+
                 <tr>
-                <td> @obj.Name</td>
-                <td class=" btn-group" role="group">
-                    <a asp-controller="Category" asp-action="Edit" class="w-75 h-25 btn btn-primary mx-2">
-                        <i class="bi bi-pencil px-3"></i> Edit
-                    </a>
-                     <a asp-controller="Category" asp-action="Edit" class="w-75 h-25 btn btn-primary mx-2">
-                        <i class="bi bi-trash"></i> Remove
-                    </a>   
+                    <td> @obj.Id</td>
+                    <td id=@displayName> @obj.Name</td>
+                    <!--Edit name form-->
+                    <td id=@editName hidden=true>
+                        <form method="post">
+                            <label for="Name">Edit Category Name</label>
+                            <input class="bg-primary" name="Name" type="text" value=@obj.Name>
+                        </form>
+                        <!--DISPLAY name-->
+                        <div class="btn-group my-1">
+                            <button class="bg-primary btn offset-1 col-2"
+                                onclick="">done</button>
+                            <button class="bg-secondary btn offset-1 col-3"
+                                onclick="editName(@obj.Id,true);">back</button>
+                        </div>
+                    </td>
+                  
+                    <!--BUTTONS - edit and delete-->
+                    <td>
+                        <fieldset id=@editButton class="btn-group">
+                            <button onclick="editName(@obj.Id,false);" class="w-75  btn btn-primary mx-2">
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
+                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
+                                class="w-75 btn btn-primary mx-2">
+                                <i class="bi bi-trash"></i> Remove
+                            </a>
+                        </fieldset>
                     </td>
                 </tr>
-               
-            }       
+            }
+
         </tbody>
     </table>
 </div>
+
+
+<script>
+
+    //Takes 3 parameters, the name is just the Id, and the flag is whether we want to reveal or hide 
+    function editName(name, flag) {
+
+        let displayName = `displayName${name}`;
+        let editName = `editName${name}`;
+        let editButton = `editButton${name}`;
+
+
+        document.getElementById(displayName).hidden = !flag;
+        document.getElementById(editName).hidden = flag;
+        document.getElementById(editButton).disabled = !flag;
+    }
+
+    function editHandler(name) {
+        console.log("edit done");
+        editName();
+    }
+</script>

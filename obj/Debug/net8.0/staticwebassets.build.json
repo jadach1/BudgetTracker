@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vavN9ld069dBRN69GJtqTPM1iLI0N56Apaob2+XnC9k=",
+  "Hash": "8j5CC9Gd2WfRzC68WprFn1C2fyZc+yolec+tP0QbvyU=",
   "Source": "Budget Man",
   "BasePath": "_content/Budget Man",
   "Mode": "Default",
@@ -718,6 +718,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrapOriginal.min.css",
+      "SourceId": "Budget Man",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\",
+      "BasePath": "_content/Budget Man",
+      "RelativePath": "lib/bootstrap/dist/css/bootstrapOriginal.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrapOriginal.min.css"
     },
     {
       "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
