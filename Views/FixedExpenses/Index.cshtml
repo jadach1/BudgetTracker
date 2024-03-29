@@ -1,0 +1,121 @@
+@model List<FixedExpense>
+
+
+
+<div class="text-center">
+    <h2>Fixed Expenses</h2>
+    <div>
+        <button id="partialFormBtn" class="btn row my-2 btn-outline-primary">CREATE <i class="bi bi-plus"></i></button>
+        <div id="partialForm" hidden>
+            <partial  name="CreatePartialForm" />
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead class="border-bottom border-1 border-primary ">
+            <td>ID</td>
+            <td>Expense</td>
+            <td>Amount</td>
+        </thead>
+        <tbody id="list">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const data = JSON.parse('@Html.Raw(Json.Serialize(Model))')
+    data.map(element => {
+        let id = element.id;
+        let name = element.name;
+        let amount = element.amount;
+
+        //need to append a new row every iteration
+        let row = document.createElement("tr");
+        row.setAttribute("id", "tr" + id);
+        document.getElementById("list").appendChild(row);
+
+        //append td to row
+        let td1 = document.createElement("td");
+        td1.textContent = id;
+        td1.classList.add("align-middle");
+        td1.classList.add("col-4");
+        document.getElementById("tr" + id).appendChild(td1);
+
+        //append td to row
+        let td2 = document.createElement("td");
+        td2.textContent = name;
+        td2.classList.add("align-middle");
+        td2.classList.add("col-4");
+        document.getElementById("tr" + id).appendChild(td2);
+
+        //append td to row
+        let td3 = document.createElement("td");
+        td3.textContent = amount;
+        td3.classList.add("align-middle");
+        td3.classList.add("col-4");
+        document.getElementById("tr" + id).appendChild(td3);
+
+        //append td to row
+        let td4 = document.createElement("td");
+        td4.setAttribute("id","td"+id);
+        td4.classList.add("col-4");
+        document.getElementById("tr" + id).appendChild(td4);
+
+        //classes to buttons
+        let classes = [];
+
+        //div to house buttons
+        let div = document.createElement("div");
+        div.setAttribute("id","div"+id);
+        div.classList.add("btn-group");
+        
+        document.getElementById("td" + id).appendChild(div);
+
+        //append button - edit
+        let button1 = document.createElement("button");
+        button1.textContent = "edit";
+        button1.setAttribute("id","button1"+id);
+        button1.className = "btn";
+        button1.classList.add("btn-dark");
+        button1.classList.add("rounded-5");
+        document.getElementById("div" + id).appendChild(button1);
+
+        //Create span with icon
+        let span1 = document.createElement("span");
+        span1.classList.add("bi");
+        span1.classList.add("bi-pencil");
+        document.getElementById("button1" + id).appendChild(span1);
+
+        //append button - delete
+        let button2 = document.createElement("button");
+        button2.textContent = "delete";
+        button2.setAttribute("id","button2"+id);
+        button2.classList.add("btn");
+        button2.classList.add("btn-dark");
+        button2.classList.add("rounded-5");
+        button2.classList.add("mx-3");
+        document.getElementById("div" + id).appendChild(button2);
+
+        //Create span with icon
+        let span2 = document.createElement("span");
+        span2.classList.add("bi");
+        span2.classList.add("bi-trash");
+        document.getElementById("button2" + id).appendChild(span2);
+
+    })
+    console.log(document.getElementById("tr"))
+</script>
+
+<!--CREATE FORM SCRIPT AND METHODS-->
+<script>
+    let hiddenFlag = true;
+    let disabledFlag = true;
+
+    let partialFormBtn = document.getElementById("partialFormBtn");
+
+    partialFormBtn.addEventListener('click', (e) => {
+        hiddenFlag = !hiddenFlag;
+        document.getElementById("partialForm").hidden = hiddenFlag;
+        partialFormBtn.disabled = disabledFlag;
+    })
+</script>
