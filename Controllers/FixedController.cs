@@ -16,4 +16,21 @@ public class FixedExpenses : Controller {
         List<FixedExpense> objCategoryList= _db.FixedExpense.ToList();
         return View(objCategoryList);
     }
+
+    [HttpPost]
+    public IActionResult Create(IFormCollection formCollection){
+        Console.WriteLine("here we are");
+        Console.WriteLine("here we are, " + formCollection["name"]);
+        Console.WriteLine("here we are " + formCollection["amount"]);
+        if(ModelState.IsValid){
+            FixedExpense fe = new FixedExpense(_db);
+            fe.Name = formCollection["name"];
+            fe.Amount = Single.Parse(formCollection["amount"]);
+            fe.save(fe);
+            return RedirectToAction("Index");
+        } else {
+            return RedirectToAction("Index");
+        }
+      
+    }
 }

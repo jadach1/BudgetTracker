@@ -1,1 +1,28 @@
-<h1>Create Form</h1>
+
+
+<div class="my-3">
+    <h2>CREATE NEW FIXED EXPENSE</h2>
+    <form method="post" asp-action="Create" asp-controller="FixedExpenses">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" >
+        </div>
+        <div>
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" name="amount" >
+        </div>
+        <div class="my-2">
+            <button type="submit" class="btn btn-primary">Submit <span><i class="bi bi-check2-circle"></i></span></button>
+            <a id="hideCreate" onclick="onHide()" class="btn btn-secondary">Cancel<i class="bi bi-x-square"></i></a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function onHide(event){
+        @* console.log(event)
+        event.preventDefault(); *@
+        document.getElementById("partialForm").hidden=true;
+        document.getElementById("partialFormBtn").disabled=false;
+    }
+</script>

@@ -1,7 +1,6 @@
 @model List<FixedExpense>
 
 
-
 <div class="text-center">
     <h2>Fixed Expenses</h2>
     <div>
@@ -10,7 +9,7 @@
             <partial  name="CreatePartialForm" />
         </div>
     </div>
-    <table class="table table-striped">
+    <table class="table table-striped ">
         <thead class="border-bottom border-1 border-primary ">
             <td>ID</td>
             <td>Expense</td>
@@ -108,14 +107,10 @@
 
 <!--CREATE FORM SCRIPT AND METHODS-->
 <script>
-    let hiddenFlag = true;
-    let disabledFlag = true;
-
     let partialFormBtn = document.getElementById("partialFormBtn");
 
     partialFormBtn.addEventListener('click', (e) => {
-        hiddenFlag = !hiddenFlag;
-        document.getElementById("partialForm").hidden = hiddenFlag;
-        partialFormBtn.disabled = disabledFlag;
+        document.getElementById("partialForm").hidden = false;
+        partialFormBtn.disabled = true;
     })
 </script>
