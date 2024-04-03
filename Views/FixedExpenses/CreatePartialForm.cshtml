@@ -1,28 +1,69 @@
-
-
 <div class="my-3">
+    @{
+        var formType = "Create";
+    }
     <h2>CREATE NEW FIXED EXPENSE</h2>
-    <form method="post" asp-action="Create" asp-controller="FixedExpenses">
+    <form id="form" method="post" asp-action=@formType asp-controller="FixedExpenses">
         <div>
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" >
+            <input id="name" type="text" class="form-control" name="name">
+            <span id="errorName" class="text-danger"></span>
         </div>
         <div>
             <label for="amount">Amount</label>
-            <input type="number" class="form-control" name="amount" >
+            <input id="amount" type="decimal" class="form-control" name="amount">
+            <span id="errorAmount" class="text-danger"></span>
         </div>
         <div class="my-2">
-            <button type="submit" class="btn btn-primary">Submit <span><i class="bi bi-check2-circle"></i></span></button>
+            <a onclick="onSubmit(this)" class="btn btn-primary">Submit <span><i
+                        class="bi bi-check2-circle"></i></span></a>
             <a id="hideCreate" onclick="onHide()" class="btn btn-secondary">Cancel<i class="bi bi-x-square"></i></a>
         </div>
     </form>
 </div>
 
+
 <script>
-    function onHide(event){
-        @* console.log(event)
-        event.preventDefault(); *@
-        document.getElementById("partialForm").hidden=true;
-        document.getElementById("partialFormBtn").disabled=false;
+    //Form Handling
+    const errorName = document.getElementById("errorName");
+    const errorAmount = document.getElementById("errorAmount");
+    const name = document.getElementById("name");
+    const amount = document.getElementById("amount");
+
+    //Keypress will remove error
+    name.addEventListener("keydown", () => {
+        console.log("change");
+        errorName.innerText = "";
+    })
+
+    //Keypress will remove error
+    amount.addEventListener("keydown", () => {
+        console.log("change");
+        errorAmount.innerText = "";
+    })
+
+    //Cancel button
+    function onHide(event) {
+        document.getElementById("partialForm").hidden = true;
+        document.getElementById("partialFormBtn").disabled = false;
+    }
+
+    function onSubmit() {
+        let flag = true;
+        console.log(name.innerText + " " + amount.innerHTML);
+        console.log(name.value)
+        if (name.value === "") {
+            flag = false;
+            errorName.innerText = "Must Enter Name of Expense.";
+        }
+        if (amount.value === "") {
+            flag = false;
+            errorAmount.innerText = "Must Enter Amount for Expense.";
+        }
+        if (flag) {
+            const form = document.getElementById("form");
+            form.submit();
+        }
+
     }
 </script>

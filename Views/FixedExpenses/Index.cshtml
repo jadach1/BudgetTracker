@@ -6,7 +6,10 @@
     <div>
         <button id="partialFormBtn" class="btn row my-2 btn-outline-primary">CREATE <i class="bi bi-plus"></i></button>
         <div id="partialForm" hidden>
-            <partial  name="CreatePartialForm" />
+            <partial name="CreatePartialForm" />
+        </div>
+        <div id="partialDeleteForm" hidden>
+            <partial name="DeleteFormConfirmation" />
         </div>
     </div>
     <table class="table table-striped ">
@@ -78,7 +81,7 @@
         button1.classList.add("btn-dark");
         button1.classList.add("rounded-5");
         document.getElementById("div" + id).appendChild(button1);
-
+        
         //Create span with icon
         let span1 = document.createElement("span");
         span1.classList.add("bi");
@@ -94,6 +97,9 @@
         button2.classList.add("rounded-5");
         button2.classList.add("mx-3");
         document.getElementById("div" + id).appendChild(button2);
+        button2.addEventListener("click", ()=>{
+            startDeleteProcess(id);
+        })
 
         //Create span with icon
         let span2 = document.createElement("span");
@@ -102,7 +108,6 @@
         document.getElementById("button2" + id).appendChild(span2);
 
     })
-    console.log(document.getElementById("tr"))
 </script>
 
 <!--CREATE FORM SCRIPT AND METHODS-->
@@ -113,4 +118,14 @@
         document.getElementById("partialForm").hidden = false;
         partialFormBtn.disabled = true;
     })
+</script>
+
+<!--DELETE FORM SCRIPT AND METHODS-->
+<script>
+    const partialDeleteForm = document.getElementById("partialDeleteForm");
+
+    function startDeleteProcess(id){
+        document.getElementById("deleteID").value=id;
+        partialDeleteForm.hidden=false;
+    }
 </script>

@@ -17,7 +17,7 @@ namespace Budget_Man.Models {
         [Required]
         public string? Name {get;set;}
         [Required]
-        public float Amount {get;set;}
+        public float? Amount {get;set;}
 
         public void save(FixedExpense fixedExpense){
             _db.FixedExpense.Add(fixedExpense);
