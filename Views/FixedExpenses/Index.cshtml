@@ -1,7 +1,7 @@
 @model List<FixedExpense>
 
 
-<div class="text-center">
+<div id="modal-fixed-expenses" class="text-center">
     <h2>Fixed Expenses</h2>
     <div>
         <button id="partialFormBtn" class="btn row my-2 btn-outline-primary">CREATE <i class="bi bi-plus"></i></button>
@@ -12,7 +12,7 @@
             <partial name="DeleteFormConfirmation" />
         </div>
     </div>
-    <table class="table table-striped ">
+    <table id="table-fixed-expense" class="table table-striped ">
         <thead class="border-bottom border-1 border-primary ">
             <td>ID</td>
             <td>Expense</td>
@@ -123,9 +123,25 @@
 <!--DELETE FORM SCRIPT AND METHODS-->
 <script>
     const partialDeleteForm = document.getElementById("partialDeleteForm");
+    const modalFixedExpenses = document.getElementById("modal-fixed-expenses");
+    const table = document.getElementById("table-fixed-expense");
 
+    //display delete form.  Disable buttons.  Create message
     function startDeleteProcess(id){
+        //Display form, set id
         document.getElementById("deleteID").value=id;
         partialDeleteForm.hidden=false;
+        
+        //Set message
+        let message = "Are you sure you want to DELETE this ID " + id + " ?";
+        document.getElementById("deleteFormTitle").innerHTML=message;
+        
+        //Table buttons
+        document.querySelectorAll('.table button').forEach(btn => {
+            btn.disabled=true;
+        })
+        // Create new button
+        document.getElementById("partialFormBtn").disabled=true;
     }
+
 </script>

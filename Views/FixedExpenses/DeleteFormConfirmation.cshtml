@@ -1,10 +1,10 @@
-<div>
-    <h3>Are you sure you want to delete ?</h3>
-    <div>
+<div class="my-3">
+    <h3 id="deleteFormTitle"></h3>
+    <div class="my-3">
         <form id="deleteForm" method="post" asp-action="Delete" asp-controller="FixedExpenses">
             <input type="text" class="form-control" name="id" id="deleteID" hidden>
-            <a class="btn btn-danger" onclick="confirmDelete()" >yes</a>
-            <a  class="btn btn-secondary" onclick="hide()" >no</a>
+            <a class="btn btn-lg btn-danger" onclick="confirmDelete()" >yes</a>
+            <a  class="btn btn-lg btn-secondary offset-3" onclick="hide()" >no</a>
         </form>
     </div>
 </div>
@@ -15,8 +15,16 @@
         form.submit();
     }
 
+    //enable buttons in table.  Hide This form.
     function hide(){
+        //hide form
         const partialDeleteForm = document.getElementById("partialDeleteForm");
         partialDeleteForm.hidden=true;
+        //enable table buttons
+        document.querySelectorAll('.table button').forEach(btn => {
+            btn.disabled=false;
+        })
+        // Create new button
+        document.getElementById("partialFormBtn").disabled=false;
     }
 </script>
