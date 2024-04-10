@@ -24,19 +24,36 @@ public class FixedExpenses : Controller
     [HttpPost]
     public IActionResult Create(IFormCollection formCollection)
     {
-        var name = formCollection["name"];
-        var amount = formCollection["amount"];
+        try
+        {
+            var name = formCollection["name"];
+            var amount = formCollection["amount"];
 
-        Console.WriteLine("here we are");
-        Console.WriteLine("here we are, " + name);
-        Console.WriteLine("here we are " + amount);
+            FixedExpense fe = new FixedExpense(_db);
+            fe.Name = formCollection["name"];
+            fe.Amount = Single.Parse(formCollection["amount"]);
+            fe.save(fe);
+        }
+        catch (ArgumentNullException ex) {
+            Console.WriteLine("caught expection");
+            Console.WriteLine(ex);
+        }
+        catch (FormatException fe)
+        {
+            Console.WriteLine(fe);
+            Console.WriteLine("format exception");
+        }
+         catch (Exception e)
+        {
+            Console.WriteLine(e);
+            Console.WriteLine(" exception");
+        }
 
-        FixedExpense fe = new FixedExpense(_db);
-        fe.Name = formCollection["name"];
-        fe.Amount = Single.Parse(formCollection["amount"]);
-        fe.save(fe);
+        Console.WriteLine(" go");
         return RedirectToAction("Index");
     }
+
+
 
     [HttpPost]
     public IActionResult Delete(IFormCollection formCollection)
@@ -51,10 +68,10 @@ public class FixedExpenses : Controller
         }
         else
         {
-            ViewData["errorMessage"]="Cannot find this ID " + id;
+            ViewData["errorMessage"] = "Cannot find this ID " + id;
             return View("Views/Errors/generalError.cshtml");
         }
-            
+
     }
 
 }
