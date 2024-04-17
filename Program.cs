@@ -1,4 +1,6 @@
 using Budget_Man.Server;
+using Budget_Man.Server.IUnitWork;
+using Budget_Man.Server.UnitWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ builder.Services.AddControllersWithViews();
 // we wish to add dbContext to the project, and we need to inform the extension which class in our project will have the dbcontext
 builder.Services.AddDbContext<ApplicationDbContext>(options=> 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection2")));
+//builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 //NO MORE SERVICES, BUILD
 var app = builder.Build();

@@ -1,45 +1,55 @@
 using Budget_Man.Server;
 using Budget_Man.Models;
 using Microsoft.AspNetCore.Mvc;
+using Budget_Man.Server.IUnitWork;
 
-namespace Budget_Man.Controllers{
-    public class CategoryController : Controller {
-        private readonly ApplicationDbContext _db;
-        public  CategoryController(ApplicationDbContext db)
+namespace Budget_Man.Controllers
+{
+    public class CategoryController : Controller
+    {
+        private readonly IUnitOfWork _dbCentral;
+        public CategoryController(IUnitOfWork db)
         {
-            _db=db;
+            _dbCentral = db;
         }
-        public IActionResult Index(){
-            List<Category> objCategoryList= _db.Categories.ToList();
+        public IActionResult Index()
+        {
+            IEnumerable<Category> objCategoryList = _dbCentral.categoryRepository.GetAll();
             return View(objCategoryList);
         }
-         public IActionResult Create(){
+        public IActionResult Create()
+        {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category obj){
-            _db.Categories.Add(obj);
-            _db.SaveChanges();
+        public IActionResult Create(Category obj)
+        {
+            _dbCentral.categoryRepository.Add(obj);
+            _dbCentral.Save();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Edit(Category obj){
-            _db.Categories.Update(obj);
-            _db.SaveChanges();
+        public IActionResult Edit(Category obj)
+        {
+            _dbCentral.categoryRepository.Update(obj);
+            _dbCentral.Save();
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int id){
-            if(id != null && id != 0 ){
-                Category obj = _db.Categories.Find(id);
-                _db.Categories.Remove(obj);
-                _db.SaveChanges();
+        public IActionResult Delete(int id)
+        {
+            bool flag = _dbCentral.categoryRepository.Remove(id);
+            if (flag)
+            {
+                _dbCentral.Save();
                 return RedirectToAction("Index");
-            } else {
-                return Content("Id " + id+ "not found");
             }
-         
+            else
+            {
+                return Content("Id " + id + "not found");
+            }
+
         }
     }
 }

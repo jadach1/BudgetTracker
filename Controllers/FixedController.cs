@@ -1,23 +1,21 @@
 
 using Budget_Man.Models;
-using Budget_Man.Server;
+using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace Budget_Man.Controllers;
 public class FixedExpenses : Controller
 {
-    private ApplicationDbContext _db;
+    private IUnitOfWork _dbCentral;
 
-    public FixedExpenses(ApplicationDbContext db)
+    public FixedExpenses(IUnitOfWork db)
     {
-        _db = db;
+        _dbCentral = db;
     }
 
     public IActionResult Index()
     {
-        List<FixedExpense> objCategoryList = _db.FixedExpense.ToList();
+        IEnumerable<FixedExpense> objCategoryList = _dbCentral.fixedExpensesRepository.GetAll();
         return View(objCategoryList);
     }
 
@@ -29,10 +27,12 @@ public class FixedExpenses : Controller
             var name = formCollection["name"];
             var amount = formCollection["amount"];
 
-            FixedExpense fe = new FixedExpense(_db);
+            FixedExpense fe = new FixedExpense();
             fe.Name = formCollection["name"];
             fe.Amount = Single.Parse(formCollection["amount"]);
-            fe.save(fe);
+            //fe.save(fe);
+            _dbCentral.fixedExpensesRepository.Add(fe);
+            _dbCentral.Save();
         }
         catch (ArgumentNullException ex) {
             Console.WriteLine("caught expection");
@@ -54,16 +54,15 @@ public class FixedExpenses : Controller
     }
 
 
-
     [HttpPost]
     public IActionResult Delete(IFormCollection formCollection)
     {
         var id = Convert.ToInt32(formCollection["id"]);
-        FixedExpense obj = _db.FixedExpense.Find(id);
-        if (obj != null)
+        bool flag = _dbCentral.fixedExpensesRepository.Remove(id);
+        // FixedExpense obj = _db.FixedExpense.Find(id);
+        if (flag)
         {
-            _db.FixedExpense.Remove(obj);
-            _db.SaveChanges();
+            _dbCentral.Save();
             return RedirectToAction("Index");
         }
         else
@@ -71,7 +70,5 @@ public class FixedExpenses : Controller
             ViewData["errorMessage"] = "Cannot find this ID " + id;
             return View("Views/Errors/generalError.cshtml");
         }
-
     }
-
 }
