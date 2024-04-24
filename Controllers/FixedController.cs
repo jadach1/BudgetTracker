@@ -30,11 +30,12 @@ public class FixedExpenses : Controller
             FixedExpense fe = new FixedExpense();
             fe.Name = formCollection["name"];
             fe.Amount = Single.Parse(formCollection["amount"]);
-            //fe.save(fe);
+         
             _dbCentral.fixedExpensesRepository.Add(fe);
             _dbCentral.Save();
         }
-        catch (ArgumentNullException ex) {
+        catch (ArgumentNullException ex)
+        {
             Console.WriteLine("caught expection");
             Console.WriteLine(ex);
         }
@@ -43,7 +44,7 @@ public class FixedExpenses : Controller
             Console.WriteLine(fe);
             Console.WriteLine("format exception");
         }
-         catch (Exception e)
+        catch (Exception e)
         {
             Console.WriteLine(e);
             Console.WriteLine(" exception");
@@ -52,8 +53,25 @@ public class FixedExpenses : Controller
         Console.WriteLine(" go");
         return RedirectToAction("Index");
     }
-
-
+    [HttpPost]
+    public IActionResult Edit(IFormCollection formCollection)
+    {
+        try
+        {
+            FixedExpense fixedExpense = new FixedExpense();
+            fixedExpense.Name = formCollection["name"];
+            fixedExpense.Amount = Convert.ToSingle(formCollection["amount"]);
+            fixedExpense.Id = Convert.ToInt32(formCollection["id"]);
+            _dbCentral.fixedExpensesRepository.Update(fixedExpense);
+            _dbCentral.Save();
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            ViewData["errorMessage"] = "exception " + e;
+            return View("Views/Errors/generalError.cshtml");
+        }
+    }
     [HttpPost]
     public IActionResult Delete(IFormCollection formCollection)
     {

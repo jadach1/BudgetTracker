@@ -46,6 +46,7 @@
         //append td to row
         let td2 = document.createElement("td");
         td2.textContent = name;
+        td2.setAttribute("id","td_"+id+"_name");
         td2.classList.add("align-middle");
         td2.classList.add("col-4");
         document.getElementById("tr" + id).appendChild(td2);
@@ -53,13 +54,14 @@
         //append td to row
         let td3 = document.createElement("td");
         td3.textContent = amount;
+        td3.setAttribute("id","td_"+id+"_amount");
         td3.classList.add("align-middle");
         td3.classList.add("col-4");
         document.getElementById("tr" + id).appendChild(td3);
 
         //append td to row
         let td4 = document.createElement("td");
-        td4.setAttribute("id","td"+id);
+        td4.setAttribute("id", "td" + id);
         td4.classList.add("col-4");
         document.getElementById("tr" + id).appendChild(td4);
 
@@ -68,20 +70,23 @@
 
         //div to house buttons
         let div = document.createElement("div");
-        div.setAttribute("id","div"+id);
+        div.setAttribute("id", "div" + id);
         div.classList.add("btn-group");
-        
+
         document.getElementById("td" + id).appendChild(div);
 
         //append button - edit
         let button1 = document.createElement("button");
         button1.textContent = "edit";
-        button1.setAttribute("id","button1"+id);
+        button1.setAttribute("id", "button1" + id);
         button1.className = "btn";
         button1.classList.add("btn-dark");
         button1.classList.add("rounded-5");
+        button1.addEventListener("click", () => {
+            startEditProcess(id,name,amount);
+        })
         document.getElementById("div" + id).appendChild(button1);
-        
+
         //Create span with icon
         let span1 = document.createElement("span");
         span1.classList.add("bi");
@@ -91,13 +96,13 @@
         //append button - delete
         let button2 = document.createElement("button");
         button2.textContent = "delete";
-        button2.setAttribute("id","button2"+id);
+        button2.setAttribute("id", "button2" + id);
         button2.classList.add("btn");
         button2.classList.add("btn-dark");
         button2.classList.add("rounded-5");
         button2.classList.add("mx-3");
         document.getElementById("div" + id).appendChild(button2);
-        button2.addEventListener("click", ()=>{
+        button2.addEventListener("click", () => {
             startDeleteProcess(id);
         })
 
@@ -116,8 +121,34 @@
 
     partialFormBtn.addEventListener('click', (e) => {
         document.getElementById("partialForm").hidden = false;
-        partialFormBtn.disabled = true;
+        disable_enable_Buttons(true);
+        document.getElementById("fixedExpenseForm").setAttribute("action", "/FixedExpenses/Create");
+        document.getElementById("FixedExpenseFormHeading").textContent = "Create new Fixed Expense";
     })
+</script>
+
+<!--EDIT FORM SCRIPT-->
+<script>
+    function startEditProcess(id, name, amount) {
+        //display the fixed-expenses-form
+        document.getElementById("partialForm").hidden = false;
+        //disable all buttons
+        disable_enable_Buttons(true);
+        //Set the form action method to Edit
+        document.getElementById("fixedExpenseForm").setAttribute("action", "/FixedExpenses/Edit");
+        //Set title
+        document.getElementById("FixedExpenseFormHeading").textContent = "Edit Fixed Expense " + id;
+        //Fill in form values
+        //Get values 
+        @* const name = document.getElementById("td_"+id+"_name").textContent;
+        const amount = +document.getElementById("td_"+id+"_amount").textContent; *@
+        //id
+        document.getElementById("fixedExpenseForm_Id").value = id;
+        //name
+        document.getElementById("fixedExpenseForm_name").value = name;
+        //amount
+        document.getElementById("fixedExpenseForm_amount").value = +amount;
+    }
 </script>
 
 <!--DELETE FORM SCRIPT AND METHODS-->
@@ -127,21 +158,25 @@
     const table = document.getElementById("table-fixed-expense");
 
     //display delete form.  Disable buttons.  Create message
-    function startDeleteProcess(id){
-        //Display form, set id
-        document.getElementById("deleteID").value=id;
-        partialDeleteForm.hidden=false;
-        
+    function startDeleteProcess(id) {
+        //set the Id for the display-form
+        document.getElementById("deleteID").value = id;
+        partialDeleteForm.hidden = false;
+        disable_enable_Buttons(true);
         //Set message
         let message = "Are you sure you want to DELETE this ID " + id + " ?";
-        document.getElementById("deleteFormTitle").innerHTML=message;
-        
-        //Table buttons
-        document.querySelectorAll('.table button').forEach(btn => {
-            btn.disabled=true;
-        })
-        // Create new button
-        document.getElementById("partialFormBtn").disabled=true;
+        document.getElementById("deleteFormTitle").innerHTML = message;
     }
 
+</script>
+
+<script>
+    function disable_enable_Buttons(flag = true) {
+        //Table buttons
+        document.querySelectorAll('.table button').forEach(btn => {
+            btn.disabled = flag;
+        })
+        // Create-New-Expense button
+        document.getElementById("partialFormBtn").disabled = flag;
+    }
 </script>

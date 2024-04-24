@@ -2,17 +2,18 @@
     @{
         var formType = "Create";
     }
-    <h2>CREATE NEW FIXED EXPENSE</h2>
-    <form id="form" method="post" asp-action=@formType asp-controller="FixedExpenses">
+    <h2 id="FixedExpenseFormHeading"></h2>
+    <form id="fixedExpenseForm" method="post" asp-action=@formType asp-controller="FixedExpenses">
+        <div><input id="fixedExpenseForm_Id" class="form-control" name="id" hidden></div>
         <div>
             <label for="name">Name</label>
-            <input id="name" type="text" class="form-control" name="name">
-            <span id="errorName" class="text-danger"></span>
+            <input id="fixedExpenseForm_name" type="text" class="form-control" name="name">
+            <span id="fixedExpenseForm_errorName" class="text-danger"></span>
         </div>
         <div>
             <label for="amount">Amount</label>
-            <input id="amount" type="decimal" class="form-control" name="amount">
-            <span id="errorAmount" class="text-danger"></span>
+            <input id="fixedExpenseForm_amount" type="decimal" class="form-control" name="amount">
+            <span id="fixedExpenseForm_errorAmount" class="text-danger"></span>
         </div>
         <div class="my-2">
             <a onclick="onSubmit(this)" class="btn btn-primary">Submit <span><i
@@ -24,11 +25,12 @@
 
 
 <script>
+    console.log("loaded")
     //Form Handling
-    const errorName = document.getElementById("errorName");
-    const errorAmount = document.getElementById("errorAmount");
-    const name = document.getElementById("name");
-    const amount = document.getElementById("amount");
+    const errorName = document.getElementById("fixedExpenseForm_errorName");
+    const errorAmount = document.getElementById("fixedExpenseForm_errorAmount");
+    const name = document.getElementById("fixedExpenseForm_name");
+    const amount = document.getElementById("fixedExpenseForm_amount");
 
     //Keypress will remove error
     name.addEventListener("keydown", () => {
@@ -45,8 +47,11 @@
     //Cancel button
     function onHide(event) {
         document.getElementById("partialForm").hidden = true;
-        document.getElementById("partialFormBtn").disabled = false;
+        //$('#fixedExpenseForm').trigger("reset");
+        $('#fixedExpenseForm').find("input").val('');
+        disable_enable_Buttons(false);
     }
+
 
     function onSubmit() {
         let flag = true;
@@ -61,7 +66,7 @@
             errorAmount.innerText = "Must Enter Amount for Expense.";
         }
         if (flag) {
-            const form = document.getElementById("form");
+            const form = document.getElementById("fixedExpenseForm");
             form.submit();
         }
 
