@@ -35,7 +35,7 @@ namespace Budget_Man.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -72,7 +72,7 @@ namespace Budget_Man.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FixedExpense");
+                    b.ToTable("FixedExpense", (string)null);
 
                     b.HasData(
                         new

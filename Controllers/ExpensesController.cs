@@ -15,10 +15,7 @@ namespace Budget_Man.Controllers
             return View();
         }
 
-        public void OnPost(string name, string email)
-        {
-            ViewData["confirmation"] = $"{name}, information will be sent to {email}";
-        }
+      
 
 
     }

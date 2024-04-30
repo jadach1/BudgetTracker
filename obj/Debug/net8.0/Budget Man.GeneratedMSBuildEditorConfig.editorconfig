@@ -34,6 +34,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/createEditExpensesForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxjcmVhdGVFZGl0RXhwZW5zZXNGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/expensesTables.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxleHBlbnNlc1RhYmxlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/IndexTableLoad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcU2NyaXB0c1xJbmRleFRhYmxlTG9hZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/FixedExpenses/CreatePartialForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4ZWRFeHBlbnNlc1xDcmVhdGVQYXJ0aWFsRm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

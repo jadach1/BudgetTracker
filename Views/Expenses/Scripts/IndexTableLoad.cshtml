@@ -1,0 +1,15 @@
+<script>
+  console.log("index-table-load")
+  // Display Expense Form
+ createEditExpensesFormButton = document.getElementById("createEditExpensesFormButton").addEventListener("click", () => {
+    var createEditExpensesForm = document.getElementById("createEditExpensesForm")
+    createEditExpensesForm.hidden = false;
+    createEditExpensesForm.classList.add("d-flex");
+  });
+  // Hide-Box
+  document.getElementById("expense-form-hide-button").addEventListener("click", () => {
+    var createEditExpensesForm = document.getElementById("createEditExpensesForm");
+    createEditExpensesForm.classList.remove("d-flex");
+    createEditExpensesForm.hidden=true;
+  })
+</script>
