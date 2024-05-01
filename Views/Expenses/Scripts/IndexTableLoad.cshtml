@@ -1,15 +1,40 @@
 <script>
-  console.log("index-table-load")
-  // Display Expense Form
- createEditExpensesFormButton = document.getElementById("createEditExpensesFormButton").addEventListener("click", () => {
+  // Display Expense Form, event Listener
+  createEditExpensesFormButton = document.getElementById("createEditExpensesFormButton").addEventListener("click", () => {
     var createEditExpensesForm = document.getElementById("createEditExpensesForm")
     createEditExpensesForm.hidden = false;
     createEditExpensesForm.classList.add("d-flex");
+    
+    //Alter position of form
+    alterPosition();
+    
+    //disable buttons
+    disableEnableAllButtons(true);
   });
+
   // Hide-Box
   document.getElementById("expense-form-hide-button").addEventListener("click", () => {
     var createEditExpensesForm = document.getElementById("createEditExpensesForm");
     createEditExpensesForm.classList.remove("d-flex");
-    createEditExpensesForm.hidden=true;
+    createEditExpensesForm.hidden = true;
+    disableEnableAllButtons(false);
   })
+
+
+  function disableEnableAllButtons(flag = true) {
+    document.getElementById("createEditExpensesFormButton").disabled = flag;
+    document.getElementById("week1CreateExpenseButton").disabled = flag;
+  }
+
+//alters the left-position of the Create Expense Form
+  function alterPosition() {
+    const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
+    if (bodySize >= 400) {
+      const size = (bodySize / 2) - (+createEditExpensesForm.clientWidth / 2)
+        createEditExpensesForm.style.left = size+"px";
+    }
+    else {
+      createEditExpensesForm.style.left = "auto";
+    }
+  }
 </script>
