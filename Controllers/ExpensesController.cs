@@ -1,14 +1,17 @@
 using System.Globalization;
 using System.Runtime.Serialization;
+using Budget_Man.Models;
 using Budget_Man.Server;
+using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget_Man.Controllers
 {
     public class ExpensesController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public ExpensesController(ApplicationDbContext db)
+       // private readonly ApplicationDbContext _db;
+        private readonly IUnitOfWork _db;
+        public ExpensesController(IUnitOfWork db)
         {
             _db = db;
         }
@@ -20,7 +23,14 @@ namespace Budget_Man.Controllers
             DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
             ViewData["month"]=dtfi.GetMonthName(month);
             ViewData["year"]=year;
-            return View();
+
+            //Get Categories
+            IEnumerable<Category> categories = _db.categoryRepository.GetAll();
+            ViewData["categories"]=categories;
+
+            //create model to pass to view
+            createExpenseForm model = new createExpenseForm(categories, dtfi.GetMonthName(month), "Create");
+            return View(model);
         }
 
       

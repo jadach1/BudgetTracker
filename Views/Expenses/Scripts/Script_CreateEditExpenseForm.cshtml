@@ -1,0 +1,98 @@
+<!-- EVENT LISTENER -->
+<script>
+    document.getElementById("expense-form-submit-button").addEventListener("click", () => {
+        submitExpenseForm();
+    })
+</script>
+
+<!-- FUNCTIONS FORM SUBMISSION-->
+<script>
+    // Create an empty list of expenses
+    var listOfExpenses = [];
+
+    function submitExpenseForm() {
+        // get the expenseForm
+        const form = document.getElementById("expenseForm");
+        //extract the data
+        const formData = Object.fromEntries(new FormData(form));
+
+        //modify the category/type selected, 1.food = 1 food
+        const category = formData.type.split(".");
+
+        //create the object
+        let expense = {
+            month: formData.month,
+            week: formData.week,
+            type: category[0],
+            amount: formData.amount === "" ? 0 : formData.amount,
+            date: formData.date === "" ? getCurrentDate() : formData.date,
+            description: formData.description
+        }
+        //push to list of expenses
+        listOfExpenses.push(expense);
+        //update the UI
+        updateExpenseList(expense, category[1]);
+    }
+
+    // Not used for UI, but for form-submission
+    function getCurrentDate() {
+        const d = new Date();
+        const month = d.getMonth() + 1;
+        const year = d.getFullYear();
+        const day = d.getDate();
+        return year + "-" + month + "-" + day;
+    }
+</script>
+
+<!--FUNCTIONS USER INTERFACE MANIPULATION-->
+<script>
+    // Update the expense list UI
+    function updateExpenseList(expense, category) {
+        const list = document.getElementById("createExpenseStagingArea");
+        const element = document.createElement("p");
+        const id = "listOrder"+listOfExpenses.length;
+        element.setAttribute("id",id);
+        const month = "Month: " + expense.month + ", ";
+        const week = "Week: " + expense.week + ", ";
+        const type = " " + category + "/";
+        const amount = " " + currency_formatter.format(expense.amount);
+        const description = "description: " + expense.month;
+        const date = humanReadableDate(expense.date) + "/";
+
+        const size = +document.getElementsByTagName("body")[0].clientWidth;
+        console.log(size, size > 505)
+        if (size > 505)
+            element.innerHTML = date + type + amount;
+        else
+            element.innerHTML = type + amount;
+
+        element.style.fontSize = "large";
+
+        list.getElementsByTagName("ul")[0].appendChild(element);
+
+        const buttonDelete = document.createElement("a");
+        buttonDelete.className = "btn";
+        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5");
+        buttonDelete.classList.add("mx-2");
+        buttonDelete.addEventListener("click", ()=>{
+            console.log(id)
+            list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
+        })
+        element.appendChild(buttonDelete);
+
+        const iconDelete = document.createElement("span");
+        iconDelete.className = "bi";
+        iconDelete.classList.add("bi-fire");
+        buttonDelete.appendChild(iconDelete);
+
+        const buttonEdit = document.createElement("a");
+        buttonEdit.className = "btn";
+        buttonEdit.classList.add("btn-outline-secondary", "btn-lg", "rounded-5");
+        element.appendChild(buttonEdit);
+
+        const iconEdit = document.createElement("span");
+        iconEdit.className = "bi";
+        iconEdit.classList.add("bi-eye-fill");
+        buttonEdit.appendChild(iconEdit);
+    }
+</script>

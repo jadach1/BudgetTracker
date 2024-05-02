@@ -1,43 +1,74 @@
-<div class="container">
-    <form class=" p-2 m-5 col-10" action="">
+@model createExpenseForm
+<div class="container" >
+    <form id="expenseForm" class=" p-2 m-5 col-10  bg-primary text-light" action="" >
         <div class="col-12 d-flex justify-content-end">
-            <i id="expense-form-hide-button" class="bi bi-x-square-fill"></i>
+            <h1><i id="expense-form-hide-button" class="bi bi-x-square-fill"></i></h1>
         </div>
-        <h1>Create < @ViewData["month"] ></h1>
-        <div class="col-4 my-2 ">
-            <label for=" type">Type</label>
+        <div class="d-flex justify-content-center">
+             <h1>@Model.type @Model.month</h1>
+             <hr>
+        </div>
+
+        <input name="month" value=@Model.month hidden>
+
+        <div class="col-4 my-2 form-control">
+            <label for=" type">Week</label>
             <div class="text-center">
-                <select class="text-center" name="type" id="expense-type">
-                    <option value="one">one</option>
-                    <option value="two">two</option>
-                    <option value="three">three</option>
+                <select aria-selected="true" class="text-center" name="week" id="expense-week">
+                    <option value="1">one</option>
+                    <option value="2">two</option>
+                    <option value="3">three</option>
+                    <option value="4">four</option>
+                    <option value="5">five</option>
                 </select>
             </div>
         </div>
-        <div class="col-4 my-2 ">
+
+        <div class="col-4 my-2 form-control">
+            <label for=" type">Type</label>
+            <div class="text-center">
+                <select class="text-center" name="type" id="expense-type">
+                    @foreach (var obj in Model.categories)
+                    {
+                        var value = @obj.Id+"."+obj.Name;
+                        <option value=@value>@obj.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-4 my-2 form-control">
             <label for="amount">Amount</label>
             <div class="text-center">
                 <input type="number" name="amount" id="expense-amount">
             </div>
         </div>
 
-        <div class="col-4 my-2 ">
+        <div class="col-4 my-2 form-control">
             <label for="date">Date</label>
             <div class="text-center">
-                <input type="date" name="date" id="expense-date">
+                <input  type="date" name="date" id="expense-date">
             </div>
         </div>
 
-        <div class="col-4 my-2 ">
+        <div class="col-4 my-2 form-control">
             <label for="description">Description</label>
             <div class="text-center">
                 <textarea name="description" id="expense-description" cols="20" rows="3"></textarea>
             </div>
         </div>
-        <div class="col-4 my-2">
+        <div class="col-12 my-2">
             <div class="text-center">
-                <a id="expense-form-submit-button" class="btn btn-outline-secondary">Enter</a>
+                <a id="expense-form-submit-button" class="btn btn-outline-secondary btn-lg">Enter</a>
             </div>
         </div>
     </form>
+
+    <div id="createExpenseStagingArea">
+        <ul>
+            
+        </ul>
+    </div>
 </div>
+
+<partial name="../Scripts/Script_CreateEditExpenseForm.cshtml"/>
