@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Budget Man.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseFormStyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\expenseFormStyleSheet.css"
+    },
+    {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\mediaQueries.css",
+      "PackagePath": "staticwebassets\\css\\mediaQueries.css"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -3394,7 +3394,7 @@ textarea.form-control-lg {
 }
 @media (prefers-reduced-motion: reduce) {
   .collapsing {
-    transition: none;
+    transition:none;
   }
 }
 .collapsing.collapse-horizontal {

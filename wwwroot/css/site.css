@@ -26,36 +26,3 @@ body {
 }
 
 
-#expenseForm select {
-  background-color: #6F42F5;
-  color: #44d9e8;
-}
-
-#expenseForm input {
-  background-color: #6F42F5;
-  color: #44d9e8;
-}
-
-#expenseForm textarea {
-  background-color: #6F42F5;
-  color: #44d9e8;
-}
-
-@media screen and (min-width: 400px) {
-
-  #expenseForm select {
-    height: 40px;
-    font-size: 28px;
-    text-transform: capitalize;
-  }
-
-  #expenseForm input {
-    height: 30px;
-    width: 200px;
-    font-size: 18px;
-  }
-
-  #expenseForm textarea {
-    font-size: 18px;
-  }
-}

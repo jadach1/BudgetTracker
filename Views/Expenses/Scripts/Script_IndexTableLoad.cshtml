@@ -34,14 +34,17 @@
   function alterPosition() {
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
     const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight;
-
-    //adjust the height
-    const height = (bodyHeight - +createEditExpensesForm.clientHeight) / 2;
+    console.log("bodyheight: " + bodyHeight + " , form-Hieght: " + +createEditExpensesForm.clientHeight)
+    //adjust the height-position
+    let height = (bodyHeight - +createEditExpensesForm.clientHeight) / 2;
+    if(height < 0)
+      height = 0;
     createEditExpensesForm.style.top = height + "px";
-    // Adjust the width
-    const size = (bodySize - +createEditExpensesForm.clientWidth) / 2
+    // Adjust the width-position
+    let size = (bodySize - +createEditExpensesForm.clientWidth) / 2
+    if(size < 0)
+      size = 0;
     createEditExpensesForm.style.left = size + "px";
-
   }
 </script>
 

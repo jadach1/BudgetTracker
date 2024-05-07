@@ -31,7 +31,9 @@
         //push to list of expenses
         listOfExpenses.push(expense);
         //update the UI
+        alterPosition();
         updateExpenseList(expense, category[1]);
+        ExpenseListDisplay();
     }
 
     // Not used for UI, but for form-submission
@@ -50,13 +52,10 @@
     function updateExpenseList(expense, category) {
         const list = document.getElementById("createExpenseStagingArea");
         const element = document.createElement("p");
-        const id = "listOrder"+listOfExpenses.length;
-        element.setAttribute("id",id);
-        const month = "Month: " + expense.month + ", ";
-        const week = "Week: " + expense.week + ", ";
+        const id = "listOrder" + listOfExpenses.length;
+        element.setAttribute("id", id);
         const type = " " + category + "/";
         const amount = " " + currency_formatter.format(expense.amount);
-        const description = "description: " + expense.month;
         const date = humanReadableDate(expense.date) + "/";
 
         const size = +document.getElementsByTagName("body")[0].clientWidth;
@@ -70,11 +69,20 @@
 
         list.getElementsByTagName("ul")[0].appendChild(element);
 
+        const buttonEdit = document.createElement("a");
+        buttonEdit.className = "btn";
+        buttonEdit.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "mx-2");
+        element.appendChild(buttonEdit);
+
+        const iconEdit = document.createElement("span");
+        iconEdit.className = "bi";
+        iconEdit.classList.add("bi-eye-fill");
+        buttonEdit.appendChild(iconEdit);
+
         const buttonDelete = document.createElement("a");
         buttonDelete.className = "btn";
         buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5");
-        buttonDelete.classList.add("mx-2");
-        buttonDelete.addEventListener("click", ()=>{
+        buttonDelete.addEventListener("click", () => {
             console.log(id)
             list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
         })
@@ -85,14 +93,13 @@
         iconDelete.classList.add("bi-fire");
         buttonDelete.appendChild(iconDelete);
 
-        const buttonEdit = document.createElement("a");
-        buttonEdit.className = "btn";
-        buttonEdit.classList.add("btn-outline-secondary", "btn-lg", "rounded-5");
-        element.appendChild(buttonEdit);
 
-        const iconEdit = document.createElement("span");
-        iconEdit.className = "bi";
-        iconEdit.classList.add("bi-eye-fill");
-        buttonEdit.appendChild(iconEdit);
+    }
+
+    function ExpenseListDisplay(){
+        const createExpenseStagingArea = document.getElementById("createExpenseStagingArea");
+        if(listOfExpenses.length > 0){
+            createExpenseStagingArea.hidden = false;
+        }
     }
 </script>

@@ -2,7 +2,7 @@
 
 <h1 class="d-flex justify-content-center my-5">Expenses for @ViewData["month"] @ViewData["year"]</h1>
 <div class="container ">
-    <div id="createEditExpensesForm"  class=" bg-primary rounded-5" style="z-index: 1; position: fixed;" hidden>
+    <div id="createEditExpensesForm" hidden  class=" bg-primary rounded-5" style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit" >
         <!--
             await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)
             
@@ -18,6 +18,5 @@
     </div>
     <partial name="./Partial/expensesTables.cshtml" />
 </div>
-
 <!--SCRIPTS-->
 <partial name="./Scripts/Script_IndexTableLoad" />
