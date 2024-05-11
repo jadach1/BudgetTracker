@@ -28,13 +28,14 @@
   function disableEnableAllButtons(flag = true) {
     document.getElementById("createEditExpensesFormButton").disabled = flag;
     document.getElementById("week1CreateExpenseButton").disabled = flag;
+    document.getElementById("createExpenseStagingArea").disabled = flag;
   }
 
   //alters the left-position of the Create Expense Form
   function alterPosition() {
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
     const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight;
-    console.log("bodyheight: " + bodyHeight + " , form-Hieght: " + +createEditExpensesForm.clientHeight)
+    
     //adjust the height-position
     let height = (bodyHeight - +createEditExpensesForm.clientHeight) / 2;
     if(height < 0)

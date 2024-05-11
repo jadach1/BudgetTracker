@@ -3432,6 +3432,8 @@ function createOptions( options ) {
 	return object;
 }
 
+
+
 /*
  * Create a callback list using the following parameters:
  *
@@ -5944,7 +5946,7 @@ jQuery.fn.extend( {
 			jQuery.event.remove( this, types, fn, selector );
 		} );
 	}
-} );
+} );sefs
 
 
 var
@@ -10879,3 +10881,5 @@ if ( typeof noGlobal === "undefined" ) {
 
 return jQuery;
 } );
+
+

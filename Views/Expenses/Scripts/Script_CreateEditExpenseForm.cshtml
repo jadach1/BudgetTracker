@@ -1,7 +1,11 @@
 <!-- EVENT LISTENER -->
 <script>
-    document.getElementById("expense-form-submit-button").addEventListener("click", () => {
-        submitExpenseForm();
+    document.getElementById("expense-form-append-list-button").addEventListener("click", () => {
+        expenseFormAppendList();
+    })
+
+     document.getElementById("expense-form-display-list-button").addEventListener("click", () => {
+        ExpenseListDisplay(false); // false = show list hide form
     })
 </script>
 
@@ -10,7 +14,7 @@
     // Create an empty list of expenses
     var listOfExpenses = [];
 
-    function submitExpenseForm() {
+    function expenseFormAppendList() {
         // get the expenseForm
         const form = document.getElementById("expenseForm");
         //extract the data
@@ -33,7 +37,6 @@
         //update the UI
         alterPosition();
         updateExpenseList(expense, category[1]);
-        ExpenseListDisplay();
     }
 
     // Not used for UI, but for form-submission
@@ -50,14 +53,18 @@
 <script>
     // Update the expense list UI
     function updateExpenseList(expense, category) {
+        
         const list = document.getElementById("createExpenseStagingArea");
         const element = document.createElement("p");
         const id = "listOrder" + listOfExpenses.length;
         element.setAttribute("id", id);
+        element.className = "ripple-effect"
+        //this is what will be presented to the user
         const type = " " + category + "/";
         const amount = " " + currency_formatter.format(expense.amount);
         const date = humanReadableDate(expense.date) + "/";
 
+        //adjust what will be presented based on size
         const size = +document.getElementsByTagName("body")[0].clientWidth;
         console.log(size, size > 505)
         if (size > 505)
@@ -67,8 +74,10 @@
 
         element.style.fontSize = "large";
 
+        //append the list item
         list.getElementsByTagName("ul")[0].appendChild(element);
 
+        // create edit button
         const buttonEdit = document.createElement("a");
         buttonEdit.className = "btn";
         buttonEdit.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "mx-2");
@@ -79,13 +88,24 @@
         iconEdit.classList.add("bi-eye-fill");
         buttonEdit.appendChild(iconEdit);
 
+        //create delete button
         const buttonDelete = document.createElement("a");
         buttonDelete.className = "btn";
-        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5");
-        buttonDelete.addEventListener("click", () => {
-            console.log(id)
-            list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
-        })
+        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5","ripple-effect");
+        //delete protocol
+        buttonDelete.addEventListener("click", () => {deleteListItem();})
+
+        //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
+        function deleteListItem()
+        {
+            disableEnableAllButtons(true);   
+            document.getElementById(id).style.backgroundColor="#e44c55";
+            setTimeout(function(){
+                list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
+                disableEnableAllButtons(false);
+            },500);
+        }
+
         element.appendChild(buttonDelete);
 
         const iconDelete = document.createElement("span");
@@ -93,13 +113,17 @@
         iconDelete.classList.add("bi-fire");
         buttonDelete.appendChild(iconDelete);
 
+        //add jquery ripple effect, must be done after appending 
+        $('.ripple-effect').rippleEffect();
 
     }
 
-    function ExpenseListDisplay(){
+    function ExpenseListDisplay(flag = true){
         const createExpenseStagingArea = document.getElementById("createExpenseStagingArea");
+        const expenseForm = document.getElementById("expenseForm");
         if(listOfExpenses.length > 0){
-            createExpenseStagingArea.hidden = false;
+            createExpenseStagingArea.hidden = flag;
+            expenseForm.hidden = !flag;
         }
     }
 </script>
