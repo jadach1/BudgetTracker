@@ -95,15 +95,29 @@
         //delete protocol
         buttonDelete.addEventListener("click", () => {deleteListItem();})
 
+        //prevent user from constantly deleting the same item.
+        let preventMultipleDeletionFlags = false;
+
         //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
         function deleteListItem()
         {
             disableEnableAllButtons(true);   
+            //colours the list-items background in a pretty red
             document.getElementById(id).style.backgroundColor="#e44c55";
-            setTimeout(function(){
-                list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
-                disableEnableAllButtons(false);
-            },500);
+            //fire's the list-items "click" event, ripple-effect
+            $("#"+id).trigger("click");
+
+            //check to see if this is already marked to be deleted
+            if(!preventMultipleDeletionFlags){
+                //mark it to be deleted
+                preventMultipleDeletionFlags = true;
+                //after 1/2 second, delete the item
+                setTimeout(function(){
+                    list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
+                    disableEnableAllButtons(false);
+                },500);
+            }
+           
         }
 
         element.appendChild(buttonDelete);
