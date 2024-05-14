@@ -13,6 +13,7 @@
 <script>
     // Create an empty list of expenses
     var listOfExpenses = [];
+    var listOfExpensesCounter = 0;
 
     function expenseFormAppendList() {
         // get the expenseForm
@@ -25,6 +26,7 @@
 
         //create the object
         let expense = {
+            id: "listOrder"+listOfExpensesCounter,
             month: formData.month,
             week: formData.week,
             type: category[0],
@@ -32,10 +34,14 @@
             date: formData.date === "" ? getCurrentDate() : formData.date,
             description: formData.description
         }
+
         //push to list of expenses
         listOfExpenses.push(expense);
+        
         //update the UI
         alterPosition();
+
+        // update tue ul list
         updateExpenseList(expense, category[1]);
     }
 
@@ -49,24 +55,31 @@
     }
 </script>
 
+<!--STAGINGLIST AREA-->
 <!--FUNCTIONS USER INTERFACE MANIPULATION-->
 <script>
+    var list = document.getElementById("createExpenseStagingArea");
+
     // Update the expense list UI
     function updateExpenseList(expense, category) {
         
-        const list = document.getElementById("createExpenseStagingArea");
+         //prevent user from constantly deleting the same item.
+        let preventMultipleDeletionFlags = false;
+
+        //create list-item 
         const element = document.createElement("p");
-        const id = "listOrder" + listOfExpenses.length;
+        const id = expense.id;
         element.setAttribute("id", id);
         element.className = "ripple-effect"
+
         //this is what will be presented to the user
         const type = " " + category + "/";
         const amount = " " + currency_formatter.format(expense.amount);
         const date = humanReadableDate(expense.date) + "/";
 
-        //adjust what will be presented based on size
+        //adjust what will be presented based on size of user screen
         const size = +document.getElementsByTagName("body")[0].clientWidth;
-        console.log(size, size > 505)
+        console.log("console size, inside script_createEditExpenseForm " + size, size > 505)
         if (size > 505)
             element.innerHTML = date + type + amount;
         else
@@ -93,33 +106,9 @@
         buttonDelete.className = "btn";
         buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5","ripple-effect");
         //delete protocol
-        buttonDelete.addEventListener("click", () => {deleteListItem();})
+        buttonDelete.addEventListener("click", () => {deleteListItem(id,preventMultipleDeletionFlags);})
 
-        //prevent user from constantly deleting the same item.
-        let preventMultipleDeletionFlags = false;
-
-        //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
-        function deleteListItem()
-        {
-            disableEnableAllButtons(true);   
-            //colours the list-items background in a pretty red
-            document.getElementById(id).style.backgroundColor="#e44c55";
-            //fire's the list-items "click" event, ripple-effect
-            $("#"+id).trigger("click");
-
-            //check to see if this is already marked to be deleted
-            if(!preventMultipleDeletionFlags){
-                //mark it to be deleted
-                preventMultipleDeletionFlags = true;
-                //after 1/2 second, delete the item
-                setTimeout(function(){
-                    list.getElementsByTagName("ul")[0].removeChild(document.getElementById(id));
-                    disableEnableAllButtons(false);
-                },500);
-            }
-           
-        }
-
+        //append delete item
         element.appendChild(buttonDelete);
 
         const iconDelete = document.createElement("span");
@@ -130,14 +119,61 @@
         //add jquery ripple effect, must be done after appending 
         $('.ripple-effect').rippleEffect();
 
+        //update the counter
+        counterUpdate(true);
+    }
+
+     //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
+        function deleteListItem(listid,preventMultipleDeletionFlags)
+        {
+            disableEnableAllButtons(true);   
+            //colours the list-items background in a pretty red
+            document.getElementById(listid).style.backgroundColor="#e44c55";
+            //fire's the list-items "click" event, ripple-effect
+            $("#"+listid).trigger("click");
+
+            //check to see if this is already marked to be deleted
+            if(!preventMultipleDeletionFlags){
+                //mark it to be deleted
+                preventMultipleDeletionFlags = true;
+
+                //after 1/2 second, delete the item
+                setTimeout(function(){
+                    findAndDeleteListItem(listid);
+                    //update the counter
+                    counterUpdate(false);
+                    list.getElementsByTagName("ul")[0].removeChild(document.getElementById(listid));
+                    disableEnableAllButtons(false);
+                },500);
+            } 
+        }
+
+    //Finds, deletes, and updates the array of List Items
+    function findAndDeleteListItem(listid){
+        const index = listOfExpenses.findIndex(e => listid===e.id)
+        console.log(index);
+        if(index != -1){
+            listOfExpenses.splice(index,1);
+            console.log(listOfExpenses)
+        }
+    }
+
+    //Updates the UI counter count of list of items.
+    function counterUpdate(incrimentCounterFlag){
+        incrimentCounterFlag ? listOfExpensesCounter++ : listOfExpensesCounter--;  
+        //append to counter
+        const textListCounter = document.getElementById("expenseListCount");
+        textListCounter.innerHTML = "Items in list: " + listOfExpensesCounter;
     }
 
     function ExpenseListDisplay(flag = true){
         const createExpenseStagingArea = document.getElementById("createExpenseStagingArea");
         const expenseForm = document.getElementById("expenseForm");
-        if(listOfExpenses.length > 0){
+        if(listOfExpensesCounter > 0 || expenseForm.hidden){
             createExpenseStagingArea.hidden = flag;
             expenseForm.hidden = !flag;
-        }
+            //enable all buttons
+            disableEnableAllButtons(false);
+        } 
     }
 </script>

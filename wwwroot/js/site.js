@@ -11,7 +11,6 @@ var listOfMonths = ["January", "February", "March", "April", "May", "June", "Jul
 var listOfDays = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function humanReadableDate(date){    
     const d = new Date(date);
-    console.log(d)
     let month = listOfMonths[d.getMonth()];
     let day = listOfDays[d.getDay()];
     let year = d.getFullYear();

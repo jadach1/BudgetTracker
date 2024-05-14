@@ -1,9 +1,9 @@
 @model createExpenseForm
 <div class="container">
-    <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" action="">
-        <div class="col-12 d-flex justify-content-end">
-            <h1><i id="expense-form-hide-button" class="bi bi-x-square-fill"></i></h1>
+    <div class="col-12 d-flex justify-content-end">
+            <h1 style="padding-top: 7px;padding-right: 7px;"><i id="expense-form-hide-button" class="bi bi-x-square-fill"></i></h1>
         </div>
+    <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" action="">
         <div class="d-flex justify-content-center">
             <h1>@Model.type @Model.month</h1>
             <hr>
@@ -64,17 +64,31 @@
                 <h4 id="expenseListCount">Items in list: 0</h4>
             </div>
             <div class="text-center row d-block">
-                <a id="expense-form-append-list-button" class="btn btn-outline-dark btn-lg">Add Item</a>
-                <a id="expense-form-display-list-button" class="btn btn-outline-dark btn-lg offset-1">View List</a>
+                <a id="expense-form-append-list-button" class="btn btn-outline-dark btn-lg ripple-effect">Add Item</a>
+                <a id="expense-form-display-list-button" onclick="ExpenseListDisplay(false)"
+                    class="btn btn-outline-dark btn-lg offset-1">View List</a>
             </div>
         </div>
     </form>
 
-    <div id="createExpenseStagingArea" hidden
-        style="height:300px; overflow-y: scroll;scrollbar-width: thin;scrollbar-color: #44d9e8 #6f42c1">
-        <ul style="padding: 15px; ">
+    <div id="createExpenseStagingArea" hidden>
+        <div id="createExpenseStagingAreaButtons">
+            <a class="btn btn-outline-dark btn-lg offset-2 my-3">Submit Expenses</a>
+            <a id="expense-form-add-list-button" onclick="ExpenseListDisplay(true)"
+                class="btn btn-outline-dark btn-lg  offset-2 my-3">Add More Expenses</a>
+        </div>
 
-        </ul>
+
+        <div id="createExpenseStagingAreaScrollArea" style="height:400px; 
+                    overflow-y: scroll;
+                    scrollbar-width: thin;
+                    scrollbar-color: #44d9e8 #6f42c1">
+            <ul style="padding: 15px; ">
+
+            </ul>
+        </div>
+
+
     </div>
 </div>
 
