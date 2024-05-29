@@ -9,12 +9,15 @@ namespace Budget_Man.Server.UnitWork
         private readonly ApplicationDbContext _db;
         public IFixedExpensesRepository fixedExpensesRepository { get; set; }
         public CategoryRepository categoryRepository { get; set; }
+        public ExpensesRepository expensesRepository { get; set; }
+
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             fixedExpensesRepository = new FixedExpensesRepository(db);
             categoryRepository = new CategoryRepository(db);
+            expensesRepository = new ExpensesRepository(db);
         }
 
         public void Save()

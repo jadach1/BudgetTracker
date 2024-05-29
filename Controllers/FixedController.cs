@@ -50,9 +50,9 @@ public class FixedExpenses : Controller
             Console.WriteLine(" exception");
         }
 
-        Console.WriteLine(" go");
         return RedirectToAction("Index");
     }
+    
     [HttpPost]
     public IActionResult Edit(IFormCollection formCollection)
     {

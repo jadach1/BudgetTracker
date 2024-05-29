@@ -23,16 +23,16 @@
 
         //modify the category/type selected, 1.food = 1 food
         const category = formData.type.split(".");
-
+      
         //create the object
         let expense = {
             id: "listOrder"+listOfExpensesCounter,
-            month: formData.month,
-            week: formData.week,
-            type: category[0],
-            amount: formData.amount === "" ? 0 : formData.amount,
-            date: formData.date === "" ? getCurrentDate() : formData.date,
-            description: formData.description
+            Month: formData.month,
+            Week: formData.week,
+            Type: category[0],
+            Amount: formData.amount === "" ? "0" : formData.amount,
+            Date: formData.date === "" ? getCurrentDate() : formData.date,
+            Description: formData.description
         }
 
         //push to list of expenses
@@ -74,8 +74,8 @@
 
         //this is what will be presented to the user
         const type = " " + category + "/";
-        const amount = " " + currency_formatter.format(expense.amount);
-        const date = humanReadableDate(expense.date) + "/";
+        const amount = " " + currency_formatter.format(expense.Amount);
+        const date = humanReadableDate(expense.Date) + "/";
 
         //adjust what will be presented based on size of user screen
         const size = +document.getElementsByTagName("body")[0].clientWidth;
@@ -105,8 +105,14 @@
         const buttonDelete = document.createElement("a");
         buttonDelete.className = "btn";
         buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5","ripple-effect");
+        
         //delete protocol
-        buttonDelete.addEventListener("click", () => {deleteListItem(id,preventMultipleDeletionFlags);})
+        buttonDelete.addEventListener("click", () => {
+            if(!preventMultipleDeletionFlags){
+                preventMultipleDeletionFlags = true;
+                 deleteListItem(id);
+            }
+        })
 
         //append delete item
         element.appendChild(buttonDelete);
@@ -119,23 +125,20 @@
         //add jquery ripple effect, must be done after appending 
         $('.ripple-effect').rippleEffect();
 
-        //update the counter
+        //update the UI-counter
         counterUpdate(true);
     }
 
      //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
-        function deleteListItem(listid,preventMultipleDeletionFlags)
+        function deleteListItem(listid)
         {
-            disableEnableAllButtons(true);   
+            disableEnableAllButtons(true);  
+
             //colours the list-items background in a pretty red
             document.getElementById(listid).style.backgroundColor="#e44c55";
+           
             //fire's the list-items "click" event, ripple-effect
             $("#"+listid).trigger("click");
-
-            //check to see if this is already marked to be deleted
-            if(!preventMultipleDeletionFlags){
-                //mark it to be deleted
-                preventMultipleDeletionFlags = true;
 
                 //after 1/2 second, delete the item
                 setTimeout(function(){
@@ -145,16 +148,14 @@
                     list.getElementsByTagName("ul")[0].removeChild(document.getElementById(listid));
                     disableEnableAllButtons(false);
                 },500);
-            } 
+            
         }
 
     //Finds, deletes, and updates the array of List Items
     function findAndDeleteListItem(listid){
         const index = listOfExpenses.findIndex(e => listid===e.id)
-        console.log(index);
         if(index != -1){
             listOfExpenses.splice(index,1);
-            console.log(listOfExpenses)
         }
     }
 
@@ -166,6 +167,7 @@
         textListCounter.innerHTML = "Items in list: " + listOfExpensesCounter;
     }
 
+    // Flips between displaying the form and list-of-items in the staging area
     function ExpenseListDisplay(flag = true){
         const createExpenseStagingArea = document.getElementById("createExpenseStagingArea");
         const expenseForm = document.getElementById("expenseForm");

@@ -3,7 +3,7 @@
     <div class="col-12 d-flex justify-content-end">
             <h1 style="padding-top: 7px;padding-right: 7px;"><i id="expense-form-hide-button" class="bi bi-x-square-fill"></i></h1>
         </div>
-    <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" action="">
+    <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" asp-action="Create" asp-controller="Expenses">
         <div class="d-flex justify-content-center">
             <h1>@Model.type @Model.month</h1>
             <hr>
@@ -73,7 +73,7 @@
 
     <div id="createExpenseStagingArea" hidden>
         <div id="createExpenseStagingAreaButtons">
-            <a class="btn btn-outline-dark btn-lg offset-2 my-3">Submit Expenses</a>
+            <a class="btn btn-outline-dark btn-lg offset-2 my-3" onclick="submitListOfExpenses()">Submit Expenses</a>
             <a id="expense-form-add-list-button" onclick="ExpenseListDisplay(true)"
                 class="btn btn-outline-dark btn-lg  offset-2 my-3">Add More Expenses</a>
         </div>
@@ -93,3 +93,4 @@
 </div>
 
 <partial name="../Scripts/Script_CreateEditExpenseForm.cshtml" />
+<partial name="../Scripts/Script_ExpenseDBCalls.cshtml" />

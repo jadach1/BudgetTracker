@@ -1,0 +1,76 @@
+<script>
+    function submitListOfExpenses() {
+        if (listOfExpensesCounter > 0) {
+            const form = document.getElementById("expenseForm")
+            const arrayOfFormData = [];
+            listOfExpenses.forEach(expense => {
+                @* const formData = new FormData();
+                formData.append("amount", expense.amount);
+                formData.append("date", expense.date);
+                formData.append("description", expense.description);
+                formData.append("month", expense.month);
+                formData.append("type", expense.type);
+                formData.append("week", expense.week); *@
+                ajaxCall(expense);
+            })
+
+        }
+    }
+
+         function ajaxCall(expense) {
+            const obj = JSON.stringify(expense);
+            console.log(expense);
+            console.log(obj);
+            $.ajax({
+
+                // Our sample url to make request 
+                url:
+                    '/Expenses/Create',
+
+                // Type of Request
+                contentType: 'application/json; charset=utf-8',
+                type: "Post",
+                data: obj,
+
+                // Function to call when to
+                // request is ok 
+                success: function (data) {
+                    let x = JSON.stringify(data);
+                    console.log(x);
+                     //ajaxCallSaveExpenses();
+                },
+
+                // Error handling 
+                error: function (error) {
+                    //console.log(`Error ${error}`);
+                    console.log(error)
+                }
+            });
+        }
+
+        function ajaxCallSaveExpenses() {
+            $.ajax({
+
+                // Our sample url to make request 
+                url:
+                    '/Expenses/CreateSave',
+
+                // Type of Request
+                type: "Post",
+
+                // Function to call when to
+                // request is ok 
+                success: function (data) {
+                    let x = JSON.stringify(data);
+                    console.log(x);
+                },
+
+                // Error handling 
+                error: function (error) {
+                    console.log(`Error2 ${error}`);
+                    console.log(error)
+                }
+            });
+        }
+
+</script>
