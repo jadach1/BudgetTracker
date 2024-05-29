@@ -3,22 +3,15 @@
         if (listOfExpensesCounter > 0) {
             const form = document.getElementById("expenseForm")
             const arrayOfFormData = [];
-            listOfExpenses.forEach(expense => {
-                @* const formData = new FormData();
-                formData.append("amount", expense.amount);
-                formData.append("date", expense.date);
-                formData.append("description", expense.description);
-                formData.append("month", expense.month);
-                formData.append("type", expense.type);
-                formData.append("week", expense.week); *@
+            @* listOfExpenses.forEach(expense => {
                 ajaxCall(expense);
-            })
-
+            }) *@
+                ajaxCallToExpenseController("expense");
         }
     }
 
-         function ajaxCall(expense) {
-            const obj = JSON.stringify(expense);
+         function ajaxCallToExpenseController(expense) {
+            const obj = JSON.stringify(listOfExpenses);
             console.log(expense);
             console.log(obj);
             $.ajax({
@@ -38,6 +31,7 @@
                     let x = JSON.stringify(data);
                     console.log(x);
                      //ajaxCallSaveExpenses();
+                     ClearExpenseListItems();
                 },
 
                 // Error handling 
@@ -58,11 +52,12 @@
                 // Type of Request
                 type: "Post",
 
-                // Function to call when to
-                // request is ok 
+                // Function to call when to request is ok 
                 success: function (data) {
                     let x = JSON.stringify(data);
                     console.log(x);
+                    //clear all items
+                    
                 },
 
                 // Error handling 

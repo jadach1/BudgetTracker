@@ -4,7 +4,7 @@
         expenseFormAppendList();
     })
 
-     document.getElementById("expense-form-display-list-button").addEventListener("click", () => {
+    document.getElementById("expense-form-display-list-button").addEventListener("click", () => {
         ExpenseListDisplay(false); // false = show list hide form
     })
 </script>
@@ -23,10 +23,10 @@
 
         //modify the category/type selected, 1.food = 1 food
         const category = formData.type.split(".");
-      
+
         //create the object
         let expense = {
-            id: "listOrder"+listOfExpensesCounter,
+            id: "listOrder" + listOfExpensesCounter,
             Month: formData.month,
             Week: formData.week,
             Type: category[0],
@@ -37,12 +37,14 @@
 
         //push to list of expenses
         listOfExpenses.push(expense);
-        
+
         //update the UI
-        alterPosition();
+        // alterPosition();
 
         // update tue ul list
         updateExpenseList(expense, category[1]);
+
+        clearExpenseListForm();
     }
 
     // Not used for UI, but for form-submission
@@ -53,17 +55,22 @@
         const day = d.getDate();
         return year + "-" + month + "-" + day;
     }
+    // Clear the Form - partially after submission
+    function clearExpenseListForm() {
+        document.getElementById("expense-description").value = "";
+        document.getElementById("expense-amount").value = "";
+    }
 </script>
 
-<!--STAGINGLIST AREA-->
+<!--STAGING AREA FOR LIST-OF-EXPENSES-->
 <!--FUNCTIONS USER INTERFACE MANIPULATION-->
 <script>
     var list = document.getElementById("createExpenseStagingArea");
 
     // Update the expense list UI
     function updateExpenseList(expense, category) {
-        
-         //prevent user from constantly deleting the same item.
+
+        //prevent user from constantly deleting the same item.
         let preventMultipleDeletionFlags = false;
 
         //create list-item 
@@ -104,13 +111,13 @@
         //create delete button
         const buttonDelete = document.createElement("a");
         buttonDelete.className = "btn";
-        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5","ripple-effect");
-        
+        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "ripple-effect");
+
         //delete protocol
         buttonDelete.addEventListener("click", () => {
-            if(!preventMultipleDeletionFlags){
+            if (!preventMultipleDeletionFlags) {
                 preventMultipleDeletionFlags = true;
-                 deleteListItem(id);
+                deleteListItem(id);
             }
         })
 
@@ -129,53 +136,73 @@
         counterUpdate(true);
     }
 
-     //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
-        function deleteListItem(listid)
-        {
-            disableEnableAllButtons(true);  
+    //timeout function needs to be passed in seperately.  This was all done for a fancy ripple effect, ughh.
+    function deleteListItem(listid) {
+        disableEnableAllButtons(true);
 
-            //colours the list-items background in a pretty red
-            document.getElementById(listid).style.backgroundColor="#e44c55";
-           
-            //fire's the list-items "click" event, ripple-effect
-            $("#"+listid).trigger("click");
+        //colours the list-items background in a pretty red
+        document.getElementById(listid).style.backgroundColor = "#e44c55";
 
-                //after 1/2 second, delete the item
-                setTimeout(function(){
-                    findAndDeleteListItem(listid);
-                    //update the counter
-                    counterUpdate(false);
-                    list.getElementsByTagName("ul")[0].removeChild(document.getElementById(listid));
-                    disableEnableAllButtons(false);
-                },500);
-            
-        }
+        //fire's the list-items "click" event, ripple-effect
+        $("#" + listid).trigger("click");
+
+        //after 1/2 second, delete the item
+        setTimeout(function () {
+            findAndDeleteListItem(listid);
+            //update the counter
+            counterUpdate(false);
+            list.getElementsByTagName("ul")[0].removeChild(document.getElementById(listid));
+            disableEnableAllButtons(false);
+        }, 500);
+
+    }
 
     //Finds, deletes, and updates the array of List Items
-    function findAndDeleteListItem(listid){
-        const index = listOfExpenses.findIndex(e => listid===e.id)
-        if(index != -1){
-            listOfExpenses.splice(index,1);
+    function findAndDeleteListItem(listid) {
+        const index = listOfExpenses.findIndex(e => listid === e.id)
+        if (index != -1) {
+            listOfExpenses.splice(index, 1);
         }
     }
 
     //Updates the UI counter count of list of items.
-    function counterUpdate(incrimentCounterFlag){
-        incrimentCounterFlag ? listOfExpensesCounter++ : listOfExpensesCounter--;  
+    function counterUpdate(incrimentCounterFlag) {
+        incrimentCounterFlag ? listOfExpensesCounter++ : listOfExpensesCounter--;
         //append to counter
         const textListCounter = document.getElementById("expenseListCount");
         textListCounter.innerHTML = "Items in list: " + listOfExpensesCounter;
     }
 
     // Flips between displaying the form and list-of-items in the staging area
-    function ExpenseListDisplay(flag = true){
+    function ExpenseListDisplay(flag = true) {
         const createExpenseStagingArea = document.getElementById("createExpenseStagingArea");
         const expenseForm = document.getElementById("expenseForm");
-        if(listOfExpensesCounter > 0 || expenseForm.hidden){
+        if (listOfExpensesCounter > 0 || expenseForm.hidden) {
             createExpenseStagingArea.hidden = flag;
             expenseForm.hidden = !flag;
             //enable all buttons
             disableEnableAllButtons(false);
-        } 
+        }
+    }
+
+    // Clears all the ExpenseList items, as we don't need them anymore
+    function ClearExpenseListItems() {
+        listOfExpenses = [];
+        listOfExpensesCounter = 0;
+        const textListCounter = document.getElementById("expenseListCount");
+        textListCounter.innerHTML = "Items in list: " + listOfExpensesCounter;
+        
+        // clear actual expense list UI
+        //Grab all the p elements
+        const tempExpenseList = list.getElementsByTagName("ul")[0].getElementsByTagName("p");
+        console.log(tempExpenseList[0]);
+      
+        //Because every time we delete an element from the collection, this will dynamically change the list size,
+        //Every time we remove a child, tempExpenseList.length is shortened.
+        //To counter this, we keep the array on [0], and keep a counter for the complete set of elements upon initialization.
+        let counter = tempExpenseList.length;
+        for(let i = 0; i < counter; i++){
+            list.getElementsByTagName("ul")[0].removeChild(tempExpenseList[0])
+        }
     }
 </script>

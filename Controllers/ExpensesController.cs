@@ -35,24 +35,27 @@ namespace Budget_Man.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]Expenses2 expense)
+        public async Task<IActionResult> Create([FromBody] IEnumerable<Expenses2> expense)
         {
-            Console.WriteLine(expense.Date);
             try
             {
-                Expenses newExpense = new Expenses
+                //Loop through the List of Expenses
+                foreach (var item in expense)
                 {
-                    Month = Expenses2.GetMonthNumber_From_MonthName(expense.Month),
-                    Week = HelperFunctions.ConvertStringToInt(expense.Week),
-                    CategoryId = HelperFunctions.ConvertStringToInt(expense.Type),
-                    Amount = HelperFunctions.ConvertStringToFloat(expense.Amount),
-                    Date = expense.Date,
-                    Description = expense.Description                
+                    Expenses newExpense = new Expenses
+                    {
+                        Month = Expenses2.GetMonthNumber_From_MonthName(item.Month),
+                        Week = HelperFunctions.ConvertStringToInt(item.Week),
+                        CategoryId = HelperFunctions.ConvertStringToInt(item.Type),
+                        Amount = HelperFunctions.ConvertStringToFloat(item.Amount),
+                        Date = item.Date,
+                        Description = item.Description
+                    };
+                    Console.WriteLine("is there hope " + item.Description + " date: " + item.Date + " Month: " + item.Month);
+                    _db.expensesRepository.Add(newExpense);
                 };
 
-                Console.WriteLine("is there hope " + expense.Description + " date: " + expense.Date + " Month: " + expense.Month);
-                 _db.expensesRepository.Add(newExpense);
-                 _db.Save();
+                _db.Save();
                 return this.Ok($"hello world");
             }
             catch (Exception e)
@@ -69,7 +72,7 @@ namespace Budget_Man.Controllers
             try
             {
                 Console.WriteLine("finito");
-                
+
                 return this.Ok($"Saved good maybe");
             }
             catch (Exception e)
