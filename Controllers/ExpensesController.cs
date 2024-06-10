@@ -18,7 +18,8 @@ namespace Budget_Man.Controllers
         }
         public IActionResult Index()
         {
-            //lets get the current month;
+           try{
+             //lets get the current month;
             int month = DateTime.Today.Month;
             int year = DateTime.Today.Year;
             DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
@@ -28,10 +29,20 @@ namespace Budget_Man.Controllers
             //Get Categories
             IEnumerable<Category> categories = _db.categoryRepository.GetAll();
             ViewData["categories"] = categories;
-
+            
+            //Get Expenses
+            IEnumerable<Expenses> expenses = _db.expensesRepository.GetAll();
+            ViewData["expenses"] = expenses;
+            
             //create model to pass to view
-            createExpenseForm model = new createExpenseForm(categories, dtfi.GetMonthName(month), "Create");
+            createExpenseForm model = new createExpenseForm(expenses, categories, dtfi.GetMonthName(month), "Create");
             return View(model);
+           }  catch (Exception e)
+            {
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok($"Error fetching Expenses from Database");
+            }
         }
 
         [HttpPost]
@@ -39,6 +50,7 @@ namespace Budget_Man.Controllers
         {
             try
             {
+                int counter = 0;
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
@@ -51,12 +63,17 @@ namespace Budget_Man.Controllers
                         Date = item.Date,
                         Description = item.Description
                     };
-                    Console.WriteLine("is there hope " + item.Description + " date: " + item.Date + " Month: " + item.Month);
+                    counter++;
                     _db.expensesRepository.Add(newExpense);
                 };
 
                 _db.Save();
-                return this.Ok($"hello world");
+
+                //Update Expenses
+                IEnumerable<Expenses> expenses = _db.expensesRepository.GetAll();
+                ViewData["expenses"] = expenses;
+
+                return this.Ok($"hello world"+counter);
             }
             catch (Exception e)
             {
@@ -65,27 +82,6 @@ namespace Budget_Man.Controllers
                 return this.Ok($"hello world error");
             }
         }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateSave()
-        {
-            try
-            {
-                Console.WriteLine("finito");
-
-                return this.Ok($"Saved good maybe");
-            }
-            catch (Exception e)
-            {
-                ViewData["errorMessage"] = "exception " + e;
-                View("Views/Errors/generalError.cshtml");
-                return this.Ok($"bot good error");
-            }
-        }
-
-
-
-
 
     }
 }

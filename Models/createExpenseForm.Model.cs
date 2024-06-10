@@ -8,12 +8,12 @@ public class createExpenseForm {
     public string type { get; set; }
     public Expenses expenseModel { get; set; }
     //to be used in the modal create-expense form
-    public List<Expenses> expenseModels { get; set; }
-    public createExpenseForm(IEnumerable<Category> categories, string month, string type){
+    public IEnumerable<Expenses> expenses { get; set; }
+    public createExpenseForm(IEnumerable<Expenses> expenses,IEnumerable<Category> categories, string month, string type){
+        this.expenses = expenses;
         this.categories = categories;
         this.month = month;
         this.type = type;
         expenseModel = new Expenses();
-        expenseModels = new List<Expenses>();
     }
 }

@@ -13,21 +13,6 @@ namespace Budget_Man.Models
         public float Amount { get; set; }
         public string Date { get; set; }
         public string Description { get; set; }
-        // public Expenses(){}
-
-        // public Expenses(int month, int week, int categoryId,float Amount, string date, string description){
-        //     // this.Month = Int32.Parse(month);
-        //     // this.Week = Int32.Parse(week);
-        //     // this.categoryId = Int32.Parse(categoryId);
-        //     // this.Amount = Convert.ToSingle(Amount);
-        //     this.Month = month;
-        //     this.Week = week;   
-        //     this.categoryId = categoryId;
-        //     this.Amount = Amount;
-        //     this.date = date;
-        //     this.description = description;
-        //     this.category = new Category();
-        // }
     }
 
     public class Expenses2 {

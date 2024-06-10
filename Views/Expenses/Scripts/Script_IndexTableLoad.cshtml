@@ -34,7 +34,8 @@
   //alters the left-position of the Create Expense Form
   function alterPosition() {
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
-    const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight;
+    @* const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight; *@
+    const bodyHeight = +window.innerHeight;
     
     //adjust the height-position
     let height = (bodyHeight - +createEditExpensesForm.clientHeight) / 2;

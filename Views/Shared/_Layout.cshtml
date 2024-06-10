@@ -42,7 +42,7 @@
                                 asp-action="Index">Categories</a>
                         </li>
                         <li>
-                            <a id="toast-text" onclick="fire()" class="btn">toast</a>
+                            <a class="btn" onclick="screenSizeCheck()">Screen Size</a>
                         </li>
                     </ul>
                 </div>
@@ -75,13 +75,17 @@
             $(".ripple-effect").rippleEffect();
         });
 
-        function fire(){
-            // fireNotif(message, type, timeout);
-            fireNotif('jQueryScript: Success Message','success', 50000);
-            fireNotif('Info Message','info', 50000);
-            fireNotif('Error Message','error', 30000);
-            fireNotif('Warning Message','warning', 30000);
-            fireNotif('Question Message','question', 30000);
+        function screenSizeCheck(){
+             const size = +document.getElementsByTagName("body")[0].clientWidth;
+             const height = +document.getElementsByTagName("body")[0].clientHeight;
+             const bbody = document.getElementsByTagName("body");
+             
+             console.log("width " + size);
+            console.log("height " + height);
+            console.log(bbody);
+
+            const windowHeight = window.innerHeight;
+            console.log("height " + windowHeight);
         }
     </script>
 </body>
