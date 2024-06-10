@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\js\\ripple-effect.min.js"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\simple-notif.js",
+      "PackagePath": "staticwebassets\\js\\simple-notif.js"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

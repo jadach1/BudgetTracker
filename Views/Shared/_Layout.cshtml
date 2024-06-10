@@ -4,16 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Budget_Man</title>
+    <title>@ViewData["Title"] My Budget</title>
+    <!--LINKS-->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/ripple-effect.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/expenseFormStyleSheet.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/ripple-effect.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    
 </head>
 
 <body>
@@ -42,6 +41,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Category"
                                 asp-action="Index">Categories</a>
                         </li>
+                        <li>
+                            <a id="toast-text" onclick="fire()" class="btn">toast</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -60,10 +62,28 @@
     </footer>
 
     @await RenderSectionAsync("Scripts", required: false)
-      <script>    //set ripple effect for deleting elements
-                $(document).ready(function() {
-                $(".ripple-effect").rippleEffect();
-        });</script>
+
+<!--SCRIPTS-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/ripple-effect.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/simple-notif.js" asp-append-version="true"></script>
+    <script>
+        //set ripple effect for deleting elements
+        $(document).ready(function () {
+            $(".ripple-effect").rippleEffect();
+        });
+
+        function fire(){
+            // fireNotif(message, type, timeout);
+            fireNotif('jQueryScript: Success Message','success', 50000);
+            fireNotif('Info Message','info', 50000);
+            fireNotif('Error Message','error', 30000);
+            fireNotif('Warning Message','warning', 30000);
+            fireNotif('Question Message','question', 30000);
+        }
+    </script>
 </body>
 
 </html>

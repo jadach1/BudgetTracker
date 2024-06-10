@@ -98,7 +98,7 @@
         list.getElementsByTagName("ul")[0].appendChild(element);
 
         // create edit button
-        const buttonEdit = document.createElement("a");
+        @* const buttonEdit = document.createElement("a");
         buttonEdit.className = "btn";
         buttonEdit.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "mx-2");
         element.appendChild(buttonEdit);
@@ -106,12 +106,12 @@
         const iconEdit = document.createElement("span");
         iconEdit.className = "bi";
         iconEdit.classList.add("bi-eye-fill");
-        buttonEdit.appendChild(iconEdit);
+        buttonEdit.appendChild(iconEdit); *@
 
         //create delete button
         const buttonDelete = document.createElement("a");
         buttonDelete.className = "btn";
-        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "ripple-effect");
+        buttonDelete.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "ripple-effect", "mx-2");
 
         //delete protocol
         buttonDelete.addEventListener("click", () => {
@@ -182,10 +182,12 @@
             expenseForm.hidden = !flag;
             //enable all buttons
             disableEnableAllButtons(false);
+        } else {
+            fireNotif('Need to have at least one expense to view list','error', 5000);
         }
     }
 
-    // Clears all the ExpenseList items, as we don't need them anymore
+    // Clears all the ExpenseList items, as we don't need them anymore, after submit is pushed
     function ClearExpenseListItems() {
         listOfExpenses = [];
         listOfExpensesCounter = 0;
