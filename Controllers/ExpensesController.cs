@@ -46,7 +46,7 @@ namespace Budget_Man.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] IEnumerable<Expenses2> expense)
+        public async Task<IActionResult> Create([FromBody] IEnumerable<ExpensesFormPosting> expense)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace Budget_Man.Controllers
                 {
                     Expenses newExpense = new Expenses
                     {
-                        Month = Expenses2.GetMonthNumber_From_MonthName(item.Month),
+                        Month = ExpensesFormPosting.GetMonthNumber_From_MonthName(item.Month),
                         Week = HelperFunctions.ConvertStringToInt(item.Week),
                         CategoryId = HelperFunctions.ConvertStringToInt(item.Type),
                         Amount = HelperFunctions.ConvertStringToFloat(item.Amount),

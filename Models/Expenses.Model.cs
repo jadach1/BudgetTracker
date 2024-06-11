@@ -15,7 +15,7 @@ namespace Budget_Man.Models
         public string Description { get; set; }
     }
 
-    public class Expenses2 {
+    public class ExpensesFormPosting {
         public string Id { get; set; }
         public string Month { get; set; }
         public string Week { get; set; }

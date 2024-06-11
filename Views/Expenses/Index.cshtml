@@ -13,9 +13,8 @@
         <button id="createEditExpensesFormButton" class="btn btn-outline-light my-3 text-center d-flex justify-content-center ">New Expense <i
                 class="bi bi-plus-circle"></i></button>
      </div>
-    <div class="row">
-        <h2 class="d-flex justify-content-center"><span class="align-middle">Week 1</span></h2>
-    </div>
+   
+    <partial name="./Partial/expensesTables.cshtml" model="@Model" />
     <partial name="./Partial/expensesTables.cshtml" model="@Model" />
 </div>
 <!--SCRIPTS-->

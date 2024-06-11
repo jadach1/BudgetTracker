@@ -48,5 +48,12 @@
       size = 0;
     createEditExpensesForm.style.left = size + "px";
   }
+
+  //hides or displays a table
+  function HideOrDisplayExpenseTable(idName){
+    console.log("pow")
+    const el_Table = document.getElementById(idName);
+    $('tr.table-start').nextUntil('tr.table-stop').slideToggle(500);
+  }
 </script>
 

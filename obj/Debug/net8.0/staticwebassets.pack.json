@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Budget Man.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\buttons.css",
+      "PackagePath": "staticwebassets\\css\\buttons.css"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseFormStyleSheet.css",
       "PackagePath": "staticwebassets\\css\\expenseFormStyleSheet.css"
     },

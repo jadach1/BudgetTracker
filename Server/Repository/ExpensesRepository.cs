@@ -15,6 +15,12 @@ namespace Budget_Man.Repository
             _db = db;
         }
 
+        public IEnumerable<Expenses> GetWeekOf(int week,int month){
+            IQueryable<Expenses> query = dbSet;
+            // query.Where(e => e.Month === month);
+            return query.ToList();
+        }
+
         public void Update(Expenses obj)
         {
             _db.Expenses.Update(obj);
