@@ -18,30 +18,36 @@ namespace Budget_Man.Controllers
         }
         public IActionResult Index()
         {
-           try{
-             //lets get the current month;
-            int month = DateTime.Today.Month;
-            int year = DateTime.Today.Year;
-            DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
-            ViewData["month"] = dtfi.GetMonthName(month);
-            ViewData["year"] = year;
+            try
+            {
+                //lets get the current month;
+                int month = DateTime.Today.Month;
+                int year = DateTime.Today.Year;
+                DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
+                ViewData["month"] = dtfi.GetMonthName(month);
+                ViewData["year"] = year;
 
-            //Get Categories
-            IEnumerable<Category> categories = _db.categoryRepository.GetAll();
-            ViewData["categories"] = categories;
-            
-            //Get Expenses
-            IEnumerable<Expenses> expenses = _db.expensesRepository.GetAll();
-            ViewData["expenses"] = expenses;
-            
-            //create model to pass to view
-            createExpenseForm model = new createExpenseForm(expenses, categories, dtfi.GetMonthName(month), "Create");
-            return View(model);
-           }  catch (Exception e)
+                //Get Categories
+                IEnumerable<Category> categories = _db.categoryRepository.GetAll();
+                ViewData["categories"] = categories;
+
+                //Get Expenses
+                for(int i = 1; i < 6; i++)
+                {
+                    string str = "expenses"+i;
+                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month);
+                    ViewData[str] = expenses;
+                }
+
+                //create model to pass to view
+                createExpenseForm model = new createExpenseForm(categories, dtfi.GetMonthName(month), "Create");
+                return View(model);
+            }
+            catch (Exception e)
             {
                 ViewData["errorMessage"] = "exception " + e;
                 View("Views/Errors/generalError.cshtml");
-                return this.Ok($"Error fetching Expenses from Database");
+                return this.Ok(e);
             }
         }
 
@@ -73,7 +79,7 @@ namespace Budget_Man.Controllers
                 IEnumerable<Expenses> expenses = _db.expensesRepository.GetAll();
                 ViewData["expenses"] = expenses;
 
-                return this.Ok($"hello world"+counter);
+                return this.Ok($"hello world" + counter);
             }
             catch (Exception e)
             {

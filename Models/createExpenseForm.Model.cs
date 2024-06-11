@@ -3,6 +3,8 @@
 using Budget_Man.Models;
 
 public class createExpenseForm {
+    //class to hold
+    public DisplayExpenses displayExpenses {get; set;}  
     public IEnumerable<Category> categories{ get; set; }
     public string month { get; set; }
     public string type { get; set; }
@@ -10,7 +12,7 @@ public class createExpenseForm {
     // //to be used in the modal create-expense form
     // public IEnumerable<Expenses> expenses { get; set; }
      
-    public createExpenseForm(IEnumerable<Expenses> expenses,IEnumerable<Category> categories, string month, string type){
+    public createExpenseForm(IEnumerable<Category> categories, string month, string type){
         // this.expenses = expenses;
         this.categories = categories;
         this.month = month;

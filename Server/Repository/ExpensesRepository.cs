@@ -2,6 +2,8 @@ using Budget_Man.Server.IRepository;
 using Budget_Man.Models;
 using Budget_Man.Repository.Repository;
 using Budget_Man.Server;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace Budget_Man.Repository
 {
@@ -17,8 +19,7 @@ namespace Budget_Man.Repository
 
         public IEnumerable<Expenses> GetWeekOf(int week,int month){
             IQueryable<Expenses> query = dbSet;
-            // query.Where(e => e.Month === month);
-            return query.ToList();
+            return query.Where(e => e.Month == month && e.Week == week).OrderByDescending(s => s.Date).ToList();
         }
 
         public void Update(Expenses obj)

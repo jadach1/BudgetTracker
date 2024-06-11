@@ -1,13 +1,4 @@
-@model createExpenseForm
-
-@{
-    var exp = ViewData["expenses"] as List<Expenses>;
-}
-
- <div class="row">
-        <h2 class="d-flex justify-content-center"><span class="align-middle">Week 1</span></h2>
-    </div>
-    
+@model List<Expenses>
 <table class="table table-striped border border-solid border-2 border-primary">
         <!--DROPDOWN CARET-->
         <a 
@@ -38,7 +29,7 @@
             </tr>
             } *@
             <tr class="table-start"></tr>
-            @foreach(var obj in exp){
+            @foreach(var obj in Model){
                 <tr class="row">
                 <td class="col-3 text-center">@obj.category.Name</td>
                 <td class="col-3 text-center">$@obj.Amount </td>
