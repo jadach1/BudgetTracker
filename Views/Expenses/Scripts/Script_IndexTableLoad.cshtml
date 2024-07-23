@@ -1,4 +1,20 @@
 <script>
+
+  // Display CHANGE Month Form, event Listener
+  document.getElementById("changeMonthFormButton").addEventListener("click", () => {
+
+    let changeMonthExpensesForm = document.getElementById("changeMonthForm")
+    changeMonthExpensesForm.hidden = false;
+    changeMonthExpensesForm.classList.add("d-flex");
+
+    //Alter position of form
+    alterPositionChangeMonthForm();
+
+    //disable buttons
+    disableEnableAllButtons(true);
+  });
+
+
   // Display Expense Form, event Listener
   createEditExpensesFormButton = document.getElementById("createEditExpensesFormButton").addEventListener("click", () => {
 
@@ -13,13 +29,26 @@
     disableEnableAllButtons(true);
   });
 
-  // Hide-Box
+  // Hide-Box for the create-expense-form and change-month-form
   document.getElementById("expense-form-hide-button").addEventListener("click", () => {
     let createEditExpensesForm = document.getElementById("createEditExpensesForm");
     createEditExpensesForm.classList.remove("d-flex");
     createEditExpensesForm.hidden = true;
+    let changeMonthExpensesForm = document.getElementById("changeMonthForm")
+    changeMonthExpensesForm.classList.remove("d-flex");
+    changeMonthExpensesForm.hidden = true;
     disableEnableAllButtons(false);
   })
+
+  // Hide-Box for the create-expense-form and change-month-form
+  document.getElementById("change-month-hide-button").addEventListener("click", () => {
+    let changeMonthExpensesForm = document.getElementById("changeMonthForm")
+    changeMonthExpensesForm.classList.remove("d-flex");
+    changeMonthExpensesForm.hidden = true;
+    disableEnableAllButtons(false);
+  })
+
+
 
 </script>
 
@@ -29,31 +58,53 @@
     document.getElementById("createEditExpensesFormButton").disabled = flag;
     document.getElementById("week1CreateExpenseButton").disabled = flag;
     document.getElementById("createExpenseStagingArea").disabled = flag;
+    document.getElementById("changeMonthFormButton").disabled = flag;
   }
 
   //alters the left-position of the Create Expense Form
   function alterPosition() {
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
-    @* const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight; *@
+  @* const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight; *@
     const bodyHeight = +window.innerHeight;
-    
+
     //adjust the height-position
     let height = (bodyHeight - +createEditExpensesForm.clientHeight) / 2;
-    if(height < 0)
+    if (height < 0)
       height = 0;
     createEditExpensesForm.style.top = height + "px";
     // Adjust the width-position
     let size = (bodySize - +createEditExpensesForm.clientWidth) / 2
-    if(size < 0)
+    if (size < 0)
       size = 0;
     createEditExpensesForm.style.left = size + "px";
   }
 
-  //hides or displays a table
-  function HideOrDisplayExpenseTable(idName){
-    console.log("pow")
-    const el_Table = document.getElementById(idName);
-    $('tr.table-start').nextUntil('tr.table-stop').slideToggle(500);
+  //Alter position of the change-month-form
+  function alterPositionChangeMonthForm() {
+    const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
+    const bodyHeight = +window.innerHeight;
+    let changeMonthExpensesForm = document.getElementById("changeMonthForm")
+
+    //adjust the height-position
+    let height = (bodyHeight - +changeMonthExpensesForm.clientHeight) / 2;
+
+    if (height < 0)
+      height = 0;
+
+    changeMonthExpensesForm.style.top = height + "px";
+
+    // Adjust the width-position
+    let size = (bodySize - +changeMonthExpensesForm.clientWidth) / 2
+
+    if (size < 0)
+      size = 0;
+    changeMonthExpensesForm.style.left = size + "px";
+  }
+
+  //hides or displays a table - table is located in the expensesTables.cshtml
+  function HideOrDisplayExpenseTable(start, stop) {
+    $('tr.' + start).nextUntil('tr.' + stop).slideToggle(500);
   }
 </script>
+
 

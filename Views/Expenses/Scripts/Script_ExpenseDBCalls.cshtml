@@ -29,7 +29,6 @@
                     fireNotif('Successfully Added Expenses','success', 5000);
                     let x = JSON.stringify(data);
                     console.log(x);
-                     //ajaxCallSaveExpenses();
                      ClearExpenseListItems();
                 },
 
@@ -42,7 +41,7 @@
             });
         }
 
-        function ajaxCallSaveExpenses() {
+        @* function ajaxCallSaveExpenses() {
             $.ajax({
 
                 // Our sample url to make request 
@@ -66,6 +65,6 @@
                     console.log(error)
                 }
             });
-        }
+        } *@
 
 </script>

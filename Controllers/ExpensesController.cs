@@ -1,10 +1,10 @@
 using System.Globalization;
-using System.Runtime.Serialization;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
-using Budget_Man.Server;
 using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Budget_Man.Controllers
 {
@@ -16,12 +16,21 @@ namespace Budget_Man.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(IFormCollection form)
         {
             try
             {
-                //lets get the current month;
-                int month = DateTime.Today.Month;
+                var given_month = form["given_month"];
+                int month;
+
+                if(!given_month.IsNullOrEmpty()){
+                    Console.WriteLine("not null ! :" + given_month + ":");
+                      month = int.Parse(given_month);
+                } else {
+                     Console.WriteLine(" null ! ");
+                       month = DateTime.Today.Month;
+                }
+               
                 int year = DateTime.Today.Year;
                 DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
                 ViewData["month"] = dtfi.GetMonthName(month);
@@ -31,17 +40,22 @@ namespace Budget_Man.Controllers
                 IEnumerable<Category> categories = _db.categoryRepository.GetAll();
                 ViewData["categories"] = categories;
 
+                MasterExpenseList masterExpenseList = new MasterExpenseList();
+
                 //Get Expenses
-                for(int i = 1; i < 6; i++)
+                for (int i = 1; i < 6; i++)
                 {
-                    string str = "expenses"+i;
+                    string str = "expenses" + i;
                     IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month);
+                    masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     ViewData[str] = expenses;
                 }
 
                 //create model to pass to view
-                createExpenseForm model = new createExpenseForm(categories, dtfi.GetMonthName(month), "Create");
-                return View(model);
+                // createExpenseForm model = new createExpenseForm(categories, dtfi.GetMonthName(month), "Create");
+
+                masterExpenseList.appendExpenseForm(categories, dtfi.GetMonthName(month), "Create");
+                return View(masterExpenseList);
             }
             catch (Exception e)
             {

@@ -1,8 +1,9 @@
-@model List<Expenses>
+@model DisplayExpenses
+
 <table class="table table-striped border border-solid border-2 border-primary">
-        <!--DROPDOWN CARET-->
+        <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
         <a 
-           onclick="HideOrDisplayExpenseTable(week1ExpensesTable)"
+           id="@Model.uniqueIdName"
            class="btn btn-outline-primary 
                   offset-11 d-flex 
                   justify-content-center 
@@ -18,7 +19,7 @@
                 <td class="col-3 text-center ">Description<i class="bi bi-chat-dots"></i></td>
             </tr>
         </thead>
-        <tbody id="week1ExpensesTable" class="table-start" >
+        <tbody >
             @* @foreach(var obj in Model.expenses){
     using System.ComponentModel.DataAnnotations.Schema;
                 <tr class="row">
@@ -28,8 +29,8 @@
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
             } *@
-            <tr class="table-start"></tr>
-            @foreach(var obj in Model){
+            <tr class=@Model.uniqueClassNameStart></tr>
+            @foreach(var obj in Model.expenses){
                 <tr class="row">
                 <td class="col-3 text-center">@obj.category.Name</td>
                 <td class="col-3 text-center">$@obj.Amount </td>
@@ -38,7 +39,19 @@
                 </tr>
             }
             <tr class="row"><td><hr/></td></tr>
-            <tr class=" table-stop"><td><button id="week1CreateExpenseButton" class="btn btn-secondary">
+            <tr class=@Model.uniqueClassNameStop><td><button id="week1CreateExpenseButton" class="btn btn-secondary">
                 <i class="bi bi-plus-circle"></i> New</button></td></tr>
-        </tbody class="table-stop">
+        </tbody >
     </table>
+
+    <!--FOR CONTROLLING THE ABOVE CARET FOR HIDING AND DISPLAYING A TABLE-->
+<script>
+  document.getElementById("@Model.uniqueIdName").addEventListener("click", function () {
+    const fromTheStart_Tr = "@Model.uniqueClassNameStart";
+    const toTheStop_Tr = "@Model.uniqueClassNameStop";
+    HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
+  })
+</script>
+
+      
+    

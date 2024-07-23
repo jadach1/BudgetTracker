@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="col-12 d-flex justify-content-end">
+        <h1 style="padding-top: 7px;padding-right: 7px;"><i id="change-month-hide-button"
+                class="bi bi-x-square-fill"></i></h1>
+    </div>
+    <div  class="p-2 m-4 col-10 bg-primary text-light" >
+        <div class="d-flex justify-content-center">
+            <h1>Current Month -> @ViewData["month"]</h1>
+            <hr>
+        </div>
+
+        <div>
+            <div class="col-4 customFormControl changeMonthCustomDiv">
+                <label class="changeMonthCustomLabel" for=" type">Month</label>
+                <form id="swap_month_form" asp-action="Index" asp-controller="Expenses">
+                    <div id="monthSelectionId" class="row ">
+                        <a onclick="swapMonth('1')" class="btn btn-secondary">January</a>
+                        <a onclick="swapMonth('2')" class="btn btn-secondary">February</a>
+                        <a onclick="swapMonth('3')" class="btn btn-secondary">March</a>
+                        <a onclick="swapMonth('4')" class="btn btn-secondary">April</a>
+                        <a onclick="swapMonth('5')" class="btn btn-secondary">May</a>
+                        <a onclick="swapMonth('6')" class="btn btn-secondary">June</a>
+                        <a onclick="swapMonth('7')" class="btn btn-secondary">July</a>
+                        <a onclick="swapMonth('8')" class="btn btn-secondary">August</a>
+                        <a onclick="swapMonth('9')" class="btn btn-secondary">September</a>
+                        <a onclick="swapMonth('10')" class="btn btn-secondary">Octbober</a>
+                        <a onclick="swapMonth('11')" class="btn btn-secondary">November</a>
+                        <a onclick="swapMonth('12')" class="btn btn-secondary">December</a>
+                    </div>
+                </form>
+
+            </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+    function swapMonth(month) {
+        const form = document.getElementById("swap_month_form");
+        let input_field = document.createElement("input");
+        input_field.setAttribute("name", "given_month");
+        input_field.value = month;
+        console.log(input_field,form);
+        form.appendChild(input_field);
+        form.submit();
+    }
+</script>
+<partial name="../Scripts/Script_CreateEditExpenseForm.cshtml" />
+<partial name="../Scripts/Script_ExpenseDBCalls.cshtml" />

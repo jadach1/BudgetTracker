@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\buttons.css"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\changeMonthFormStyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\changeMonthFormStyleSheet.css"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseFormStyleSheet.css",
       "PackagePath": "staticwebassets\\css\\expenseFormStyleSheet.css"
     },
@@ -27,6 +31,10 @@
     {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\favicon2.ico",
+      "PackagePath": "staticwebassets\\favicon2.ico"
     },
     {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\ripple-effect.min.js",
