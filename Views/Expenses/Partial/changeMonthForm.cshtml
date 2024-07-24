@@ -39,12 +39,10 @@
     function swapMonth(month) {
         const form = document.getElementById("swap_month_form");
         let input_field = document.createElement("input");
-        input_field.setAttribute("name", "given_month");
+        // the name of the input field name=month
+        input_field.setAttribute("name", "month_number");
         input_field.value = month;
-        console.log(input_field,form);
         form.appendChild(input_field);
         form.submit();
     }
 </script>
-<partial name="../Scripts/Script_CreateEditExpenseForm.cshtml" />
-<partial name="../Scripts/Script_ExpenseDBCalls.cshtml" />

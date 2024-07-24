@@ -1,15 +1,24 @@
 @model createExpenseForm
 <div class="container">
     <div class="col-12 d-flex justify-content-end">
-            <h1 style="padding-top: 7px;padding-right: 7px;"><i id="expense-form-hide-button" class="bi bi-x-square-fill"></i></h1>
-        </div>
-    <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" asp-action="Create" asp-controller="Expenses">
+        <h1 style="padding-top: 7px;padding-right: 7px;"><i id="expense-form-hide-button"
+                class="bi bi-x-square-fill"></i></h1>
+    </div>
+    <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" asp-action="Index" asp-controller="Expenses">
         <div class="d-flex justify-content-center">
             <h1>@Model.type @Model.month</h1>
             <hr>
         </div>
 
-        <input name="month" value=@Model.month hidden>
+
+        @* <div class="col-4 customFormControl">
+            <label for="month">To change month, go back and swap months</label>
+            <div class="text-center"> *@
+                <input name="month" value=@Model.month hidden>
+                <input name="month_number" value=@ViewData["month_number"] hidden>
+            @* </div>
+        </div> *@
+
 
         <div id="expenseFormContents">
             <div class="col-4 customFormControl">
@@ -65,15 +74,15 @@
             </div>
             <div class="text-center row d-block">
                 <a id="expense-form-append-list-button" class="btn btn-outline-dark btn-lg ripple-effect">Add Item</a>
-                <a id="expense-form-display-list-button" 
-                    class="btn btn-outline-dark btn-lg offset-1">View List</a>
+                <a id="expense-form-display-list-button" class="btn btn-outline-dark btn-lg offset-1">View List</a>
             </div>
         </div>
     </form>
 
     <div id="createExpenseStagingArea" hidden>
         <div id="createExpenseStagingAreaButtons">
-            <a class="btn btn-outline-dark btn-lg offset-2 my-3" onclick="submitListOfExpenses()">Submit Expenses</a>
+            <a class="btn btn-outline-dark btn-lg offset-2 my-3" onclick="ajaxCallToExpenseController()">Submit
+                Expenses</a>
             <a id="expense-form-add-list-button" onclick="ExpenseListDisplay(true)"
                 class="btn btn-outline-dark btn-lg  offset-2 my-3">Add More Expenses</a>
         </div>
@@ -92,5 +101,5 @@
     </div>
 </div>
 
-<partial name="../Scripts/Script_CreateEditExpenseForm.cshtml" />
+<partial name="../Scripts/Script_CreateEditExpenseForm.cshtml"   />
 <partial name="../Scripts/Script_ExpenseDBCalls.cshtml" />

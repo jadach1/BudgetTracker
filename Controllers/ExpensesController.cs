@@ -20,12 +20,15 @@ namespace Budget_Man.Controllers
         {
             try
             {
-                var given_month = form["given_month"];
+                var given_month = form["month_number"];
                 int month;
+//:Microsoft.Extensions.Primitives.StringValues:
 
                 if(!given_month.IsNullOrEmpty()){
                     Console.WriteLine("not null ! :" + given_month + ":");
+                    Console.WriteLine("not null ! :" + given_month.GetType() + ":");
                       month = int.Parse(given_month);
+                      Console.WriteLine("not null after ! :" + given_month + ":");
                 } else {
                      Console.WriteLine(" null ! ");
                        month = DateTime.Today.Month;
@@ -33,6 +36,10 @@ namespace Budget_Man.Controllers
                
                 int year = DateTime.Today.Year;
                 DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
+
+                // integer of the month, for form-submission, in Script_ExpenseDBCalls
+                ViewData["month_number"] = month;
+
                 ViewData["month"] = dtfi.GetMonthName(month);
                 ViewData["year"] = year;
 
@@ -50,9 +57,6 @@ namespace Budget_Man.Controllers
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     ViewData[str] = expenses;
                 }
-
-                //create model to pass to view
-                // createExpenseForm model = new createExpenseForm(categories, dtfi.GetMonthName(month), "Create");
 
                 masterExpenseList.appendExpenseForm(categories, dtfi.GetMonthName(month), "Create");
                 return View(masterExpenseList);

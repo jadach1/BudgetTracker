@@ -1,15 +1,6 @@
-<script>
-    function submitListOfExpenses() {
-        if (listOfExpensesCounter > 0) {
-            const form = document.getElementById("expenseForm")
-            const arrayOfFormData = [];
-            @* listOfExpenses.forEach(expense => {
-                ajaxCall(expense);
-            }) *@
-                ajaxCallToExpenseController("expense");
-        }
-    }
 
+
+<script>
          function ajaxCallToExpenseController(expense) {
             const obj = JSON.stringify(listOfExpenses);
             $.ajax({
@@ -30,6 +21,9 @@
                     let x = JSON.stringify(data);
                     console.log(x);
                      ClearExpenseListItems();
+                     const form  = document.getElementById("expenseForm");
+                     // refresh the form, but keep current month
+                     form.submit();
                 },
 
                 // Error handling 
