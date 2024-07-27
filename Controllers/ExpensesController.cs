@@ -25,12 +25,8 @@ namespace Budget_Man.Controllers
 //:Microsoft.Extensions.Primitives.StringValues:
 
                 if(!given_month.IsNullOrEmpty()){
-                    Console.WriteLine("not null ! :" + given_month + ":");
-                    Console.WriteLine("not null ! :" + given_month.GetType() + ":");
                       month = int.Parse(given_month);
-                      Console.WriteLine("not null after ! :" + given_month + ":");
                 } else {
-                     Console.WriteLine(" null ! ");
                        month = DateTime.Today.Month;
                 }
                

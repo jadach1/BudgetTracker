@@ -1,17 +1,24 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
 using Budget_Man.Controllers;
+using Budget_Man.Helper.Library;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 public class AccountController : Controller
 {
-    private readonly IMapper _mapper;
-    private readonly UserManager<IdentityUser> _userManager;
 
-    public AccountController(IMapper mapper, UserManager<IdentityUser> userManager)
+    // mapper, user by AutoMapper, to map the IdentityUser class to our local UserRegistration model class
+    private readonly IMapper _mapper;
+    // UserManager is a class maintained by ASP.NET and has many helper methods for handling user submission into DB
+    private readonly UserManager<IdentityUser> _userManager;
+    public HelperFunctions _helperFunctions;
+    
+    public AccountController( HelperFunctions helperFunctions,IMapper mapper, UserManager<IdentityUser> userManager)
     {
         _mapper = mapper;
         _userManager = userManager;
+        _helperFunctions = helperFunctions;
     }
 
     [HttpGet]
@@ -40,13 +47,19 @@ public class AccountController : Controller
                     if (error.Code != "DuplicateUserName" && error.Code != "DuplicateEmail")
                     {
                         ModelState.TryAddModelError(error.Code, error.Description);
-                    } else {
-                        ModelState.AddModelError("DuplicateEmail","Email address already exists.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("DuplicateEmail", "Email address already exists.");
+                        _helperFunctions.toasterTest("DuplicateEmail",2);
+                        break;
                     }
                 }
+                
                 return View(model);
             }
             await _userManager.AddToRoleAsync(user, "Visitor");
+            _helperFunctions.toasterTest("Successfully created user.  You may login.",1);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         catch (Exception ex)
@@ -59,4 +72,5 @@ public class AccountController : Controller
 
 
     }
+   
 }

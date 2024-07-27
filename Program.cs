@@ -1,3 +1,6 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
+using Budget_Man.Helper.Library;
 using Budget_Man.Server;
 using Budget_Man.Server.IUnitWork;
 using Budget_Man.Server.UnitWork;
@@ -25,11 +28,13 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<HelperFunctions, HelperFunctions>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
 //builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();
 
+builder.Services.AddNotyf(config=> { config.DurationInSeconds = 5;config.IsDismissable = true;config.Position = NotyfPosition.BottomCenter; });
 
 //NO MORE SERVICES, BUILD
 var app = builder.Build();
@@ -48,6 +53,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseNotyf();
 
 app.MapControllerRoute(
     name: "default",

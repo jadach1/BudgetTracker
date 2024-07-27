@@ -67,8 +67,6 @@
         </div>
     </footer>
 
-    @await RenderSectionAsync("Scripts", required: false)
-
 <!--SCRIPTS-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/ripple-effect.min.js"></script>
@@ -94,6 +92,12 @@
             console.log("height " + windowHeight);
         }
     </script>
+    
+     @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
+   
+
+
 </body>
 
 </html>

@@ -141,3 +141,8 @@ C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Micros
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.Views.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.Toolkit.Uwp.Notifications.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.MvcApplicationPartsAssemblyInfo.cs
