@@ -1,10 +1,8 @@
-using System.Security.Claims;
 using AutoMapper;
 using Budget_Man.Controllers;
 using Budget_Man.Helper.Library;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication;
 
 
 public class AccountController : Controller

@@ -1,10 +1,11 @@
-using Budget_Man.Server;
 using Budget_Man.Models;
 using Microsoft.AspNetCore.Mvc;
 using Budget_Man.Server.IUnitWork;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Budget_Man.Controllers
 {
+     [Authorize]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _dbCentral;

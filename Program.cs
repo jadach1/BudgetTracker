@@ -37,6 +37,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 //builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();
 //Configure login path
     //services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
+builder.Services.ConfigureApplicationCookie(o => o.ExpireTimeSpan = System.TimeSpan.FromHours(1));
 
 builder.Services.AddNotyf(config=> { config.DurationInSeconds = 5;config.IsDismissable = true;config.Position = NotyfPosition.BottomCenter; });
 

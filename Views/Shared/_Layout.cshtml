@@ -1,9 +1,4 @@
-﻿
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -70,6 +65,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account"
                                     asp-action="Login">Login</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
+                                    asp-action="Register">Register</a>
+                            </li>
                     }       
                     </ul>
                 </div>
@@ -117,9 +116,6 @@
     
      @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
-   
-
-
 </body>
 
 </html>

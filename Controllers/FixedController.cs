@@ -1,9 +1,11 @@
 
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget_Man.Controllers;
+ [Authorize]
 public class FixedExpenses : Controller
 {
     private IUnitOfWork _dbCentral;

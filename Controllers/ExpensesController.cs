@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Budget_Man.Controllers
 {
+     [Authorize]
     public class ExpensesController : Controller
     {
         // private readonly ApplicationDbContext _db;
@@ -17,14 +18,12 @@ namespace Budget_Man.Controllers
         {
             _db = db;
         }
-        [Authorize]
         public IActionResult Index(IFormCollection form)
         {
             try
             {
                 var given_month = form["month_number"];
                 int month;
-//:Microsoft.Extensions.Primitives.StringValues:
 
                 if(!given_month.IsNullOrEmpty()){
                       month = int.Parse(given_month);
