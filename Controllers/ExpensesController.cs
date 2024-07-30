@@ -2,6 +2,7 @@ using System.Globalization;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +17,7 @@ namespace Budget_Man.Controllers
         {
             _db = db;
         }
+        [Authorize]
         public IActionResult Index(IFormCollection form)
         {
             try

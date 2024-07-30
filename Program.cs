@@ -28,11 +28,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+//Simply tells the controller instantiating HelperFunctions class that it exists.
 builder.Services.AddScoped<HelperFunctions, HelperFunctions>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
 //builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();
+//Configure login path
+    //services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
 
 builder.Services.AddNotyf(config=> { config.DurationInSeconds = 5;config.IsDismissable = true;config.Position = NotyfPosition.BottomCenter; });
 

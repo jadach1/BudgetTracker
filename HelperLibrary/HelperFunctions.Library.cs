@@ -21,10 +21,6 @@ namespace Budget_Man.Helper.Library {
 
          public void toasterTest(string msg, int type)
     {
-        // Requires Microsoft.Toolkit.Uwp.Notifications NuGet package version 7.0 or greater
-
-
-
         switch (type)
         {
             case 1: //SUCCESS
