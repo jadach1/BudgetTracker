@@ -9545,8 +9545,8 @@
     },
     "EmailService/1.0.0": {
       "type": "project",
-      "path": "Dependencies/EmailService/EmailService.csproj",
-      "msbuildProject": "Dependencies/EmailService/EmailService.csproj"
+      "path": "../email-attachments-aspnet-core/EmailApp/EmailService/EmailService.csproj",
+      "msbuildProject": "../email-attachments-aspnet-core/EmailApp/EmailService/EmailService.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9586,8 +9586,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj": {
-              "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj"
+            "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj": {
+              "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj"
             }
           }
         }

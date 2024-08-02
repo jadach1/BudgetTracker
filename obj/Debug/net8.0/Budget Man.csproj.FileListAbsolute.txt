@@ -1,7 +1,5 @@
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.csproj.AssemblyReference.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfoInputs.cache
-C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfo.cs
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.csproj.CoreCompileInputs.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.RazorAssemblyInfo.cache
@@ -155,3 +153,5 @@ C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Depend
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\bin\Debug\netcoreapp3.1\EmailService.deps.json
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\obj\EmailService.csproj.nuget.dgspec.json
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\obj\project.assets.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfoInputs.cache
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfo.cs

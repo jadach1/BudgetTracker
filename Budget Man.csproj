@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- <ProjectReference Include="..\email-attachments-aspnet-core\EmailApp\EmailService\EmailService.csproj" /> -->
-    <ProjectReference Include=".\Dependencies\EmailService\EmailService.csproj" />
+    <ProjectReference Include="..\email-attachments-aspnet-core\EmailApp\EmailService\EmailService.csproj" /> 
+    <!-- <ProjectReference Include=".\Dependencies\EmailService\EmailService.csproj" /> -->
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />

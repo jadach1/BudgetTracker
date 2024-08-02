@@ -27,8 +27,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj": {
-                "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj"
+              "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj": {
+                "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj"
               }
             }
           }
@@ -93,14 +93,14 @@
         }
       }
     },
-    "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj": {
+    "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj",
+        "projectUniqueName": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj",
         "projectName": "EmailService",
-        "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\EmailService.csproj",
+        "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj",
         "packagesPath": "C:\\Users\\Jacob\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\Dependencies\\EmailService\\obj\\",
+        "outputPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jacob\\AppData\\Roaming\\NuGet\\NuGet.Config"
