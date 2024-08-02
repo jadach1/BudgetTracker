@@ -4,10 +4,9 @@ using Budget_Man.Helper.Library;
 using Budget_Man.Server;
 using Budget_Man.Server.IUnitWork;
 using Budget_Man.Server.UnitWork;
+using EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection2")));
 
+//IDENTITY
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
 {
     opt.Password.RequireDigit = false;
@@ -25,21 +25,34 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
     opt.Password.RequireNonAlphanumeric = false;
     opt.User.RequireUniqueEmail = true;
 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    // Add token providers
+    .AddDefaultTokenProviders();
+    //Add security for token
+    builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
+    opt.TokenLifespan = TimeSpan.FromHours(2));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 //Simply tells the controller instantiating HelperFunctions class that it exists.
 builder.Services.AddScoped<HelperFunctions, HelperFunctions>();
+//builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-//builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();
 //Configure login path
-    //services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
+ //services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
+
 builder.Services.ConfigureApplicationCookie(o => o.ExpireTimeSpan = System.TimeSpan.FromHours(1));
 
+// toast package
 builder.Services.AddNotyf(config=> { config.DurationInSeconds = 5;config.IsDismissable = true;config.Position = NotyfPosition.BottomCenter; });
+
+// SMPT email server
+var emailConfig = builder.Configuration .GetSection("EmailConfiguration") 
+  .Get<EmailConfiguration>(); 
+builder.Services.AddSingleton(emailConfig); 
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 
 //NO MORE SERVICES, BUILD
 var app = builder.Build();

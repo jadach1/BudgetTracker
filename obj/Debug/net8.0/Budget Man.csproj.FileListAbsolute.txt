@@ -145,3 +145,9 @@ C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AspNet
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.dll
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\MailKit.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\NETCore.MailKit.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\EmailService.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\EmailService.pdb
