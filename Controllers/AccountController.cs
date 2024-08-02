@@ -1,6 +1,7 @@
 using AutoMapper;
 using Budget_Man.Controllers;
 using Budget_Man.Helper.Library;
+using EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,14 +14,16 @@ public class AccountController : Controller
     // UserManager is a class maintained by ASP.NET and has many helper methods for handling user submission into DB, and also methods for verifcation
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly IEmailSender _emailSender;
     public HelperFunctions _helperFunctions;
 
-    public AccountController(SignInManager<IdentityUser> signInManager, HelperFunctions helperFunctions, IMapper mapper, UserManager<IdentityUser> userManager)
+    public AccountController(SignInManager<IdentityUser> signInManager, HelperFunctions helperFunctions, IMapper mapper, UserManager<IdentityUser> userManager, IEmailSender emailSender)
     {
         _mapper = mapper;
         _userManager = userManager;
         _helperFunctions = helperFunctions;
         _signInManager = signInManager;
+        _emailSender = emailSender;
     }
 
     [HttpGet]

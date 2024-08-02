@@ -39,6 +39,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "..\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj": {
+              "target": "Package",
+              "version": "(, )"
+            },
             "AspNetCoreHero.ToastNotification": {
               "target": "Package",
               "version": "[1.1.0, )"
