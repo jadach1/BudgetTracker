@@ -151,3 +151,7 @@ C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\NETCor
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\BouncyCastle.Crypto.dll
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\EmailService.dll
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\EmailService.pdb
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\bin\Debug\net8.0\EmailService.deps.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\bin\Debug\netcoreapp3.1\EmailService.deps.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\obj\EmailService.csproj.nuget.dgspec.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\obj\project.assets.json
