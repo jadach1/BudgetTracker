@@ -1,9 +1,11 @@
 using Budget_Man.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Budget_Man.Server
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext :  IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -16,6 +18,9 @@ namespace Budget_Man.Server
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            
             modelBuilder.Entity<Category>().HasData(
              new Category { Id = 1, Name = "Food" },
              new Category { Id = 2, Name = "Fuel" },

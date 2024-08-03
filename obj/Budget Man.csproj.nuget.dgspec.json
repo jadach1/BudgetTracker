@@ -26,7 +26,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj": {
+                "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -39,9 +43,21 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AspNetCoreHero.ToastNotification": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.2, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -69,6 +85,70 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.107/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj",
+        "projectName": "EmailService",
+        "projectPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\EmailService.csproj",
+        "packagesPath": "C:\\Users\\Jacob\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\email-attachments-aspnet-core\\EmailApp\\EmailService\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jacob\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "NETCore.MailKit": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

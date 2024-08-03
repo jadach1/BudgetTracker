@@ -2,12 +2,14 @@ using System.Globalization;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Budget_Man.Controllers
 {
+     [Authorize]
     public class ExpensesController : Controller
     {
         // private readonly ApplicationDbContext _db;
@@ -22,15 +24,10 @@ namespace Budget_Man.Controllers
             {
                 var given_month = form["month_number"];
                 int month;
-//:Microsoft.Extensions.Primitives.StringValues:
 
                 if(!given_month.IsNullOrEmpty()){
-                    Console.WriteLine("not null ! :" + given_month + ":");
-                    Console.WriteLine("not null ! :" + given_month.GetType() + ":");
                       month = int.Parse(given_month);
-                      Console.WriteLine("not null after ! :" + given_month + ":");
                 } else {
-                     Console.WriteLine(" null ! ");
                        month = DateTime.Today.Month;
                 }
                

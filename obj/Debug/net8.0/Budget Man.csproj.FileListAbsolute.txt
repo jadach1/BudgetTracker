@@ -1,7 +1,5 @@
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.csproj.AssemblyReference.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfoInputs.cache
-C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfo.cs
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.csproj.CoreCompileInputs.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.RazorAssemblyInfo.cache
@@ -134,3 +132,26 @@ C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\refint
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.pdb
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.genruntimeconfig.cache
 C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\ref\Budget Man.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.Views.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\MailKit.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\NETCore.MailKit.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\EmailService.dll
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\EmailService.pdb
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\bin\Debug\net8.0\EmailService.deps.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\bin\Debug\netcoreapp3.1\EmailService.deps.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\obj\EmailService.csproj.nuget.dgspec.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\bin\Debug\net8.0\Dependencies\EmailService\obj\project.assets.json
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfoInputs.cache
+C:\Users\Jacob\Desktop\developmentProjects\C#\Budget Man\obj\Debug\net8.0\Budget Man.AssemblyInfo.cs
