@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Budget_Man.Models
 {
@@ -13,6 +14,10 @@ namespace Budget_Man.Models
         public float Amount { get; set; }
         public string Date { get; set; }
         public string Description { get; set; }
+        public string MyUserName { get; set; }
+        
+        [ForeignKey("MyUserName")]
+        public IdentityUser myUser { get; set; }
     }
 
     public class ExpensesFormPosting {

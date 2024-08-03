@@ -4,6 +4,7 @@ using Budget_Man.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Budget_Man.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240803151510_username-appended-to-expenses")]
+    partial class usernameappendedtoexpenses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,18 +84,21 @@ namespace Budget_Man.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
-                    b.Property<string>("MyUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Week")
                         .HasColumnType("int");
+
+                    b.Property<string>("bigName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("crazyName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("MyUserName");
+                    b.HasIndex("crazyName");
 
                     b.ToTable("Expenses");
                 });
@@ -161,13 +167,13 @@ namespace Budget_Man.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ad89333b-1219-486d-9619-9516053d31fe",
+                            Id = "a08da7f8-ce56-4b27-96bb-de24f7063e94",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "a14a7ce4-ae72-46b4-9d6a-d9bec383ffd7",
+                            Id = "bd372318-830e-4e4b-b139-58440613ca09",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -352,15 +358,13 @@ namespace Budget_Man.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "myUser")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "MyUser")
                         .WithMany()
-                        .HasForeignKey("MyUserName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("crazyName");
+
+                    b.Navigation("MyUser");
 
                     b.Navigation("category");
-
-                    b.Navigation("myUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

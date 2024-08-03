@@ -17,10 +17,13 @@ namespace Budget_Man.Repository
             _db = db;
         }
 
-        public IEnumerable<Expenses> GetWeekOf(int week,int month){
+        public IEnumerable<Expenses> GetWeekOf(int week,int month,string userId){
             IQueryable<Expenses> query = dbSet;
-            return query.Where(e => e.Month == month && e.Week == week).OrderByDescending(s => s.Date).ToList();
+            return query.Where(e => e.Month == month && e.Week == week && e.MyUserName == userId)
+                        .OrderByDescending(s => s.Date)
+                        .ToList();
         }
+
 
         public void Update(Expenses obj)
         {
