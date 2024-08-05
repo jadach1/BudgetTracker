@@ -38,9 +38,6 @@
         //push to list of expenses
         listOfExpenses.push(expense);
 
-        //update the UI
-        // alterPosition();
-
         // update tue ul list
         updateExpenseList(expense, category[1]);
 
@@ -95,7 +92,6 @@
         element.style.fontSize = "large";
 
         //append the list item
-        console.log("append")
         list.getElementsByTagName("ul")[0].appendChild(element);
 
         // create edit button

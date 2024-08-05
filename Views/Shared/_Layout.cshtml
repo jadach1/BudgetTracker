@@ -45,6 +45,23 @@
                                 asp-action="Index">Categories</a>
                         </li>
                         <li>
+                            <div class="d-flex">
+                                <label for="" class="text-dark"/>Currency: </label>
+                                <p id="currency_selected" class="text-dark mx-3"></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <label for="currencySelection" class="text-dark">Select Currency</label>
+                                <select class="" onchange="currencyChange()" name="currencySelection" id="currencySelection" >
+                                    <option value="USD">$</option>
+                                    <option value="GBP" >£</option>
+                                    <option value="JPY">￥</option>
+                                    <option value="EUR">€</option>
+                                </select>
+                            </div>
+                        </li>   
+                        <li>
                             <a class="btn" onclick="screenSizeCheck()">Screen Size</a>
                         </li>
 
@@ -100,18 +117,7 @@
             $(".ripple-effect").rippleEffect();
         });
 
-        function screenSizeCheck(){
-             const size = +document.getElementsByTagName("body")[0].clientWidth;
-             const height = +document.getElementsByTagName("body")[0].clientHeight;
-             const bbody = document.getElementsByTagName("body");
-             
-             console.log("width " + size);
-            console.log("height " + height);
-            console.log(bbody);
-
-            const windowHeight = window.innerHeight;
-            console.log("height " + windowHeight);
-        }
+        
     </script>
     
      @await Component.InvokeAsync("Notyf")
