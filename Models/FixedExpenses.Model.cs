@@ -9,12 +9,14 @@ namespace Budget_Man.Models {
         public string? Name {get;set;}
         [Required]
         public float? Amount {get;set;}
-
+        [Required]
+        public string? Currency   {get;set;}
 
         private ApplicationDbContext? _db;
           public FixedExpense(){
             Name = "";
             Amount = 0;
+            Currency = "USD";
         }
 
         public FixedExpense(ApplicationDbContext db){
