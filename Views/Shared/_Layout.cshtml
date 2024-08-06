@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="~/css/changeMonthFormStyleSheet.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    
 </head>
 
 <body>
@@ -54,10 +53,10 @@
                             <div>
                                 <label for="currencySelection" class="text-dark">Select Currency</label>
                                 <select class="" onchange="currencyChange()" name="currencySelection" id="currencySelection" >
-                                    <option value="USD">$</option>
-                                    <option value="GBP" >£</option>
-                                    <option value="JPY">￥</option>
-                                    <option value="EUR">€</option>
+                                    <option id="currency_option_usd" value="USD">$</option>
+                                    <option id="currency_option_gbp" value="GBP" >£</option>
+                                    <option id="currency_option_jpy" value="JPY">￥</option>
+                                    <option id="currency_option_eur" value="EUR">€</option>
                                 </select>
                             </div>
                         </li>   
@@ -108,9 +107,10 @@
 <!--SCRIPTS-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/ripple-effect.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/simple-notif.js" asp-append-version="true"></script>
+    <script src="~/js/currency_library.js" asp-append-version="true"></script>
     <script>
         //set ripple effect for deleting elements
         $(document).ready(function () {
@@ -121,7 +121,7 @@
     </script>
     
      @await Component.InvokeAsync("Notyf")
-    @await RenderSectionAsync("Scripts", required: false)
+     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

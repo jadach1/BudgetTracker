@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EgpXQ8Eip5hMP2ojMV7HiFA9N1YE08vW2OuYx83PIhA=",
+  "Hash": "rH38Mpn/SR+KNgkNMZEwdXYKAJ8Cl+iwfeaEZ+H+CbM=",
   "Source": "Budget Man",
   "BasePath": "_content/Budget Man",
   "Mode": "Default",
@@ -281,6 +281,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon2.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\currency_library.js",
+      "SourceId": "Budget Man",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\",
+      "BasePath": "_content/Budget Man",
+      "RelativePath": "js/currency_library.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\currency_library.js"
     },
     {
       "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\ripple-effect.min.js",

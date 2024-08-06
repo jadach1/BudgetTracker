@@ -19,7 +19,7 @@
                 success: function (data) {
                     fireNotif('Successfully Added Expenses','success', 5000);
                     let x = JSON.stringify(data);
-                    console.log(x);
+                    console.log("success" , x);
                      ClearExpenseListItems();
                      const form  = document.getElementById("expenseForm");
                      // refresh the form, but keep current month

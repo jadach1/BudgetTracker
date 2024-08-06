@@ -32,7 +32,8 @@
             Type: category[0],
             Amount: formData.amount === "" ? "0" : formData.amount,
             Date: formData.date === "" ? getCurrentDate() : formData.date,
-            Description: formData.description
+            Description: formData.description,
+            Currency: formData.currency
         }
 
         //push to list of expenses

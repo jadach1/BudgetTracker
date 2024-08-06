@@ -86,6 +86,8 @@ namespace Budget_Man.Controllers
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
+                    Console.WriteLine("come " + item.Currency);
+                    Console.WriteLine(item);
                     Expenses newExpense = new Expenses
                     {
                         Month = ExpensesFormPosting.GetMonthNumber_From_MonthName(item.Month),
@@ -93,11 +95,11 @@ namespace Budget_Man.Controllers
                         CategoryId = HelperFunctions.ConvertStringToInt(item.Type),
                         Amount = HelperFunctions.ConvertStringToFloat(item.Amount),
                         Date = item.Date,
-                        Description = item.Description
+                        Description = item.Description,
+                        MyUserName = user.Id,
+                        Currency = item.Currency
                     };
-                    //AMMEND USER
-                    newExpense.MyUserName = user.Id;
-
+                     
                     counter++;
                     _db.expensesRepository.Add(newExpense);
                 };

@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\favicon2.ico"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\currency_library.js",
+      "PackagePath": "staticwebassets\\js\\currency_library.js"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\ripple-effect.min.js",
       "PackagePath": "staticwebassets\\js\\ripple-effect.min.js"
     },
