@@ -3,34 +3,39 @@ using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Budget_Man.Controllers
 {
-     [Authorize]
+    [Authorize]
     public class ExpensesController : Controller
     {
         // private readonly ApplicationDbContext _db;
         private readonly IUnitOfWork _db;
-        public ExpensesController(IUnitOfWork db)
+        private readonly UserManager<IdentityUser> _userManager;
+        public ExpensesController(IUnitOfWork db, UserManager<IdentityUser> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
-        public IActionResult Index(IFormCollection form)
+        public async Task<IActionResult> IndexAsync(IFormCollection form)
         {
             try
             {
                 var given_month = form["month_number"];
                 int month;
 
-                if(!given_month.IsNullOrEmpty()){
-                      month = int.Parse(given_month);
-                } else {
-                       month = DateTime.Today.Month;
+                if (!given_month.IsNullOrEmpty())
+                {
+                    month = int.Parse(given_month);
                 }
-               
+                else
+                {
+                    month = DateTime.Today.Month;
+                }
+
                 int year = DateTime.Today.Year;
                 DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
 
@@ -39,18 +44,22 @@ namespace Budget_Man.Controllers
 
                 ViewData["month"] = dtfi.GetMonthName(month);
                 ViewData["year"] = year;
-
-                //Get Categories
+                
+                //FETCH, FROM DB, CATEGORIES
                 IEnumerable<Category> categories = _db.categoryRepository.GetAll();
                 ViewData["categories"] = categories;
 
+                // PREPARE 
                 MasterExpenseList masterExpenseList = new MasterExpenseList();
 
-                //Get Expenses
+                //GET USER  
+                var user = await _userManager.GetUserAsync(User);
+                
+                //FETCH, FROM DB, Get Expenses
                 for (int i = 1; i < 6; i++)
                 {
                     string str = "expenses" + i;
-                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month);
+                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month,user.Id);
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     ViewData[str] = expenses;
                 }
@@ -71,10 +80,14 @@ namespace Budget_Man.Controllers
         {
             try
             {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
                 int counter = 0;
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
+                    Console.WriteLine("come " + item.Currency);
+                    Console.WriteLine(item);
                     Expenses newExpense = new Expenses
                     {
                         Month = ExpensesFormPosting.GetMonthNumber_From_MonthName(item.Month),
@@ -82,8 +95,11 @@ namespace Budget_Man.Controllers
                         CategoryId = HelperFunctions.ConvertStringToInt(item.Type),
                         Amount = HelperFunctions.ConvertStringToFloat(item.Amount),
                         Date = item.Date,
-                        Description = item.Description
+                        Description = item.Description,
+                        MyUserName = user.Id,
+                        Currency = item.Currency
                     };
+                     
                     counter++;
                     _db.expensesRepository.Add(newExpense);
                 };

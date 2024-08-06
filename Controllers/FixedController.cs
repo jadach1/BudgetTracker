@@ -28,10 +28,12 @@ public class FixedExpenses : Controller
         {
             var name = formCollection["name"];
             var amount = formCollection["amount"];
-
+            var currency = formCollection["currency"];
+            
             FixedExpense fe = new FixedExpense();
             fe.Name = formCollection["name"];
             fe.Amount = Single.Parse(formCollection["amount"]);
+            fe.Currency = currency;
          
             _dbCentral.fixedExpensesRepository.Add(fe);
             _dbCentral.Save();

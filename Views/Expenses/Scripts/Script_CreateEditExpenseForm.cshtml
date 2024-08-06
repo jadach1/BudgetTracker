@@ -9,6 +9,11 @@
     })
 </script>
 
+<!--SETTING VARIABLES FOR FORM--->
+<script>
+    // the reason this is not grouped within the currency_library.js script page is because that script will load when this page may not, and thereby giving us an error.
+    document.getElementById("CreateEditExpenseForm_Currency").value = window.localStorage.getItem('currency') == null ? 'USD' : window.localStorage.getItem('currency');
+</script>
 <!-- FUNCTIONS FORM SUBMISSION-->
 <script>
     // Create an empty list of expenses
@@ -35,11 +40,12 @@
             Description: formData.description
         }
 
+        expense.Currency = formData.currency === "" ? "$" : currency_formatter.format(expense.Amount)[0]
+
+        console.log(expense);
+
         //push to list of expenses
         listOfExpenses.push(expense);
-
-        //update the UI
-        // alterPosition();
 
         // update tue ul list
         updateExpenseList(expense, category[1]);
@@ -95,7 +101,6 @@
         element.style.fontSize = "large";
 
         //append the list item
-        console.log("append")
         list.getElementsByTagName("ul")[0].appendChild(element);
 
         // create edit button

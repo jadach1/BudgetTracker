@@ -15,6 +15,17 @@
             <input id="fixedExpenseForm_amount" type="decimal" class="form-control" name="amount">
             <span id="fixedExpenseForm_errorAmount" class="text-danger"></span>
         </div>
+        <div>
+            <label for="currencySelection">Select Currency</label>
+            <div>
+                <select style="width: 150px;" name="currency" id="fixedExpenseForm_currency">
+                    <option value="USD">$</option>
+                    <option value="GBP">£</option>
+                    <option value="JPY">￥</option>
+                    <option value="EUR">€</option>
+                </select>
+            </div>
+        </div>
         <div class="my-2">
             <a onclick="onSubmit(this)" class="btn btn-primary">Submit <span><i
                         class="bi bi-check2-circle"></i></span></a>

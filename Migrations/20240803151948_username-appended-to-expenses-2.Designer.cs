@@ -4,6 +4,7 @@ using Budget_Man.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Budget_Man.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240803151948_username-appended-to-expenses-2")]
+    partial class usernameappendedtoexpenses2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,10 +73,6 @@ namespace Budget_Man.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -85,18 +84,17 @@ namespace Budget_Man.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
-                    b.Property<string>("MyUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Week")
                         .HasColumnType("int");
+
+                    b.Property<string>("myUserName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("MyUserName");
+                    b.HasIndex("myUserName");
 
                     b.ToTable("Expenses");
                 });
@@ -113,10 +111,6 @@ namespace Budget_Man.Migrations
                         .IsRequired()
                         .HasColumnType("real");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -130,14 +124,12 @@ namespace Budget_Man.Migrations
                         {
                             Id = 1,
                             Amount = 10f,
-                            Currency = "USD",
                             Name = "Phone"
                         },
                         new
                         {
                             Id = 2,
                             Amount = 20f,
-                            Currency = "USD",
                             Name = "Gym"
                         });
                 });
@@ -171,13 +163,13 @@ namespace Budget_Man.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d4aa9dc-ed35-4473-8aba-e7666312f3d5",
+                            Id = "290ff56a-0943-4692-b6e4-10d3219fbb9a",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "b8b50878-cd78-4edc-bca9-58691a8fbc8c",
+                            Id = "e7043ca0-cbf9-4fd8-8eb4-9fcaeb359ffc",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -362,15 +354,13 @@ namespace Budget_Man.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "myUser")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "MyUser")
                         .WithMany()
-                        .HasForeignKey("MyUserName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("myUserName");
+
+                    b.Navigation("MyUser");
 
                     b.Navigation("category");
-
-                    b.Navigation("myUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

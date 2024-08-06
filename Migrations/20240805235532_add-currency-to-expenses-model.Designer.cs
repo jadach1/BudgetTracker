@@ -4,6 +4,7 @@ using Budget_Man.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Budget_Man.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240805235532_add-currency-to-expenses-model")]
+    partial class addcurrencytoexpensesmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,10 +116,6 @@ namespace Budget_Man.Migrations
                         .IsRequired()
                         .HasColumnType("real");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -130,14 +129,12 @@ namespace Budget_Man.Migrations
                         {
                             Id = 1,
                             Amount = 10f,
-                            Currency = "USD",
                             Name = "Phone"
                         },
                         new
                         {
                             Id = 2,
                             Amount = 20f,
-                            Currency = "USD",
                             Name = "Gym"
                         });
                 });
@@ -171,13 +168,13 @@ namespace Budget_Man.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d4aa9dc-ed35-4473-8aba-e7666312f3d5",
+                            Id = "657ecbe3-82d1-4203-b581-6bfc69c35f74",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "b8b50878-cd78-4edc-bca9-58691a8fbc8c",
+                            Id = "ee413926-253f-49bd-8154-e3b7386dab12",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

@@ -1,57 +1,69 @@
 @model DisplayExpenses
-
+@{
+    float weeklyTotal = 0;
+}
 <table class="table table-striped border border-solid border-2 border-primary">
-        <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
-        <a 
-           id="@Model.uniqueIdName"
-           class="btn btn-outline-primary 
+    <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
+    <a id="@Model.uniqueIdName" class="btn btn-outline-primary 
                   offset-11 d-flex 
                   justify-content-center 
-                  customCaret" >
-            <i class="bi bi-caret-down-square ">
-            </i>
-        </a>
-        <thead class="border border-3 border-secondary">
-            <tr class="row text-light">
-                <td class="col-3 text-center">Expense<i class="bi bi-tag"></i></td>
-                <td class="col-3 text-center">Amount  <i class="bi bi-cash"></i></td>
-                <td class="col-3 text-center">Date    <i class="bi bi-calendar-date"></i></td>
-                <td class="col-3 text-center ">Description<i class="bi bi-chat-dots"></i></td>
-            </tr>
-        </thead>
-        <tbody >
-            @* @foreach(var obj in Model.expenses){
-    using System.ComponentModel.DataAnnotations.Schema;
-                <tr class="row">
-                <td class="col-3 text-center">@obj.category.Name</td>
-                <td class="col-3 text-center">$@obj.Amount </td>
-                <td class="col-3 text-center">@obj.Date</td>
-                <td class="col-3 text-center">@obj.Description</td>
-            </tr>
-            } *@
-            <tr class=@Model.uniqueClassNameStart></tr>
-            @foreach(var obj in Model.expenses){
-                <tr class="row">
-                <td class="col-3 text-center">@obj.category.Name</td>
-                <td class="col-3 text-center">$@obj.Amount </td>
-                <td class="col-3 text-center">@obj.Date</td>
-                <td class="col-3 text-center">@obj.Description</td>
-                </tr>
-            }
-            <tr class="row"><td><hr/></td></tr>
-            <tr class=@Model.uniqueClassNameStop><td><button id="week1CreateExpenseButton" class="btn btn-secondary">
-                <i class="bi bi-plus-circle"></i> New</button></td></tr>
-        </tbody >
-    </table>
+                  customCaret">
+        <i class="bi bi-caret-down-square ">
+        </i>
+    </a>
+    <thead class="border border-3 border-secondary">
+        <tr class="row text-light">
+            <td class="col-3 text-center">Expense<i class="bi bi-tag"></i></td>
+            <td class="col-3 text-center">Amount <i class="bi bi-cash"></i></td>
+            <td class="col-3 text-center">Date <i class="bi bi-calendar-date"></i></td>
+            <td class="col-3 text-center ">Description<i class="bi bi-chat-dots"></i></td>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach(var obj in Model.expenses){
+        using System.ComponentModel.DataAnnotations.Schema;
+        <tr class="row">
+        <td class="col-3 text-center">@obj.category.Name</td>
+        using Microsoft.AspNetCore.Mvc.TagHelpers;
+        <td class="col-3 text-center">$@obj.Amount </td>
+        <td class="col-3 text-center">@obj.Date</td>
+        <td class="col-3 text-center">@obj.Description</td>
+        </tr>
+        } *@
+        <tr class=@Model.uniqueClassNameStart></tr>
+        @foreach (var obj in Model.expenses)
+        {
 
-    <!--FOR CONTROLLING THE ABOVE CARET FOR HIDING AND DISPLAYING A TABLE-->
+            <tr class="row">
+                <td class="col-3 text-center">@obj.category.Name</td>
+                <td class="col-3 text-center">@obj.Currency @obj.Amount </td>
+                <td class="col-3 text-center">@obj.Date</td>
+                <td class="col-3 text-center">@obj.Description</td>
+            </tr>
+
+            weeklyTotal += @obj.Amount;
+        }
+        <tr class="row">
+            <td>
+                <hr />
+            </td>
+        </tr>
+        <tr class=@Model.uniqueClassNameStop>
+            <td class="d-flex justify-content-end">
+                <bold>
+                    <p class="text-secondary ">Total-Spent:  @weeklyTotal</p>
+                </bold>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<!--FOR CONTROLLING THE ABOVE CARET FOR HIDING AND DISPLAYING A TABLE-->
 <script>
-  document.getElementById("@Model.uniqueIdName").addEventListener("click", function () {
-    const fromTheStart_Tr = "@Model.uniqueClassNameStart";
-    const toTheStop_Tr = "@Model.uniqueClassNameStop";
-    HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
-  })
+    document.getElementById("@Model.uniqueIdName").addEventListener("click", function () {
+        const fromTheStart_Tr = "@Model.uniqueClassNameStart";
+        const toTheStop_Tr = "@Model.uniqueClassNameStop";
+        HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
+    })
 </script>
-
-      
-    
