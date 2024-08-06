@@ -1,6 +1,17 @@
 ﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+//Check for notifications
+
+
+if(window.localStorage.getItem('Success'))
+{
+    console.log("is this not on", window.localStorage.getItem("Success"));
+    const msg = window.localStorage.getItem('Success')
+    fireNotif(msg,'success', 5000);
+    window.localStorage.removeItem('Success');
+}
+
 
 //Format 2024-5-2 to Thursday May 2024
 var listOfMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

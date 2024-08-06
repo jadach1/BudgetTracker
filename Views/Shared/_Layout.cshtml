@@ -43,29 +43,31 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Category"
                                 asp-action="Index">Categories</a>
                         </li>
-                        <li>
-                            <div class="d-flex">
-                                <label for="" class="text-dark"/>Currency: </label>
-                                <p id="currency_selected" class="text-dark mx-3"></p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <label for="currencySelection" class="text-dark">Select Currency</label>
-                                <select class="" onchange="currencyChange()" name="currencySelection" id="currencySelection" >
-                                    <option id="currency_option_usd" value="USD">$</option>
-                                    <option id="currency_option_gbp" value="GBP" >£</option>
-                                    <option id="currency_option_jpy" value="JPY">￥</option>
-                                    <option id="currency_option_eur" value="EUR">€</option>
-                                </select>
-                            </div>
-                        </li>   
+                             
                         <li>
                             <a class="btn" onclick="screenSizeCheck()">Screen Size</a>
                         </li>
 
                          @if (SignInManager.IsSignedIn(User))
                         {
+                            <li>
+                                  <div class="d-flex">
+                                    <label for="" class="text-dark">Currency: </label>
+                                    <p id="currency_selected" class="text-dark mx-3"></p>
+                                  </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <label for="currencySelection" class="text-dark">Select Currency</label>
+                                    <select class="" onchange="currencyChange()" name="currencySelection" id="currencySelection" >
+                                        <option id="currency_option_usd" value="USD">$</option>
+                                        <option id="currency_option_gbp" value="GBP" >£</option>
+                                        <option id="currency_option_jpy" value="JPY">￥</option>
+                                        <option id="currency_option_eur" value="EUR">€</option>
+                                    </select>
+                                </div>
+                            </li>  
+                        
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" 
                                     title="Welcome">Welcome @User.Identity.Name!</a>
@@ -107,9 +109,9 @@
 <!--SCRIPTS-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/ripple-effect.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/simple-notif.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/currency_library.js" asp-append-version="true"></script>
     <script>
         //set ripple effect for deleting elements
