@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rH38Mpn/SR+KNgkNMZEwdXYKAJ8Cl+iwfeaEZ+H+CbM=",
+  "Hash": "kG4awSpIi2vbxhvQGFQJVaEiTe9pJQwJ3nLPlwGwSBM=",
   "Source": "Budget Man",
   "BasePath": "_content/Budget Man",
   "Mode": "Default",
@@ -186,6 +186,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\expenseFormStyleSheet.css"
+    },
+    {
+      "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseTablesStyleSheet.css",
+      "SourceId": "Budget Man",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\",
+      "BasePath": "_content/Budget Man",
+      "RelativePath": "css/expenseTablesStyleSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\expenseTablesStyleSheet.css"
     },
     {
       "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\mediaQueries.css",

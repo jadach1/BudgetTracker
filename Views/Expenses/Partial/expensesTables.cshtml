@@ -33,14 +33,18 @@
         <tr class=@Model.uniqueClassNameStart></tr>
         @foreach (var obj in Model.expenses)
         {
-
-            <tr class="row">
+            var expense_id = "expense"+@obj.Id;
+            <tr expense_id=@expense_id class="row" onclick="edit_expense(@obj.Id)">
                 <td class="col-3 text-center">@obj.category.Name</td>
                 <td class="col-3 text-center">@obj.Currency @obj.Amount </td>
                 <td class="col-3 text-center">@obj.Date</td>
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
-
+            <tr class="row expense-table-row">
+                <td class="col-2 expense-table-icons"><span class="bi bi-pencil rounded-5 btn-dark"></span></td>
+                <td class="col-2 expense-table-icons"><span class="bi bi-trash rounded-5 btn-dark"></span></td>
+                <td class="col-2 expense-table-icons"><span class="bi bi-x-circle-fill rounded-5 btn-dark"></span></td>
+            </tr>
             weeklyTotal += @obj.Amount;
         }
         <tr class="row">
