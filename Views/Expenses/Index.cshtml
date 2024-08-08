@@ -1,7 +1,6 @@
 @model MasterExpenseList
 
 
-
 <h1 class="d-flex justify-content-center my-5">Expenses for @ViewData["month"] @ViewData["year"]</h1>
  
  <!-- CHANGE MONTH FORM BUTTON -->
@@ -17,6 +16,13 @@
     style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
         <partial name="./Partial/createEditExpensesForm.cshtml" model="@Model.createExpenseForm" />
+    </div>
+
+     <!-- EDIT EXPENSE FORM MODAL -->
+    <div id="EditExpenseForm" hidden class=" bg-primary rounded-5"
+    style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
+        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
+        <partial name="./Partial/EditExpenseForm/EditExpensesForm.cshtml" />
     </div>
 
     <!-- CHANGE MONTH FORM MODAL -->

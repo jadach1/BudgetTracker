@@ -20,16 +20,6 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach(var obj in Model.expenses){
-        using System.ComponentModel.DataAnnotations.Schema;
-        <tr class="row">
-        <td class="col-3 text-center">@obj.category.Name</td>
-        using Microsoft.AspNetCore.Mvc.TagHelpers;
-        <td class="col-3 text-center">$@obj.Amount </td>
-        <td class="col-3 text-center">@obj.Date</td>
-        <td class="col-3 text-center">@obj.Description</td>
-        </tr>
-        } *@
         <tr class=@Model.uniqueClassNameStart></tr>
         @foreach (var obj in Model.expenses)
         {
@@ -43,12 +33,24 @@
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
             <tr id=@expense_edit_delete_id class="row expense-table-row" hidden>
-                <td class="col-2 expense-table-icons"><span class="bi bi-pencil rounded-5 btn-dark"></span></td>
+                <td class="col-2 expense-table-icons" onclick="toggle_edit_expense_form()"><span class="bi bi-pencil rounded-5 btn-dark"></span></td>
                 <td class="col-2 expense-table-icons"><span class="bi bi-trash rounded-5 btn-dark"></span></td>
                 <td class="col-2 expense-table-icons" onclick="toggle_edit_delete_expense(@obj.Id,true)"><span class="bi bi-x-circle-fill rounded-5 btn-dark"></span></td>
             </tr>
             weeklyTotal += @obj.Amount;
         }
+        <script>
+            function toggle_edit_expense_form(){
+                document.getElementById("EditExpenseForm").hidden = true;
+                 createEditExpensesForm.classList.add("d-flex");
+
+                    //Alter position of form
+                    alterPosition();
+
+                    //disable buttons
+                    disableEnableAllButtons(true);
+            }
+        </script>
         <tr class="row">
             <td>
                 <hr />

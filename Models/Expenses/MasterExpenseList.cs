@@ -2,6 +2,7 @@ using Budget_Man.Models;
 
 public class MasterExpenseList{
     public createExpenseForm createExpenseForm;
+    public Expenses editExpenseform;
     public List<DisplayExpenses> ListOfExpenses;
 
     public MasterExpenseList(){

@@ -47,6 +47,15 @@
     changeMonthExpensesForm.hidden = true;
     disableEnableAllButtons(false);
   })
+
+
+  // Hide-Box for the edit-expense-form 
+  document.getElementById("edit-expense-form-hide-button").addEventListener("click", () => {
+    let EditExpensesForm = document.getElementById("edit-expense-form-hide-button")
+    EditExpensesForm.classList.remove("d-flex");
+    EditExpensesForm.hidden = true;
+    disableEnableAllButtons(false);
+  })
 </script>
 
 <!-- FUNCTIONS VISIBILITY-->
@@ -113,6 +122,8 @@
     for(let i = 0; i < nodes.length; i++){
       nodes[i].style.color = colorFlag;
     }    
-    document.getElementById("expense_table_edit_and_delete_elements_"+id).hidden = flag;
+    let icon_row = document.getElementById("expense_table_edit_and_delete_elements_"+id);
+    icon_row.hidden = flag;
+    icon_row.style.display = flag ? "none" : "flex";
   }
 </script>
