@@ -34,16 +34,18 @@
         @foreach (var obj in Model.expenses)
         {
             var expense_id = "expense"+@obj.Id;
-            <tr expense_id=@expense_id class="row" onclick="edit_expense(@obj.Id)">
+            var expense_edit_delete_id = "expense_table_edit_and_delete_elements_" + @obj.Id;
+
+            <tr  id=@expense_id class="row" onclick="toggle_edit_delete_expense(@obj.Id,false)">
                 <td class="col-3 text-center">@obj.category.Name</td>
-                <td class="col-3 text-center">@obj.Currency @obj.Amount </td>
+                <td class="col-3 text-center ">@obj.Currency @obj.Amount </td>
                 <td class="col-3 text-center">@obj.Date</td>
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
-            <tr class="row expense-table-row">
+            <tr id=@expense_edit_delete_id class="row expense-table-row" hidden>
                 <td class="col-2 expense-table-icons"><span class="bi bi-pencil rounded-5 btn-dark"></span></td>
                 <td class="col-2 expense-table-icons"><span class="bi bi-trash rounded-5 btn-dark"></span></td>
-                <td class="col-2 expense-table-icons"><span class="bi bi-x-circle-fill rounded-5 btn-dark"></span></td>
+                <td class="col-2 expense-table-icons" onclick="toggle_edit_delete_expense(@obj.Id,true)"><span class="bi bi-x-circle-fill rounded-5 btn-dark"></span></td>
             </tr>
             weeklyTotal += @obj.Amount;
         }

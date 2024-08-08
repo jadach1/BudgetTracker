@@ -106,8 +106,13 @@
 
 <!-- FUNCTIONS EDIT MODAL-->
 <script>
-  edit_expense(id)
+  function toggle_edit_delete_expense(id,flag=true)
   {
-    console.log("id of edit id is " +id);
+    let colorFlag = flag ? "white" : "aqua";
+    let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
+    for(let i = 0; i < nodes.length; i++){
+      nodes[i].style.color = colorFlag;
+    }    
+    document.getElementById("expense_table_edit_and_delete_elements_"+id).hidden = flag;
   }
 </script>
