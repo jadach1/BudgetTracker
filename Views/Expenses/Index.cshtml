@@ -1,39 +1,36 @@
 @model MasterExpenseList
 
-
 <h1 class="d-flex justify-content-center my-5">Expenses for @ViewData["month"] @ViewData["year"]</h1>
- 
- <!-- CHANGE MONTH FORM BUTTON -->
-    <div class="row">
-        <button id="changeMonthFormButton"
-            class="btn btn-outline-light my-3 text-center d-flex justify-content-center ">Switch Month<i
-                class="bi bi-calendar3"></i></button>
-    </div>
+
+<!-- CHANGE MONTH FORM BUTTON -->
+<div class="row">
+    <button id="changeMonthFormButton"
+        class="btn btn-outline-light my-3 text-center d-flex justify-content-center ">Switch Month<i
+            class="bi bi-calendar3"></i></button>
+</div>
 
 <div class="container ">
     <!-- CREATE EXPENSE FORM MODAL -->
     <div id="createEditExpensesForm" hidden class=" bg-primary rounded-5"
-    style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
+        style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
         <partial name="./Partial/createEditExpensesForm.cshtml" model="@Model.createExpenseForm" />
     </div>
 
-     <!-- EDIT EXPENSE FORM MODAL -->
-    <div id="EditExpenseForm" hidden class=" bg-primary rounded-5"
-    style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
-        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
-        <partial name="./Partial/EditExpenseForm/EditExpensesForm.cshtml" />
-    </div>
-
     <!-- CHANGE MONTH FORM MODAL -->
     <div id="changeMonthForm" hidden class=" bg-primary rounded-5"
-    style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
+        style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <partial name="./Partial/changeMonthForm.cshtml" />
     </div>
 
-   
+    <!-- EDIT EXPENSE FORM MODAL -->
+    <div id="editExpenseFormModal"  hidden class=" bg-primary rounded-5 "
+        style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
+        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
+        <partial name="./Partial/EditExpenseForm/EditExpenseForm.cshtml" model="@Model.editExpenseform" />
+    </div>
 
-     <!-- CREATE EXPENSE FORM BUTTON -->
+    <!-- CREATE EXPENSE FORM BUTTON -->
     <div class="row">
         <button id="createEditExpensesFormButton"
             class="btn btn-outline-light my-5 text-center d-flex justify-content-center ">New Expense <i
@@ -41,12 +38,18 @@
     </div>
 
     <!--5 tables, each denotes a week of expenses-->
-    @foreach(var item in Model.ListOfExpenses){
-        <div class="row"><h2 class="d-flex justify-content-center"><span class="align-middle">Week @item.week</span></h2></div>
+    @foreach (var item in Model.ListOfExpenses)
+    {
+        <div class="row">
+            <h2 class="d-flex justify-content-center"><span class="align-middle">Week @item.week</span></h2>
+        </div>
         <partial name="./Partial/expensesTables.cshtml" model="@item" />
     }
-    
+
 </div>
 
 <!--SCRIPTS-->
 <partial name="./Scripts/Script_IndexTableLoad" />
+<partial name="./Scripts/Script_Edit_ExpenseForm.cshtml" />
+
+

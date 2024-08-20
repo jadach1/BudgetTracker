@@ -1,64 +1,64 @@
 
 
 <script>
-         function ajaxCallToExpenseController(expense) {
-            const obj = JSON.stringify(listOfExpenses);
-            $.ajax({
+    function ajaxCallToExpenseController(expense) {
+        const obj = JSON.stringify(listOfExpenses);
+        $.ajax({
 
-                // Our sample url to make request 
-                url:
-                    '/Expenses/Create',
+            // Our sample url to make request 
+            url:
+                '/Expenses/Create',
 
-                // Type of Request
-                contentType: 'application/json; charset=utf-8',
-                type: "Post",
-                data: obj,
+            // Type of Request
+            contentType: 'application/json; charset=utf-8',
+            type: "Post",
+            data: obj,
 
-                // Function to call when to
-                // request is ok 
-                success: function (data) {
-                    window.localStorage.setItem("Success","Successfully Added Expenses");
-                    let x = JSON.stringify(data);
-                    console.log("success" , x);
-                     ClearExpenseListItems();
-                     const form  = document.getElementById("expenseForm");
-                     // refresh the form, but keep current month
-                     form.submit();
-                },
+            // Function to call when to
+            // request is ok 
+            success: function (data) {
+                window.localStorage.setItem("Success", "Successfully Added Expenses");
+                let x = JSON.stringify(data);
+                console.log("success", x);
+                ClearExpenseListItems();
+                const form = document.getElementById("expenseForm");
+                // refresh the form, but keep current month
+                form.submit();
+            },
 
-                // Error handling 
-                error: function (error) {
-                    //console.log(`Error ${error}`);
-                    fireNotif('There was an Error Adding Expenses','error', 5000);
-                    console.log(error)
-                }
-            });
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error Adding Expenses', 'error', 5000);
+                console.log(error)
+            }
+        });
+    }
+
+    @* function ajaxCallSaveExpenses() {
+        $.ajax({
+
+        // Our sample url to make request
+        url:
+        '/Expenses/CreateSave',
+
+        // Type of Request
+        type: "Post",
+
+        // Function to call when to request is ok
+        success: function (data) {
+        let x = JSON.stringify(data);
+        console.log(x);
+        //clear all items
+
+        },
+
+        // Error handling
+        error: function (error) {
+        console.log(`Error2 ${error}`);
+        console.log(error)
         }
-
-        @* function ajaxCallSaveExpenses() {
-            $.ajax({
-
-                // Our sample url to make request 
-                url:
-                    '/Expenses/CreateSave',
-
-                // Type of Request
-                type: "Post",
-
-                // Function to call when to request is ok 
-                success: function (data) {
-                    let x = JSON.stringify(data);
-                    console.log(x);
-                    //clear all items
-                    
-                },
-
-                // Error handling 
-                error: function (error) {
-                    console.log(`Error2 ${error}`);
-                    console.log(error)
-                }
-            });
+        });
         } *@
 
 </script>

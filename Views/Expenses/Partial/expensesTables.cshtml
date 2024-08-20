@@ -1,7 +1,9 @@
+@using System.Text.Json
 @model DisplayExpenses
 @{
     float weeklyTotal = 0;
 }
+   
 <table class="table table-striped border border-solid border-2 border-primary">
     <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
     <a id="@Model.uniqueIdName" class="btn btn-outline-primary 
@@ -23,34 +25,26 @@
         <tr class=@Model.uniqueClassNameStart></tr>
         @foreach (var obj in Model.expenses)
         {
-            var expense_id = "expense"+@obj.Id;
+            var expense_id = "expense" + @obj.Id;
             var expense_edit_delete_id = "expense_table_edit_and_delete_elements_" + @obj.Id;
-
-            <tr  id=@expense_id class="row" onclick="toggle_edit_delete_expense(@obj.Id,false)">
+            var jsonString = JsonSerializer.Serialize(obj);
+            
+            <tr id=@expense_id class="row" onclick="toggle_edit_delete_expense(@obj.Id,false)">
                 <td class="col-3 text-center">@obj.category.Name</td>
                 <td class="col-3 text-center ">@obj.Currency @obj.Amount </td>
                 <td class="col-3 text-center">@obj.Date</td>
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
-            <tr id=@expense_edit_delete_id class="row expense-table-row" hidden>
-                <td class="col-2 expense-table-icons" onclick="toggle_edit_expense_form()"><span class="bi bi-pencil rounded-5 btn-dark"></span></td>
-                <td class="col-2 expense-table-icons"><span class="bi bi-trash rounded-5 btn-dark"></span></td>
-                <td class="col-2 expense-table-icons" onclick="toggle_edit_delete_expense(@obj.Id,true)"><span class="bi bi-x-circle-fill rounded-5 btn-dark"></span></td>
+            <tr id=@expense_edit_delete_id class="row expense-table-row" hidden >
+                <td class="col-2 expense-table-icons" onclick="toggle_edit_expense_form(@jsonString)"><span
+                        class="bi bi-pencil rounded-5 btn-dark"></span></td>
+                <td class="col-2 expense-table-icons" ><span class="bi bi-trash rounded-5 btn-dark"></span></td>
+                <td class="col-2 expense-table-icons" onclick="toggle_edit_delete_expense(@obj.Id,true)"><span
+                        class="bi bi-x-circle-fill rounded-5 btn-dark"></span></td>
             </tr>
             weeklyTotal += @obj.Amount;
         }
-        <script>
-            function toggle_edit_expense_form(){
-                document.getElementById("EditExpenseForm").hidden = true;
-                 createEditExpensesForm.classList.add("d-flex");
-
-                    //Alter position of form
-                    alterPosition();
-
-                    //disable buttons
-                    disableEnableAllButtons(true);
-            }
-        </script>
+      
         <tr class="row">
             <td>
                 <hr />
@@ -59,7 +53,7 @@
         <tr class=@Model.uniqueClassNameStop>
             <td class="d-flex justify-content-end">
                 <bold>
-                    <p class="text-secondary ">Total-Spent:  @weeklyTotal</p>
+                    <p class="text-secondary ">Total-Spent: @weeklyTotal</p>
                 </bold>
             </td>
         </tr>
@@ -75,3 +69,4 @@
         HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
     })
 </script>
+

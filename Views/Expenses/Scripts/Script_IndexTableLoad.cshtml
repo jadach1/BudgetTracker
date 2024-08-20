@@ -48,21 +48,12 @@
     disableEnableAllButtons(false);
   })
 
-
-  // Hide-Box for the edit-expense-form 
-  document.getElementById("edit-expense-form-hide-button").addEventListener("click", () => {
-    let EditExpensesForm = document.getElementById("edit-expense-form-hide-button")
-    EditExpensesForm.classList.remove("d-flex");
-    EditExpensesForm.hidden = true;
-    disableEnableAllButtons(false);
-  })
 </script>
 
 <!-- FUNCTIONS VISIBILITY-->
 <script>
   function disableEnableAllButtons(flag = true) {
     document.getElementById("createEditExpensesFormButton").disabled = flag;
-    document.getElementById("week1CreateExpenseButton").disabled = flag;
     document.getElementById("createExpenseStagingArea").disabled = flag;
     document.getElementById("changeMonthFormButton").disabled = flag;
   }
@@ -115,6 +106,14 @@
 
 <!-- FUNCTIONS EDIT MODAL-->
 <script>
+    // Hide-Box for the edit-expense-form 
+  document.getElementById("edit-expense-form-hide-button").addEventListener("click", () => {
+    let EditExpensesForm = document.getElementById("editExpenseFormModal");
+    EditExpensesForm.classList.remove("d-flex");
+    EditExpensesForm.hidden = true;
+    disableEnableAllButtons(false);
+  })
+  
   function toggle_edit_delete_expense(id,flag=true)
   {
     let colorFlag = flag ? "white" : "aqua";

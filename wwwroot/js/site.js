@@ -39,3 +39,55 @@ function screenSizeCheck(){
    fireNotif('screen size','success', 5000);
 }
 
+// For testing purposes, add 100 rows of data to the db
+    function loadErUp() {
+        console.log("loading");
+      let list = [];
+
+        for (let i = 0; i < 100; i++) {
+            //create the object
+            let expense = {
+                Month: "August",
+                Week: "1",
+                Type: "1",
+                Amount: "12"+i,
+                Date: "2024-8-7",
+                Description: "insert " + i,
+                Currency: "$"
+            }
+
+            list.push(expense);
+        }
+
+        const obj = JSON.stringify(list);
+
+         $.ajax({
+
+            // Our sample url to make request 
+            url:
+                '/Expenses/Create',
+
+            // Type of Request
+            contentType: 'application/json; charset=utf-8',
+            type: "Post",
+            data: obj,
+
+            // Function to call when to
+            // request is ok 
+            success: function (data) {
+                window.localStorage.setItem("Success", "Successfully Added Expenses");
+                let x = JSON.stringify(data);
+                console.log("success", x);
+              //  const form = document.getElementById("expenseForm");
+                // refresh the form, but keep current month
+                //form.submit();
+            },
+
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error Adding Expenses', 'error', 5000);
+                console.log(error)
+            }
+        });
+    }

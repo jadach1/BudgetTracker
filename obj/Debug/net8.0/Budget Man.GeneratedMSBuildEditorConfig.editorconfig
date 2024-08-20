@@ -70,6 +70,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxFZGl0RXhwZW5zZUZvcm1cRWRpdEV4cGVuc2VGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/EditExpenseForm/Partial/EditMonth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxFZGl0RXhwZW5zZUZvcm1cUGFydGlhbFxFZGl0TW9udGguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/EditExpenseForm/Partial/EditWeek.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxFZGl0RXhwZW5zZUZvcm1cUGFydGlhbFxFZGl0V2Vlay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -80,6 +84,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_CreateEditExpenseForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcU2NyaXB0c1xTY3JpcHRfQ3JlYXRlRWRpdEV4cGVuc2VGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_Edit_ExpenseForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcU2NyaXB0c1xTY3JpcHRfRWRpdF9FeHBlbnNlRm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_ExpenseDBCalls.cshtml]

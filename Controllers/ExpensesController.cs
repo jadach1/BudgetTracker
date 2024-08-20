@@ -5,6 +5,7 @@ using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Budget_Man.Controllers
@@ -44,7 +45,7 @@ namespace Budget_Man.Controllers
 
                 ViewData["month"] = dtfi.GetMonthName(month);
                 ViewData["year"] = year;
-                
+
                 //FETCH, FROM DB, CATEGORIES
                 IEnumerable<Category> categories = _db.categoryRepository.GetAll();
                 ViewData["categories"] = categories;
@@ -54,12 +55,12 @@ namespace Budget_Man.Controllers
 
                 //GET USER  
                 var user = await _userManager.GetUserAsync(User);
-                
+
                 //FETCH, FROM DB, Get Expenses
                 for (int i = 1; i < 6; i++)
                 {
                     string str = "expenses" + i;
-                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month,user.Id);
+                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month, user.Id);
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     ViewData[str] = expenses;
                 }
@@ -83,11 +84,10 @@ namespace Budget_Man.Controllers
                 //GET USER 
                 var user = await _userManager.GetUserAsync(User);
                 int counter = 0;
+
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
-                    Console.WriteLine("come " + item.Currency);
-                    Console.WriteLine(item);
                     Expenses newExpense = new Expenses
                     {
                         Month = ExpensesFormPosting.GetMonthNumber_From_MonthName(item.Month),
@@ -99,7 +99,7 @@ namespace Budget_Man.Controllers
                         MyUserName = user.Id,
                         Currency = item.Currency
                     };
-                     
+
                     counter++;
                     _db.expensesRepository.Add(newExpense);
                 };
@@ -116,9 +116,15 @@ namespace Budget_Man.Controllers
             {
                 ViewData["errorMessage"] = "exception " + e;
                 View("Views/Errors/generalError.cshtml");
-                return this.Ok($"hello world error");
+                return this.Ok(e);
             }
         }
 
+        [HttpPost]
+        public ActionResult Edit(Expenses obj)
+        {
+            Console.WriteLine("object " + obj.Week);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -7,6 +7,7 @@ public class MasterExpenseList{
 
     public MasterExpenseList(){
         this.ListOfExpenses = new List<DisplayExpenses>();
+        this.editExpenseform = new Expenses();
     }
 
     public void appendExpenses(IEnumerable<Expenses> expenses,int week,int month,string monthName){
