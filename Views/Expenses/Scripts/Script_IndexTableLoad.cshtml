@@ -122,9 +122,9 @@
     disableEnableAllButtons(false);
   })
   
+  // When clicking on the icons on the expense table 
   function toggle_edit_delete_expense(id,flag=true)
   {
-    console.log("toggle Script_indextable ");
     let colorFlag = flag ? "white" : "aqua";
     let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
     for(let i = 0; i < nodes.length; i++){
