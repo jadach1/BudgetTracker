@@ -1,12 +1,12 @@
 <script>
     function toggle_edit_expense_form(obj) {
         console.log(obj);
-        let EditExpenseForm = document.getElementById("editExpenseFormModal");
+        let EditExpenseForm = document.getElementById("editExpenseForm");
         EditExpenseForm.hidden = false;
         EditExpenseForm.classList.add("d-flex");
 
         //Alter position of form
-        alterPosition();
+        alterPosition("EditExpense");
 
         //disable buttons
         disableEnableAllButtons(true);
@@ -24,19 +24,22 @@
 <script>
     function load_Expense_Form(obj) {
         console.log(obj);
-        load_week(obj.Week);
-        load_month(obj.Month);
+        edit_expense_form_load_week(obj.Week);
+        edit_expense_form_load_month(obj.Month);
+        edit_expense_form_load_category(obj.category)
     }
 
-    function load_week(Week) {
+/*WEEK*/
+    function edit_expense_form_load_week(Week) {
         const week_field = document.getElementById("editExpenseForm_week");
         week_field.value = Week;
     }
 
+/*MONTH*/
     // An array of months
     const array_of_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    function load_month(month) {
+    function edit_expense_form_load_month(month) {
         // Set the forms field value
         const elem_field = document.getElementById("editExpenseForm_month");
         elem_field.value = month;
@@ -45,7 +48,7 @@
         elem_field_user_display.innerHTML = array_of_months[month-1];
     }
 
-    function change_month_on_edit_form(increment) {
+    function edit_expense_form_change_month(increment) {
         // Get the edit form's field input value
          const elem_field = document.getElementById("editExpenseForm_month");
         //covnert to integer
@@ -72,4 +75,36 @@
         elem_field_user_display.innerHTML = array_of_months[newValue-1];
     }
 
+/*CATEGORY*/
+
+    // This function doubles up, for loading the initial value, and for adjusting the value after user has selected list item
+    function edit_expense_form_load_category(obj){
+        console.log("hee " , obj)
+        const field_elem = document.getElementById("editExpenseForm_category");
+        field_elem.value = obj.Id;
+
+        const field_elem_user_display = document.getElementById("editExpenseForm_category_selected");
+        field_elem_user_display.hidden = false;
+        field_elem_user_display.innerHTML = obj.Name;
+
+        const field_elem_list = document.getElementById("editExpenseForm_category_dropdown_list");
+        field_elem_list.hidden = true;
+    }
+
+    // This hides the category selected, and displays a list
+    function edit_expense_form_load_category_list(){
+        const field_elem_user_display = document.getElementById("editExpenseForm_category_selected");
+        // retrieve current boolean value
+        const flag = field_elem_user_display.hidden;
+        //set field to opposite boolean
+        field_elem_user_display.hidden = !flag;
+
+        const field_elem_list = document.getElementById("editExpenseForm_category_dropdown_list");
+        //set field to what the other field was previously
+        field_elem_list.hidden = flag;
+
+        // readjust the size of the modal
+        alterPosition("EditExpense");
+
+    }
 </script>

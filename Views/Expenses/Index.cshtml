@@ -24,10 +24,10 @@
     </div>
 
     <!-- EDIT EXPENSE FORM MODAL -->
-    <div id="editExpenseFormModal"  hidden class=" bg-primary rounded-5 "
+    <div id="editExpenseForm"  hidden class=" bg-primary rounded-5 "
         style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
-        <partial name="./Partial/EditExpenseForm/EditExpenseForm.cshtml" model="@Model.editExpenseform" />
+        <partial name="./Partial/EditExpenseForm/EditExpenseForm.cshtml" model="@Model.createExpenseForm" />
     </div>
 
     <!-- CREATE EXPENSE FORM BUTTON -->

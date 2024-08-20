@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kG4awSpIi2vbxhvQGFQJVaEiTe9pJQwJ3nLPlwGwSBM=",
+  "Hash": "qO8X3C/ZJwcsOnL5PMQRGZbD4PWdDlV+7xs34E8qtUQ=",
   "Source": "Budget Man",
   "BasePath": "_content/Budget Man",
   "Mode": "Default",
@@ -167,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\changeMonthFormStyleSheet.css"
+    },
+    {
+      "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\editExpenseFormStyleSheet.css",
+      "SourceId": "Budget Man",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\",
+      "BasePath": "_content/Budget Man",
+      "RelativePath": "css/editExpenseFormStyleSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\editExpenseFormStyleSheet.css"
     },
     {
       "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseFormStyleSheet.css",
