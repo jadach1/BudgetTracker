@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qO8X3C/ZJwcsOnL5PMQRGZbD4PWdDlV+7xs34E8qtUQ=",
+  "Hash": "mT9L+ixG3QQfuvpqD2w79HJbHxo32Gqlz8rBnTjwwx0=",
   "Source": "Budget Man",
   "BasePath": "_content/Budget Man",
   "Mode": "Default",
@@ -169,6 +169,25 @@
       "OriginalItemSpec": "wwwroot\\css\\changeMonthFormStyleSheet.css"
     },
     {
+      "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\createExpenseFormStyleSheet.css",
+      "SourceId": "Budget Man",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\",
+      "BasePath": "_content/Budget Man",
+      "RelativePath": "css/createExpenseFormStyleSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\createExpenseFormStyleSheet.css"
+    },
+    {
       "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\editExpenseFormStyleSheet.css",
       "SourceId": "Budget Man",
       "SourceType": "Discovered",
@@ -186,25 +205,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\editExpenseFormStyleSheet.css"
-    },
-    {
-      "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseFormStyleSheet.css",
-      "SourceId": "Budget Man",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\",
-      "BasePath": "_content/Budget Man",
-      "RelativePath": "css/expenseFormStyleSheet.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\expenseFormStyleSheet.css"
     },
     {
       "Identity": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseTablesStyleSheet.css",

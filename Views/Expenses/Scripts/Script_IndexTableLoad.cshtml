@@ -60,27 +60,33 @@
 
   //alters the left-position of the Create Expense Form
   function alterPosition(modalType) {
-    console.log("called");
+   
+    // this will get the element based on the string of the modalType
     let bodyToChange;
+
+    // Evaluate the string
     if(modalType == "CreateExpense")
       bodyToChange = document.getElementById("createEditExpensesForm");
     else if(modalType == "EditExpense")
       bodyToChange = document.getElementById("editExpenseForm");
 
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
-  @* const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight; *@
     const bodyHeight = +window.innerHeight;
 
-     console.log("screen sizes " + bodySize + " " + bodyHeight);
     //adjust the height-position
     let height = (bodyHeight - +bodyToChange.clientHeight) / 2;
+
     if (height < 0)
       height = 0;
+
     bodyToChange.style.top = height + "px";
+
     // Adjust the width-position
     let size = (bodySize - +bodyToChange.clientWidth) / 2
+
     if (size < 0)
       size = 0;
+
     bodyToChange.style.left = size + "px";
   }
 
@@ -114,13 +120,6 @@
 
 <!-- FUNCTIONS EDIT MODAL-->
 <script>
-    // Hide-Box for the edit-expense-form 
-  document.getElementById("edit-expense-form-hide-button").addEventListener("click", () => {
-    let EditExpensesForm = document.getElementById("editExpenseForm");
-    EditExpensesForm.classList.remove("d-flex");
-    EditExpensesForm.hidden = true;
-    disableEnableAllButtons(false);
-  })
   
   // When clicking on the icons on the expense table 
   function toggle_edit_delete_expense(id,flag=true)

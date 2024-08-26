@@ -14,7 +14,7 @@
     <div id="createEditExpensesForm" hidden class=" bg-primary rounded-5"
         style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
-        <partial name="./Partial/createEditExpensesForm.cshtml" model="@Model.createExpenseForm" />
+        <partial name="./Partial/createExpensesForm.cshtml" model="@Model.createExpenseForm" />
     </div>
 
     <!-- CHANGE MONTH FORM MODAL -->
@@ -49,7 +49,10 @@
 </div>
 
 <!--SCRIPTS-->
+<partial name="./Scripts/Script_CreateExpenseForm.cshtml"   />
+<partial name="./Scripts/Script_ExpenseDBCalls.cshtml" />
 <partial name="./Scripts/Script_IndexTableLoad" />
 <partial name="./Scripts/Script_Edit_ExpenseForm.cshtml" />
 
-
+@* Views\Expenses\Scripts\Script_CreateExpenseForm.cshtml
+Views\Expenses\Index.cshtml *@

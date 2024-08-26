@@ -1,13 +1,6 @@
 @using System.Text.Json
 
 
-@{
-    var categories2 = JsonSerializer.Serialize(ViewData["categories"]);
-    var categories3 = ViewData["categories"];
-}
-
-
-
 <div id="editExpenseFormContents">
     <div class="col-4 customFormControl">
         <label for=" type">Category</label>

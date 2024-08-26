@@ -13,12 +13,12 @@
       "PackagePath": "staticwebassets\\css\\changeMonthFormStyleSheet.css"
     },
     {
-      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\editExpenseFormStyleSheet.css",
-      "PackagePath": "staticwebassets\\css\\editExpenseFormStyleSheet.css"
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\createExpenseFormStyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\createExpenseFormStyleSheet.css"
     },
     {
-      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseFormStyleSheet.css",
-      "PackagePath": "staticwebassets\\css\\expenseFormStyleSheet.css"
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\editExpenseFormStyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\editExpenseFormStyleSheet.css"
     },
     {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\css\\expenseTablesStyleSheet.css",
