@@ -6,7 +6,6 @@
 
 if(window.localStorage.getItem('Success'))
 {
-    console.log("is this not on", window.localStorage.getItem("Success"));
     const msg = window.localStorage.getItem('Success')
     fireNotif(msg,'success', 5000);
     window.localStorage.removeItem('Success');

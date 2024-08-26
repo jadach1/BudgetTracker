@@ -130,24 +130,6 @@
         $(document).ready(function () {
             $(".ripple-effect").rippleEffect();
         });
-
-
-
-         $( ".jux3" ).tooltip({content: "Awesome title 2!"});
-         $( ".jux3" ).tooltip({show: { effect: "blind", duration: 800 }});
-         $( ".jux" ).tooltip({show: { effect: "blind", duration: 2000 }});
-
-     $( ".jux" ).click(function() {
-        $( ".jux2" ).effect("bounce");
-        $( ".jux3" ).effect("blind",{direction: "right"},1000, 
-                    function(){
-                        console.log("activated");
-                        $( ".jux3" ).toggle("show");
-                    });
-});
-
- 
-
     </script>
     
     <!--PART OF THE INotyfService COMPONENT PACKAGE-->

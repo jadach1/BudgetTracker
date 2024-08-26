@@ -26,9 +26,11 @@
     function load_Expense_Form(obj) {
         console.log(obj);
         console.log("loading form");
+        edit_expense_form_load_id(obj.Id);
         edit_expense_form_load_week(obj.Week);
         edit_expense_form_load_month(obj.Month);
         edit_expense_form_load_category(obj.category);
+        edit_expense_form_load_currency(obj.Currency);
         edit_expense_form_load_amount(obj.Amount);
         edit_expense_form_load_date(obj.Date);
         edit_expense_form_load_description(obj.Description);
@@ -36,19 +38,12 @@
         if(!editExpenseForm_LoadFlag){
             edit_expense_form_create_events_and_objects();
         }
+    }
 
-          function edit_expense_form_create_events_and_objects(){
-            //Prevent duplicate executions
-            editExpenseForm_LoadFlag = true;
-
-            // MONTH
-            //add event listeners to the 'a' elements of the Month Field
-            const a_left = $("#editExpenseFormContentsMonth div .row a").first();
-            const a_right = $("#editExpenseFormContentsMonth div .row a").eq(1);
-
-            a_left.on("click", function () { edit_expense_form_change_month(false) });
-            a_right.on("click", function () { edit_expense_form_change_month(true) });
-        }
+    /************ID***********/
+    function edit_expense_form_load_id(id) {
+        const elem_field = document.getElementById("editExpenseForm_id");
+        elem_field.value = id;
     }
 
     /************WEEK***********/
@@ -71,6 +66,7 @@
         elem_field_user_display.innerHTML = array_of_months[month - 1];
     }
 
+    // Changes the month, and executes a JQuery Animation Effect
     function edit_expense_form_change_month(increment) {
         // Get the edit form's field input value
         const elem_field = document.getElementById("editExpenseForm_month");
@@ -92,6 +88,8 @@
                 newValue--;
         }
 
+        /*ANIMATION*/
+
         //Direction of text to move when changing, Animation
         const text_direction = increment == true ? "left" : "right";
         //Animation, and change of text displayed to the user, the month.
@@ -106,7 +104,6 @@
                     const elem_field_user_display = document.getElementById("editExpenseForm_month_displayName");
                     elem_field_user_display.innerHTML = array_of_months[newValue - 1];
                 }).toggle("show");
-
     }
 
     /************CATEGORY***********/
@@ -139,6 +136,11 @@
         // readjust the size of the modal
         alterPosition("EditExpense");
 
+    }
+    /************CURRENCY***********/
+    function edit_expense_form_load_currency(value) {
+        const field_elem = document.getElementById("edit_expense_currency");
+        field_elem.value = value;
     }
 
     /************AMOUNT***********/
@@ -275,7 +277,6 @@
 
         modal_a_save.on("click", function () {
             const newText = modal_textarea.val();
-            console.log( modal_textarea);
             modal.animate({
                 backgroundColor: ["#44d9e8", "swing"],
             }, 300);
@@ -290,6 +291,7 @@
 
 </script>
 
+@* MISCELLANEOUS SCRIPTS FOR THE EXPENSE FORM.  HIDE.  CREATE CLICK EVENTS BY JQUERY *@
 <script> 
     // Hide-Box for the edit-expense-form 
   $("#edit-expense-form-hide-button").on("click", () => {
@@ -307,4 +309,17 @@
 
     disableEnableAllButtons(false);
   })
+
+  function edit_expense_form_create_events_and_objects(){
+            //Prevent duplicate executions
+            editExpenseForm_LoadFlag = true;
+
+            // MONTH
+            //add event listeners to the 'a' elements of the Month Field
+            const a_left = $("#editExpenseFormContentsMonth div .row a").first();
+            const a_right = $("#editExpenseFormContentsMonth div .row a").eq(1);
+
+            a_left.on("click", function () { edit_expense_form_change_month(false) });
+            a_right.on("click", function () { edit_expense_form_change_month(true) });
+        }
 </script>

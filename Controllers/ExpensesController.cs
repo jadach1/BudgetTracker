@@ -5,7 +5,6 @@ using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Budget_Man.Controllers
@@ -16,10 +15,14 @@ namespace Budget_Man.Controllers
         // private readonly ApplicationDbContext _db;
         private readonly IUnitOfWork _db;
         private readonly UserManager<IdentityUser> _userManager;
-        public ExpensesController(IUnitOfWork db, UserManager<IdentityUser> userManager)
+
+        private HelperFunctions _helperFunctions;
+
+        public ExpensesController(IUnitOfWork db, UserManager<IdentityUser> userManager, HelperFunctions helperFunctions)
         {
             _db = db;
             _userManager = userManager;
+            _helperFunctions = helperFunctions;
         }
         public async Task<IActionResult> IndexAsync(IFormCollection form)
         {
@@ -121,10 +124,33 @@ namespace Budget_Man.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Expenses obj)
+        public async Task<IActionResult> Edit(Expenses obj)
         {
             Console.WriteLine("object " + obj.Week);
-            return RedirectToAction("Index");
+            Console.WriteLine("object " + obj.Month);
+            Console.WriteLine("object " + obj.Currency);
+            Console.WriteLine("object " + obj.Amount);
+            Console.WriteLine("object " + obj.Date);
+            Console.WriteLine("object " + obj.Description);
+            Console.WriteLine("object " + obj.CategoryId);
+
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                obj.MyUserName = user.Id;
+                _db.expensesRepository.Update(obj);
+                _db.Save();
+                _helperFunctions.toasterTest("Successfully edited expense", 1);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                _helperFunctions.toasterTest("Failed at editing expense", 2);
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
         }
     }
 }
