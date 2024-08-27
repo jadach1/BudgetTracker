@@ -1,6 +1,28 @@
 
 
 <script>
+    function ajaxCallToExpenseController_Delete(Id){
+        $.ajx({
+            url: '/Expenses/Delete',
+            contentType: 'application/json; charset=utf-8',
+            type: "Post",
+            data: JSON.stringify({id: Id}),
+       
+            success: function (data) {
+                fireNotif('Successfully Removed Expense', 'Success', 5000);
+                let x = JSON.stringify(data);
+                console.log("success", x);
+                ClearExpenseFromTable(Id);
+            },
+
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error Removing an Expense', 'error', 5000);
+                console.log(error)
+            }
+        })
+    }
     function ajaxCallToExpenseController(expense) {
         const obj = JSON.stringify(listOfExpenses);
         $.ajax({
@@ -34,31 +56,4 @@
             }
         });
     }
-
-    @* function ajaxCallSaveExpenses() {
-        $.ajax({
-
-        // Our sample url to make request
-        url:
-        '/Expenses/CreateSave',
-
-        // Type of Request
-        type: "Post",
-
-        // Function to call when to request is ok
-        success: function (data) {
-        let x = JSON.stringify(data);
-        console.log(x);
-        //clear all items
-
-        },
-
-        // Error handling
-        error: function (error) {
-        console.log(`Error2 ${error}`);
-        console.log(error)
-        }
-        });
-        } *@
-
 </script>

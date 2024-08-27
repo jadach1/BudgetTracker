@@ -23,7 +23,7 @@
     createEditExpensesForm.classList.add("d-flex");
 
     //Alter position of form
-    alterPosition("CreateExpense");
+    alterPosition("createEditExpensesForm");
 
     //disable buttons
     disableEnableAllButtons(true);
@@ -59,16 +59,10 @@
   }
 
   //alters the left-position of the Create Expense Form
-  function alterPosition(modalType) {
+  function alterPosition(name) {
    
     // this will get the element based on the string of the modalType
-    let bodyToChange;
-
-    // Evaluate the string
-    if(modalType == "CreateExpense")
-      bodyToChange = document.getElementById("createEditExpensesForm");
-    else if(modalType == "EditExpense")
-      bodyToChange = document.getElementById("editExpenseForm");
+    let bodyToChange = document.getElementById(name);
 
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
     const bodyHeight = +window.innerHeight;
@@ -122,15 +116,48 @@
 <script>
   
   // When clicking on the icons on the expense table 
-  function toggle_edit_delete_expense(id,flag=true)
+  function toggle_edit_delete_expense(id,flag=true,tr_expense_id,table_Serialized_Expense_Object)
   {
-    let colorFlag = flag ? "white" : "aqua";
+    @* let colorFlag = flag ? "white" : "aqua";
     let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
     for(let i = 0; i < nodes.length; i++){
       nodes[i].style.color = colorFlag;
     }    
     let icon_row = document.getElementById("expense_table_edit_and_delete_elements_"+id);
     icon_row.hidden = flag;
-    icon_row.style.display = flag ? "none" : "flex";
+    icon_row.style.display = flag ? "none" : "flex"; *@
+
+    const $Table_Selected_Row = $(tr_expense_id);
+
+    const $Expense_Table_Modal = $("#expense_table_modal");
+    const whoIsYourDaddy = $Expense_Table_Modal.parent()[0].tagName;
+
+    const $Expense_Table_Modal_Edit_Button = $("#expense_table_modal a").first();
+    const $Expense_Table_Modal_Delete_Button = $("#expense_table_modal a").eq(1);
+    const $Expense_Table_Modal_Hide_Button = $("#expense_table_modal a").eq(2);
+
+    if(whoIsYourDaddy === "TR"){
+      //we need to remove the class from the parent and apply it to the new TR class
+      const $Daddy = $Expense_Table_Modal.parent();
+      $Daddy.removeClass("row-highlight-selected");
+      $Table_Selected_Row.addClass("row-highlight-selected");
+    } else {
+  
+      //Adjust size of modal to screen
+      $Expense_Table_Modal.css({
+          display: "flex",
+      });
+
+      //$Expense_Table_Modal_Edit_Button.addClass("mx-2");
+      @* $Expense_Table_Modal_Delete_Button.addClass("mx-4"); *@
+      $Table_Selected_Row.addClass("row-highlight-selected");
+    }
+
+    $Table_Selected_Row.append($Expense_Table_Modal);
   }
+
+//This function will grab a row from all the tables, and remove it from the DOM
+function ClearExpenseFromTable(id){
+
+}
 </script>

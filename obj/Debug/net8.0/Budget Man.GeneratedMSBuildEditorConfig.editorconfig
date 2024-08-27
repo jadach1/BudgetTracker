@@ -66,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxjcmVhdGVFeHBlbnNlc0Zvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/DeleteExpenseForm/Delete_ExpenseModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxEZWxldGVFeHBlbnNlRm9ybVxEZWxldGVfRXhwZW5zZU1vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/EditExpenseForm/EditExpenseForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxFZGl0RXhwZW5zZUZvcm1cRWRpdEV4cGVuc2VGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -102,8 +106,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxleHBlbnNlc1RhYmxlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/expensesTablesModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxleHBlbnNlc1RhYmxlc01vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_CreateExpenseForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcU2NyaXB0c1xTY3JpcHRfQ3JlYXRlRXhwZW5zZUZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_Delete_ExpenseModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcU2NyaXB0c1xTY3JpcHRfRGVsZXRlX0V4cGVuc2VNb2RhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_Edit_ExpenseForm.cshtml]

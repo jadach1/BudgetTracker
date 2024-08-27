@@ -30,6 +30,9 @@
         <partial name="./Partial/EditExpenseForm/EditExpenseForm.cshtml" model="@Model.createExpenseForm" />
     </div>
 
+    <!--DELETE EXPENSE MODAL -->
+    <partial name="./Partial/DeleteExpenseForm/Delete_ExpenseModal.cshtml" />
+
     <!-- CREATE EXPENSE FORM BUTTON -->
     <div class="row">
         <button id="createEditExpensesFormButton"
@@ -37,6 +40,9 @@
                 class="bi bi-plus-circle"></i></button>
     </div>
 
+    <!--EXPENSE TABLES SELECTION MODAL: EDIT, DELETE-->
+    <partial name="./Partial/expensesTablesModal.cshtml" />
+    
     <!--5 tables, each denotes a week of expenses-->
     @foreach (var item in Model.ListOfExpenses)
     {
@@ -53,6 +59,4 @@
 <partial name="./Scripts/Script_ExpenseDBCalls.cshtml" />
 <partial name="./Scripts/Script_IndexTableLoad" />
 <partial name="./Scripts/Script_Edit_ExpenseForm.cshtml" />
-
-@* Views\Expenses\Scripts\Script_CreateExpenseForm.cshtml
-Views\Expenses\Index.cshtml *@
+<partial name="./Scripts/Script_Delete_ExpenseModal.cshtml" />

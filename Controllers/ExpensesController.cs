@@ -126,14 +126,6 @@ namespace Budget_Man.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Expenses obj)
         {
-            Console.WriteLine("object " + obj.Week);
-            Console.WriteLine("object " + obj.Month);
-            Console.WriteLine("object " + obj.Currency);
-            Console.WriteLine("object " + obj.Amount);
-            Console.WriteLine("object " + obj.Date);
-            Console.WriteLine("object " + obj.Description);
-            Console.WriteLine("object " + obj.CategoryId);
-
             try
             {
                 //GET USER 
@@ -151,6 +143,19 @@ namespace Budget_Man.Controllers
                 View("Views/Errors/generalError.cshtml");
                 return this.Ok(e);
             }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id){
+            try{
+                _db.expensesRepository.Remove(id);
+                return this.Ok("successfully deleted expense !" + id);
+            } catch(Exception e){
+                ViewData["errorMessage"] = "error when deleting expense item " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+            
         }
     }
 }

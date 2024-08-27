@@ -5,7 +5,7 @@
         EditExpenseForm.classList.add("d-flex");
 
         //Alter position of form
-        alterPosition("EditExpense");
+        alterPosition("editExpenseForm");
 
         //disable buttons
         disableEnableAllButtons(true);
@@ -23,9 +23,8 @@
     var $editExpenseForm_Form = $("#editExpenseForm_Form").first();
     var editExpenseForm_LoadFlag = false;
 
+// This function begins loading the expense form, by each field
     function load_Expense_Form(obj) {
-        console.log(obj);
-        console.log("loading form");
         edit_expense_form_load_id(obj.Id);
         edit_expense_form_load_week(obj.Week);
         edit_expense_form_load_month(obj.Month);

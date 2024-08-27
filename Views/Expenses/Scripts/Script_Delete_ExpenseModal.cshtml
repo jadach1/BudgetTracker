@@ -1,0 +1,32 @@
+<script>
+function toggle_delete_expense_modal(expense_id, expense_edit_delete_id, Id){
+    // pin the modal to the expense tr row
+    // adjust the size , test the device sizes
+
+    alterPosition("delete_expense_modal");
+    const $DeleteModal = $("#delete_expense_modal");
+    $DeleteModal.css({
+        position: "absolute",
+        zIndex: 3,
+        backgroundColor: "#6f42c1",
+        padding: "10%",
+    });
+    $DeleteModal.show("fade");
+    const $tt = $(expense_id);
+    console.log(expense_id,expense_edit_delete_id, Id);
+    console.log($tt);
+    console.log($tt.position());
+
+    const $title = $( "#delete_expense_modal h3 " );
+    $title.css({
+        fontSize: "24px",
+    });
+    const $yes_btn = $( "#delete_expense_modal div a" ).first();
+    const $no_btn = $("#delete_expense_modal div a" ).last();
+
+    console.log($no_btn);
+    $yes_btn.addClass("btn btn-secondary m-3");
+    $no_btn.addClass("btn btn-danger m-3");
+    $no_btn.on("click", function(){$DeleteModal.hide("fade")});
+}
+</script>
