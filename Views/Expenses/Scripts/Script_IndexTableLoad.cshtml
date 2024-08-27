@@ -59,7 +59,7 @@
   }
 
   //alters the left-position of the Create Expense Form
-  function alterPosition(name, comparingHeight = 0) {
+  function alterPosition(name) {
    
     // this will get the element based on the string of the modalType
     let bodyToChange = document.getElementById(name);
@@ -82,10 +82,6 @@
       size = 0;
 
     bodyToChange.style.left = size + "px";
-
-    //Lastly, adjust the height of the element, if a parameter has been added.
-    @* if(comparingHeight != 0)
-      bodyToChange.style.height = comparingHeight+"px"; *@
   }
 
   //Alter position of the change-month-form
@@ -120,18 +116,16 @@
 <script>
   
   // When clicking on the icons on the expense table 
-  function toggle_edit_delete_expense(id,flag=true,tr_expense_id)
+  function toggle_edit_delete_expense(id,tr_expense_id)
   {
-    @* let colorFlag = flag ? "white" : "aqua";
-    let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
-    for(let i = 0; i < nodes.length; i++){
-      nodes[i].style.color = colorFlag;
-    }    
-    let icon_row = document.getElementById("expense_table_edit_and_delete_elements_"+id);
-    icon_row.hidden = flag;
-    icon_row.style.display = flag ? "none" : "flex"; *@
-
     const $Table_Selected_Row = $(tr_expense_id);
+   
+    //let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
+    let nodes = $Table_Selected_Row.children();
+    for(let i = 0; i < nodes.length; i++){
+      nodes[i].style.color = "aqua";
+    }    
+    
     const $Expense_Table_Modal = $("#expense_table_modal");
     const whoIsYourDaddy = $Expense_Table_Modal.parent()[0].tagName;
 
@@ -143,6 +137,11 @@
       //we need to remove the class from the parent and apply it to the new TR class
       const $Daddy = $Expense_Table_Modal.parent();
       $Daddy.removeClass("row-highlight-selected");
+        //let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
+      let old_nodes = $Daddy.children();
+      for(let i = 0; i < old_nodes.length; i++){
+        old_nodes[i].style.color = "white";
+      }   
     } 
 
       $Table_Selected_Row.addClass("row-highlight-selected");
@@ -154,6 +153,8 @@
 
     //Clear the old click handlers
     $Expense_Table_Modal_Edit_Button.off('click');
+    $Expense_Table_Modal_Delete_Button.off('click');
+    
     //Assign the click events, once
     $Expense_Table_Modal_Edit_Button.on("click",function(){
         //To Edit, ajax call to fetch expense, then load modal by way of ajax method success path.
@@ -161,6 +162,9 @@
         //Hide this modal, its job is done
         hide_Expense_Table_Modal($Expense_Table_Modal,$Table_Selected_Row);
       });
+    $Expense_Table_Modal_Delete_Button.on("click",function(){
+      toggle_delete_expense_modal($Table_Selected_Row,id);
+    })
     
     $Table_Selected_Row.append($Expense_Table_Modal);
   }

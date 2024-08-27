@@ -156,7 +156,6 @@ namespace Budget_Man.Controllers
                 Expression<Func<Category, bool>> filter = o=> o.Id == expense.CategoryId;
                 Category category = await _db.categoryRepository.Get(filter);
                 expense.category = category;
-                _helperFunctions.toasterTest("Successfully edited expense", 1);
                 return this.Ok(expense);
             }
             catch (Exception e)

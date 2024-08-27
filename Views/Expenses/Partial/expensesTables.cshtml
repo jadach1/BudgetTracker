@@ -29,7 +29,7 @@
             var expense_edit_delete_id = "expense_table_edit_and_delete_elements_" + @obj.Id;
             var jsonString = JsonSerializer.Serialize(obj);
             
-            <tr id="@expense_id" class="row" onclick="toggle_edit_delete_expense(@obj.Id,false,@expense_id)">
+            <tr id="@expense_id" class="row" onclick="toggle_edit_delete_expense(@obj.Id,@expense_id)">
                 <td class="col-3 text-center">@obj.category.Name</td>
                 <td class="col-3 text-center ">@obj.Currency @obj.Amount </td>
                 <td class="col-3 text-center">@obj.Date</td>
