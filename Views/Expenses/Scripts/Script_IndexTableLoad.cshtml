@@ -59,7 +59,7 @@
   }
 
   //alters the left-position of the Create Expense Form
-  function alterPosition(name) {
+  function alterPosition(name, comparingHeight = 0) {
    
     // this will get the element based on the string of the modalType
     let bodyToChange = document.getElementById(name);
@@ -82,6 +82,10 @@
       size = 0;
 
     bodyToChange.style.left = size + "px";
+
+    //Lastly, adjust the height of the element, if a parameter has been added.
+    @* if(comparingHeight != 0)
+      bodyToChange.style.height = comparingHeight+"px"; *@
   }
 
   //Alter position of the change-month-form
