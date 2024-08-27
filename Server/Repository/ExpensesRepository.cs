@@ -24,6 +24,12 @@ namespace Budget_Man.Repository
                         .ToList();
         }
 
+        public async Task<Expenses> GetSingleExpense(int id,string userId){
+             IQueryable<Expenses> query = dbSet;
+            return query.Where(e => e.Id == id && e.MyUserName == userId)
+                        .FirstOrDefault();
+        }
+
 
         public void Update(Expenses obj)
         {

@@ -20,7 +20,7 @@ namespace Budget_Man.Repository.Repository
             dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public async Task<T> Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);

@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq.Expressions;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
@@ -145,17 +146,42 @@ namespace Budget_Man.Controllers
             }
         }
 
+        public async Task<IActionResult> GetOneExpense(int id)
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                Expenses expense = await _db.expensesRepository.GetSingleExpense(id,user.Id);
+                Expression<Func<Category, bool>> filter = o=> o.Id == expense.CategoryId;
+                Category category = await _db.categoryRepository.Get(filter);
+                expense.category = category;
+                _helperFunctions.toasterTest("Successfully edited expense", 1);
+                return this.Ok(expense);
+            }
+            catch (Exception e)
+            {
+                _helperFunctions.toasterTest("Failed at getting expense", 2);
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+        }
         [HttpPost]
-        public IActionResult Delete(int id){
-            try{
+        public IActionResult Delete(int id)
+        {
+            try
+            {
                 _db.expensesRepository.Remove(id);
                 return this.Ok("successfully deleted expense !" + id);
-            } catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 ViewData["errorMessage"] = "error when deleting expense item " + e;
                 View("Views/Errors/generalError.cshtml");
                 return this.Ok(e);
             }
-            
+
         }
     }
 }

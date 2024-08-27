@@ -20,9 +20,9 @@
                        flex-direction: column ">
                 @foreach (var item in Model.categories)
                 {
-                    var item_in_play = JsonSerializer.Serialize(item);
+                    //var item_in_play = JsonSerializer.Serialize(item);
                     <a style="width: 90%; margin: 4px" class="btn btn-light row"
-                        onclick="edit_expense_form_load_category(@item_in_play)">
+                        onclick="edit_expense_form_load_category({id: @item.Id, name: '@item.Name'})">
                         @item.Name
                     </a>
                 }

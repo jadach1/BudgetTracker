@@ -23,16 +23,18 @@
     var $editExpenseForm_Form = $("#editExpenseForm_Form").first();
     var editExpenseForm_LoadFlag = false;
 
+
 // This function begins loading the expense form, by each field
     function load_Expense_Form(obj) {
-        edit_expense_form_load_id(obj.Id);
-        edit_expense_form_load_week(obj.Week);
-        edit_expense_form_load_month(obj.Month);
+        console.log(obj);
+        edit_expense_form_load_id(obj.id);
+        edit_expense_form_load_week(obj.week);
+        edit_expense_form_load_month(obj.month);
         edit_expense_form_load_category(obj.category);
-        edit_expense_form_load_currency(obj.Currency);
-        edit_expense_form_load_amount(obj.Amount);
-        edit_expense_form_load_date(obj.Date);
-        edit_expense_form_load_description(obj.Description);
+        edit_expense_form_load_currency(obj.currency);
+        edit_expense_form_load_amount(obj.amount);
+        edit_expense_form_load_date(obj.date);
+        edit_expense_form_load_description(obj.description);
 
         if(!editExpenseForm_LoadFlag){
             edit_expense_form_create_events_and_objects();
@@ -110,11 +112,11 @@
     // This function doubles up, for loading the initial value, and for adjusting the value after user has selected list item
     function edit_expense_form_load_category(obj) {
         const field_elem = document.getElementById("editExpenseForm_category");
-        field_elem.value = obj.Id;
+        field_elem.value = obj.id;
 
         const field_elem_user_display = document.getElementById("editExpenseForm_category_selected");
         field_elem_user_display.hidden = false;
-        field_elem_user_display.innerHTML = obj.Name;
+        field_elem_user_display.innerHTML = obj.name;
 
         const field_elem_list = document.getElementById("editExpenseForm_category_dropdown_list");
         field_elem_list.hidden = true;
@@ -133,8 +135,7 @@
         field_elem_list.hidden = flag;
 
         // readjust the size of the modal
-        alterPosition("EditExpense");
-
+        alterPosition("editExpenseForm");
     }
     /************CURRENCY***********/
     function edit_expense_form_load_currency(value) {

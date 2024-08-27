@@ -1,6 +1,26 @@
 
 
 <script>
+    function ajaxCallToExpenseController_GetExpense(Id){
+  $.ajax({
+    url: '/Expenses/GetOneExpense/'+Id,
+    contentType: 'application/x-www-form-urlencoded',
+    type: "Get",
+    success: function (data) {
+                console.log(data);
+                // Now that we have gotten our expense, to edit, we will call the function location in: "Scripts_Edit_ExpenseForm" to display our expense
+                toggle_edit_expense_form(data);
+            },
+
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error fetching an Expense', 'error', 5000);
+                console.log(error)
+            }
+    });
+}
+
     function ajaxCallToExpenseController_Delete(Id){
         $.ajx({
             url: '/Expenses/Delete',
