@@ -21,18 +21,25 @@
     });
 }
 
-    function ajaxCallToExpenseController_Delete(Id){
-        $.ajx({
+    function ajaxCallToExpenseController_Delete(Id,$TableRow){
+        let Data = {id: Id};
+        $.ajax({
             url: '/Expenses/Delete',
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/x-www-form-urlencoded',
+         // this will not pass the data
+         //   contentType: 'application/json; charset=utf-8',
             type: "Post",
-            data: JSON.stringify({id: Id}),
+            data: Data,
        
             success: function (data) {
                 fireNotif('Successfully Removed Expense', 'Success', 5000);
                 let x = JSON.stringify(data);
                 console.log("success", x);
-                ClearExpenseFromTable(Id);
+                //remove the element from the DOM
+                hideDeleteModal();
+                // Remove the Expense-table-modal from the element we will delete
+                $("body").append($("#expense_table_modal").hide());
+                $TableRow.effect("explode").delay(300).remove();
             },
 
             // Error handling 

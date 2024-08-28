@@ -118,35 +118,43 @@
   // When clicking on the icons on the expense table 
   function toggle_edit_delete_expense(id,tr_expense_id)
   {
+    //create JQuery object for table row selected
     const $Table_Selected_Row = $(tr_expense_id);
    
-    //let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
+    // Colour the TD inside the TR
     let nodes = $Table_Selected_Row.children();
     for(let i = 0; i < nodes.length; i++){
       nodes[i].style.color = "aqua";
     }    
     
+    //create JQuery Obj of modal to display Edit,Delete
     const $Expense_Table_Modal = $("#expense_table_modal");
-    const whoIsYourDaddy = $Expense_Table_Modal.parent()[0].tagName;
+    //create JQuery Obj of modal's parent
+    const $whoIsYourDaddy = $Expense_Table_Modal.parent()[0];
 
+    //Create JQuery Obj's of modal's 3 buttons
     const $Expense_Table_Modal_Edit_Button = $("#expense_table_modal a").first();
     const $Expense_Table_Modal_Delete_Button = $("#expense_table_modal a").eq(1);
     const $Expense_Table_Modal_Hide_Button = $("#expense_table_modal a").eq(2);
 
-    if(whoIsYourDaddy === "TR"){
-      //we need to remove the class from the parent and apply it to the new TR class
+    //Check if modal has a parent of type TR, or is no undefined.  UNdefined coming after an element was deleted.
+    if($whoIsYourDaddy.tagName === "TR"){
+      
+      //remove the class from the parent and apply it to the new TR class
       const $Daddy = $Expense_Table_Modal.parent();
       $Daddy.removeClass("row-highlight-selected");
-        //let nodes = document.getElementById("expense"+id).getElementsByTagName("td");
+       
+      //colour the TD's of the old TR to original colour
       let old_nodes = $Daddy.children();
       for(let i = 0; i < old_nodes.length; i++){
         old_nodes[i].style.color = "white";
       }   
     } 
 
-      $Table_Selected_Row.addClass("row-highlight-selected");
+    //For new TR, add class
+    $Table_Selected_Row.addClass("row-highlight-selected");
 
-      //Adjust size of modal to screen
+      //Make modal appear
       $Expense_Table_Modal.css({
           display: "flex",
       });
@@ -154,35 +162,40 @@
     //Clear the old click handlers
     $Expense_Table_Modal_Edit_Button.off('click');
     $Expense_Table_Modal_Delete_Button.off('click');
-    
-    //Assign the click events, once
+    $Expense_Table_Modal_Hide_Button.off('click');
+
+    //Assign the click events
+
+    //EDIT
     $Expense_Table_Modal_Edit_Button.on("click",function(){
         //To Edit, ajax call to fetch expense, then load modal by way of ajax method success path.
         ajaxCallToExpenseController_GetExpense(id)
         //Hide this modal, its job is done
         hide_Expense_Table_Modal($Expense_Table_Modal,$Table_Selected_Row);
       });
+
+    //DELETE
     $Expense_Table_Modal_Delete_Button.on("click",function(){
       toggle_delete_expense_modal($Table_Selected_Row,id);
     })
-    
+
+    //Hide
+    $Expense_Table_Modal_Hide_Button.on("click",function(){
+      hide_Expense_Table_Modal($Expense_Table_Modal,$Table_Selected_Row);
+    })
+
+    //Finally, append to DOM.
     $Table_Selected_Row.append($Expense_Table_Modal);
   }
 
-//This function will grab a row from all the tables, and remove it from the DOM
-function ClearExpenseFromTable(id){
-
-}
 
 function hide_Expense_Table_Modal($Expense_Table_Modal,$Table_Selected_Row){
-  console.log("called hide")
+  console.log("called hide",$Table_Selected_Row, $Expense_Table_Modal)
   //Adjust size of modal to screen
-      $Expense_Table_Modal.css({
-          display: "none",
-      });
+  $Expense_Table_Modal.hide();
   //Remove the class from the parent
   $Table_Selected_Row.removeClass("row-highlight-selected");
-  //Detach the modal from the parent
-  $Table_Selected_Row.detach($Expense_Table_Modal);
+  @* //Detach the modal from the parent
+  $Table_Selected_Row.detach($Expense_Table_Modal); *@
 }
 </script>

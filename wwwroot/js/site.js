@@ -23,6 +23,15 @@ function humanReadableDate(date){
     return day+" "+month+" "+year;
 }
 
+//Returns the height and width of the screen
+function getCurrentScreenSize(){
+ const $Screen = $("body");
+    return {
+            width: $Screen.width(),
+            height: $Screen.height()
+        }
+}
+
 function screenSizeCheck(){
     const size = +document.getElementsByTagName("body")[0].clientWidth;
     const height = +document.getElementsByTagName("body")[0].clientHeight;

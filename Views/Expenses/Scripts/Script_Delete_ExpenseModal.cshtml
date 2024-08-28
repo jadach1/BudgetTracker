@@ -1,13 +1,14 @@
 <script>
-function toggle_delete_expense_modal($expense_id, Id){
+function toggle_delete_expense_modal($TableRow, Id){
     // pin the modal to the expense tr row
     // adjust the size , test the device sizes
 
     
     const $DeleteModal = $("#delete_expense_modal");
-    
-    const height =+$expense_id.height()*2;
-    const width = +$expense_id.width();
+    const $DeleteModalMask = $("#delete_expense_modal_mask");
+
+    let height =+$TableRow.height()*2;
+    let width = +$TableRow.width();
 
     $DeleteModal.css({
         position: "absolute",
@@ -16,21 +17,56 @@ function toggle_delete_expense_modal($expense_id, Id){
         padding: "10%",
         height: height,
         width: width,
+        border: "black solid 4px",
+        top: "-10px"
     });
 
-    $DeleteModal.show();
+  //Gets the height and width of the screen
+    const $ScreenSize = getCurrentScreenSize();
+    height = $ScreenSize.height;
+    width = $ScreenSize.width;
+ 
+ $DeleteModalMask.css({
+    position: "absolute",
+    zIndex: 2,
+    backgroundColor: "#6f42c1",
+    opacity:"0.8",
+    top: "0px",
+    left: "0px",
+    height: height,
+    width: width,
+ })
+
+    $DeleteModal.show("fade");
+    $DeleteModalMask.show("fade");
 
     const $title = $( "#delete_expense_modal h3 " );
     $title.css({
         fontSize: "24px",
     });
+
     const $yes_btn = $( "#delete_expense_modal div a" ).first();
     const $no_btn = $("#delete_expense_modal div a" ).last();
 
     $yes_btn.addClass("btn btn-secondary m-3");
     $no_btn.addClass("btn btn-danger m-3");
-    $no_btn.on("click", function(){$DeleteModal.hide("fade")});
-    $expense_id.append($DeleteModal);
-    //alterPosition("delete_expense_modal");
+    
+    //Remove old click listeners
+    $no_btn.off("click");
+    $yes_btn.off("click");
+
+    $no_btn.on("click", function(){hideDeleteModal();});
+    $yes_btn.on("click", function(){ajaxCallToExpenseController_Delete(Id,$TableRow)});
+    $TableRow.append($DeleteModal);
+}
+
+function hideDeleteModal(){
+    $("#delete_expense_modal_mask").hide("fade");
+    //hide before appending, otherwise user will see the modal transport itself
+    $("#delete_expense_modal").hide("fade",function(){
+        //We append to the body, because the delete-modal is currently attached to the TableRow potentially to be deleted, meaning, it will also be deleted from the DOM
+    $("body").append($("#delete_expense_modal"));
+    });
+    
 }
 </script>

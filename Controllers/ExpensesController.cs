@@ -152,8 +152,8 @@ namespace Budget_Man.Controllers
             {
                 //GET USER 
                 var user = await _userManager.GetUserAsync(User);
-                Expenses expense = await _db.expensesRepository.GetSingleExpense(id,user.Id);
-                Expression<Func<Category, bool>> filter = o=> o.Id == expense.CategoryId;
+                Expenses expense = await _db.expensesRepository.GetSingleExpense(id, user.Id);
+                Expression<Func<Category, bool>> filter = o => o.Id == expense.CategoryId;
                 Category category = await _db.categoryRepository.Get(filter);
                 expense.category = category;
                 return this.Ok(expense);
@@ -171,8 +171,18 @@ namespace Budget_Man.Controllers
         {
             try
             {
-                _db.expensesRepository.Remove(id);
-                return this.Ok("successfully deleted expense !" + id);
+                bool result = _db.expensesRepository.Remove(id);
+                Console.WriteLine("result " + result);
+                if (result)
+                {
+                    _db.Save();
+                    return this.Ok("successfully deleted expense !" + id);
+                }
+                else
+                {
+                    return this.Ok("Could not delete expense ");
+                }
+
             }
             catch (Exception e)
             {
