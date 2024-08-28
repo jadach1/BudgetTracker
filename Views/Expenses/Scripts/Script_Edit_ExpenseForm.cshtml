@@ -1,0 +1,324 @@
+<script>
+    function toggle_edit_expense_form(obj) {
+        let EditExpenseForm = document.getElementById("editExpenseForm");
+        EditExpenseForm.hidden = false;
+        EditExpenseForm.classList.add("d-flex");
+
+        //Alter position of form
+        alterPosition("editExpenseForm");
+
+        //disable buttons
+        disableEnableAllButtons(true);
+
+        //load the expense Form
+        load_Expense_Form(obj);
+    }
+</script>
+@{
+    /*BELOW, FOR LOADING THE EXPEBNSE FORM WITH EXISTING VALUES*/
+}
+
+
+<script>
+    var $editExpenseForm_Form = $("#editExpenseForm_Form").first();
+    var editExpenseForm_LoadFlag = false;
+
+
+// This function begins loading the expense form, by each field
+    function load_Expense_Form(obj) {
+        edit_expense_form_load_id(obj.id);
+        edit_expense_form_load_week(obj.week);
+        edit_expense_form_load_month(obj.month);
+        edit_expense_form_load_category(obj.category);
+        edit_expense_form_load_currency(obj.currency);
+        edit_expense_form_load_amount(obj.amount);
+        edit_expense_form_load_date(obj.date);
+        edit_expense_form_load_description(obj.description);
+
+        if(!editExpenseForm_LoadFlag){
+            edit_expense_form_create_events_and_objects();
+        }
+    }
+
+    /************ID***********/
+    function edit_expense_form_load_id(id) {
+        const elem_field = document.getElementById("editExpenseForm_id");
+        elem_field.value = id;
+    }
+
+    /************WEEK***********/
+    function edit_expense_form_load_week(Week) {
+        const week_field = document.getElementById("editExpenseForm_week");
+        week_field.value = Week;
+    }
+
+    /************MONTH***********/
+    // An array of months
+    const array_of_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    function edit_expense_form_load_month(month) {
+
+        // Set the forms field value
+        const elem_field = document.getElementById("editExpenseForm_month");
+        elem_field.value = month;
+        // Set the User Interface Display Text 
+        const elem_field_user_display = document.getElementById("editExpenseForm_month_displayName");
+        elem_field_user_display.innerHTML = array_of_months[month - 1];
+    }
+
+    // Changes the month, and executes a JQuery Animation Effect
+    function edit_expense_form_change_month(increment) {
+        // Get the edit form's field input value
+        const elem_field = document.getElementById("editExpenseForm_month");
+        //covnert to integer
+        let newValue = +elem_field.value;
+        //check if increasing or decreasing
+        if (increment) {
+            //if increasing, check if it is at December ie 11, else incriment
+            if (newValue == 12)
+                newValue = 1;
+            else
+                newValue++;
+        }
+        //if decreasing, check if it is at january ie 0, else decrease
+        else {
+            if (newValue == 1)
+                newValue = 12;
+            else
+                newValue--;
+        }
+
+        /*ANIMATION*/
+
+        //Direction of text to move when changing, Animation
+        const text_direction = increment == true ? "left" : "right";
+        //Animation, and change of text displayed to the user, the month.
+        $("#editExpenseFormContentsMonth div .row h4").first()
+            .effect("blind",
+                { direction: "right" },
+                300,
+                function () {
+                    // Set the new form field input value
+                    elem_field.value = newValue;
+                    // Set the form's User Display text month equivalent
+                    const elem_field_user_display = document.getElementById("editExpenseForm_month_displayName");
+                    elem_field_user_display.innerHTML = array_of_months[newValue - 1];
+                }).toggle("show");
+    }
+
+    /************CATEGORY***********/
+
+    // This function doubles up, for loading the initial value, and for adjusting the value after user has selected list item
+    function edit_expense_form_load_category(obj) {
+        const field_elem = document.getElementById("editExpenseForm_category");
+        field_elem.value = obj.id;
+
+        const field_elem_user_display = document.getElementById("editExpenseForm_category_selected");
+        field_elem_user_display.hidden = false;
+        field_elem_user_display.innerHTML = obj.name;
+
+        const field_elem_list = document.getElementById("editExpenseForm_category_dropdown_list");
+        field_elem_list.hidden = true;
+    }
+
+    // This hides the category selected, and displays a list
+    function edit_expense_form_load_category_list() {
+        const field_elem_user_display = document.getElementById("editExpenseForm_category_selected");
+        // retrieve current boolean value
+        const flag = field_elem_user_display.hidden;
+        //set field to opposite boolean
+        field_elem_user_display.hidden = !flag;
+
+        const field_elem_list = document.getElementById("editExpenseForm_category_dropdown_list");
+        //set field to what the other field was previously
+        field_elem_list.hidden = flag;
+
+        // readjust the size of the modal
+        alterPosition("editExpenseForm",$("#editExpenseForm_Form").height());
+    }
+    /************CURRENCY***********/
+    function edit_expense_form_load_currency(value) {
+        const field_elem = document.getElementById("edit_expense_currency");
+        field_elem.value = value;
+    }
+
+    /************AMOUNT***********/
+    function edit_expense_form_load_amount(amount) {
+        const field_elem = document.getElementById("edit_expense_amount");
+        field_elem.value = amount;
+    }
+
+    /************DATE***********/
+    function edit_expense_form_load_date(date) {
+        const field_elem = document.getElementById("edit_expense_date");
+        field_elem.value = date;
+    }
+
+    /************DESCRIPTION***********/
+    function edit_expense_form_load_description(text) {
+        //get the input field for description
+        const field_elem = $("#edit_expense_description");
+        // set the inner text
+        field_elem.attr("value", text);
+        // event listener, double click
+        field_elem.on("dblclick", function () { edit_expense_form_expand_description(field_elem) });
+
+        //Create the button to open the modal, without double clicking
+        const $btn = edit_expense_form__description_create_expand_button(field_elem);
+        //Append to parent, do this because whenever we close this form window, it will destroy this button
+        field_elem.parent().append($btn);
+
+        //when we focus on this input field, the button will show
+        field_elem.on("focus", function(){
+            $btn.show("puff", { duration: 500 });
+        })
+
+    }
+
+    // Create of the Exand Button, for the Description Text Area
+    function edit_expense_form__description_create_expand_button(field_elem){
+         // Create the Button, to expand the description textArea, this will be hidden by default
+        const btn = $("<a>Expand...</a>");
+        btn.attr("id","edit_expense_form_expand_button");
+        btn.addClass("btn btn-secondary");
+            btn.css({
+                height: "80px",
+                width: "80px",
+                textAlign: "center",
+                borderRadius: "100px",
+                lineHeight: "62px",
+                fontSize: "16px",
+                zIndex: 3,
+                position: "relative",
+                top: "-10px",
+                left: "50px",
+                display: "none"
+            });
+
+        // Description Button to show TextArea modal
+        btn.on("click", function () {
+            edit_expense_form_expand_description(field_elem);
+            btn.effect("blind", { direction: "up" }, { duration: 500 });
+        })
+
+        //Hide button when not focusing on description box
+        field_elem.on("blur", function () {
+            btn.effect("blind", { direction: "up" }, { duration: 500 });
+        });
+
+        return btn;
+    }
+
+    //This function creates the Modal of the Description TextArea
+    function edit_expense_form_expand_description($textArea) {
+        const modal = $("<div><h4>Description</h4><textarea></textarea><a>Save</a><a>Cancel</a></div>");
+
+        //get the height and width of the form
+        const form_height = +$editExpenseForm_Form.parent()[0].clientHeight;
+        const form_width = +$editExpenseForm_Form.parent()[0].clientWidth;
+
+        //set the height and width of the textarea, and buttons
+        modal.css({
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            height: form_height,
+            width: form_width,
+            backgroundColor: "#6f42c1",
+            zIndex: 3,
+            display: "flex",
+            justifyContent: "center",
+            padding: "10%",
+        })
+
+        const modal_textarea = $(modal[0].childNodes[1]);
+        
+        //Set the value of the modal textArea
+         modal_textarea.val( $textArea.val());
+
+        //Set the height of the CSS
+        const height_text_area = +(form_height * 0.25) + "px";
+        const left_text_area = +(form_width * 0.10) + "px";
+
+        modal_textarea.css({
+            position: "absolute",
+            top: height_text_area,
+            left: left_text_area,
+            height: (form_height * 0.5) + "px",
+            width: (form_width * 0.75) + "px",
+        })
+
+        //Create the Modal Save and Cancel Buttons
+        const modal_a_save = $(modal[0].childNodes[2]);
+        const modal_a_cancel = $(modal[0].childNodes[3]);
+        const height_button = +(form_height * 0.8) + "px";
+        const left_button_save = +(form_width * 0.10) + "px";
+
+        modal_a_save.addClass("btn btn-secondary m-3");
+        modal_a_save.css({
+            position: "absolute",
+            top: height_button,
+            left: left_button_save,
+        })
+
+        const left_button_cancel = +(form_width * 0.30) + "px";
+        modal_a_cancel.addClass("btn btn-secondary m-3");
+        modal_a_cancel.css({
+            position: "absolute",
+            top: height_button,
+            left: left_button_cancel,
+        })
+
+        modal_a_cancel.on("click", function () {
+            modal.effect("explode", "slow");
+            modal.remove();
+        });
+
+        modal_a_save.on("click", function () {
+            const newText = modal_textarea.val();
+            modal.animate({
+                backgroundColor: ["#44d9e8", "swing"],
+            }, 300);
+            modal.effect("explode", { duration: 1000 });
+            modal.remove();
+            $textArea.attr("value", newText);
+        });
+
+        //apply events for the mouse clicking cancle or save button
+        $editExpenseForm_Form.append(modal);
+    }
+
+</script>
+
+@* MISCELLANEOUS SCRIPTS FOR THE EXPENSE FORM.  HIDE.  CREATE CLICK EVENTS BY JQUERY *@
+<script> 
+    // Hide-Box for the edit-expense-form 
+  $("#edit-expense-form-hide-button").on("click", () => {
+    let EditExpensesForm = document.getElementById("editExpenseForm");
+    EditExpensesForm.classList.remove("d-flex");
+    EditExpensesForm.hidden = true;
+    if( $("#edit_expense_form_expand_button").length > 0 ){
+        @* console.log( $("#edit_expense_form_expand_button")) *@
+        $("#edit_expense_form_expand_button").remove();
+        @* $(".ui-effects-placeholder").remove(); *@
+    }
+
+    //Remove the left and right buttons, for month changing, otherwise: every time we open the form module, we will create the JQuery objects, because we are calling the loading scripts, so the objects methods which are also created repeatedly will stack, and this will end up causing the methods/functions to be executed multiple times.  Basically, don't mix JQuery and Native DOM manipulation.  One of the other
+    // const a_left = $("#editExpenseFormContentsMonth div .row a").remove();
+
+    disableEnableAllButtons(false);
+  })
+
+  function edit_expense_form_create_events_and_objects(){
+            //Prevent duplicate executions
+            editExpenseForm_LoadFlag = true;
+
+            // MONTH
+            //add event listeners to the 'a' elements of the Month Field
+            const a_left = $("#editExpenseFormContentsMonth div .row a").first();
+            const a_right = $("#editExpenseFormContentsMonth div .row a").eq(1);
+
+            a_left.on("click", function () { edit_expense_form_change_month(false) });
+            a_right.on("click", function () { edit_expense_form_change_month(true) });
+        }
+</script>

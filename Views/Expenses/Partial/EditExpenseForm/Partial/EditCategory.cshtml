@@ -1,0 +1,36 @@
+@using System.Text.Json
+
+
+<div id="editExpenseFormContents">
+    <div class="col-4 customFormControl">
+        <label for=" type">Category</label>
+        <div class="text-center">
+            <input id="editExpenseForm_category" hidden type="text" name="categoryId">
+            <div class="row">
+                <h4 id="editExpenseForm_category_selected" style="border: white solid;"
+                    onclick="edit_expense_form_load_category_list()">Category</h4>
+                <a onclick="edit_expense_form_load_category_list()"><i class="bi bi-caret-down-fill "></i></a>
+            </div>
+            <ul id="editExpenseForm_category_dropdown_list" hidden class="text-center" style=" 
+                       z-index: 4;
+                       position: fixed;
+                       background-color: #170229;
+                       overflow-y: auto;
+                       scrollbar-width: 1px; 
+                       scrollbar-color: #44d9e8 #6f42c1 ;
+                       scrollbar-width: thin;
+                       display: flex;
+                       flex-direction: column ">
+                @foreach (var item in Model.categories)
+                {
+                    //var item_in_play = JsonSerializer.Serialize(item);
+                    <a style="width: 90%; margin: 4px" class="btn btn-light row"
+                        onclick="edit_expense_form_load_category({id: @item.Id, name: '@item.Name'})">
+                        @item.Name
+                    </a>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>

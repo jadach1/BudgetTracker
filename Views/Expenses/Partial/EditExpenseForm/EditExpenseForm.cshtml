@@ -1,0 +1,28 @@
+@model createExpenseForm;
+
+<div class="container">
+    <div class="col-12 d-flex justify-content-end">
+        <h1 style="padding-top: 7px;padding-right: 7px;"><i id="edit-expense-form-hide-button"
+                class="bi bi-x-square-fill"></i></h1>
+    </div>
+    <form id="editExpenseForm_Form" class="p-2 m-4 col-10  bg-primary text-light" asp-action="Edit"
+        asp-controller="Expenses">
+        <div class="d-flex justify-content-center">
+            <hr>
+            <h2>Edit Expense</h2>
+        </div>
+
+        <input id="editExpenseForm_id" name="id" hidden />
+
+        <partial name="./Partial/EditWeek.cshtml" />
+        <partial name="./Partial/EditMonth.cshtml" />
+        <partial name="./Partial/EditCategory.cshtml" />
+        <partial name="./Partial/EditCurrency.cshtml" />
+        <partial name="./Partial/EditAmount.cshtml" />
+        <partial name="./Partial/EditDate.cshtml" />
+        <partial name="./Partial/EditDescription.cshtml" />
+        <div class="col-12">
+            <button class="btn btn-lg btn-secondary m-4 offset-6 ">submit</button>
+        </div>
+    </form>
+</div>

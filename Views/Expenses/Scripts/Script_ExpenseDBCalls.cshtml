@@ -1,64 +1,86 @@
 
 
 <script>
-         function ajaxCallToExpenseController(expense) {
-            const obj = JSON.stringify(listOfExpenses);
-            $.ajax({
+    function ajaxCallToExpenseController_GetExpense(Id){
+  $.ajax({
+    url: '/Expenses/GetOneExpense/'+Id,
+    contentType: 'application/x-www-form-urlencoded',
+    type: "Get",
+    success: function (data) {
+                console.log(data);
+                // Now that we have gotten our expense, to edit, we will call the function location in: "Scripts_Edit_ExpenseForm" to display our expense
+                toggle_edit_expense_form(data);
+            },
 
-                // Our sample url to make request 
-                url:
-                    '/Expenses/Create',
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error fetching an Expense', 'error', 5000);
+                console.log(error)
+            }
+    });
+}
 
-                // Type of Request
-                contentType: 'application/json; charset=utf-8',
-                type: "Post",
-                data: obj,
+    function ajaxCallToExpenseController_Delete(Id,$TableRow){
+        let Data = {id: Id};
+        $.ajax({
+            url: '/Expenses/Delete',
+            contentType: 'application/x-www-form-urlencoded',
+         // this will not pass the data
+         //   contentType: 'application/json; charset=utf-8',
+            type: "Post",
+            data: Data,
+       
+            success: function (data) {
+                fireNotif('Successfully Removed Expense', 'Success', 5000);
+                let x = JSON.stringify(data);
+                console.log("success", x);
+                //remove the element from the DOM
+                hideDeleteModal();
+                // Remove the Expense-table-modal from the element we will delete
+                $("body").append($("#expense_table_modal").hide());
+                $TableRow.effect("explode").delay(300).remove();
+            },
 
-                // Function to call when to
-                // request is ok 
-                success: function (data) {
-                    window.localStorage.setItem("Success","Successfully Added Expenses");
-                    let x = JSON.stringify(data);
-                    console.log("success" , x);
-                     ClearExpenseListItems();
-                     const form  = document.getElementById("expenseForm");
-                     // refresh the form, but keep current month
-                     form.submit();
-                },
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error Removing an Expense', 'error', 5000);
+                console.log(error)
+            }
+        })
+    }
+    function ajaxCallToExpenseController(expense) {
+        const obj = JSON.stringify(listOfExpenses);
+        $.ajax({
 
-                // Error handling 
-                error: function (error) {
-                    //console.log(`Error ${error}`);
-                    fireNotif('There was an Error Adding Expenses','error', 5000);
-                    console.log(error)
-                }
-            });
-        }
+            // Our sample url to make request 
+            url:
+                '/Expenses/Create',
 
-        @* function ajaxCallSaveExpenses() {
-            $.ajax({
+            // Type of Request
+            contentType: 'application/json; charset=utf-8',
+            type: "Post",
+            data: obj,
 
-                // Our sample url to make request 
-                url:
-                    '/Expenses/CreateSave',
+            // Function to call when to
+            // request is ok 
+            success: function (data) {
+                window.localStorage.setItem("Success", "Successfully Added Expenses");
+                let x = JSON.stringify(data);
+                console.log("success", x);
+                ClearExpenseListItems();
+                const form = document.getElementById("expenseForm");
+                // refresh the form, but keep current month
+                form.submit();
+            },
 
-                // Type of Request
-                type: "Post",
-
-                // Function to call when to request is ok 
-                success: function (data) {
-                    let x = JSON.stringify(data);
-                    console.log(x);
-                    //clear all items
-                    
-                },
-
-                // Error handling 
-                error: function (error) {
-                    console.log(`Error2 ${error}`);
-                    console.log(error)
-                }
-            });
-        } *@
-
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error Adding Expenses', 'error', 5000);
+                console.log(error)
+            }
+        });
+    }
 </script>

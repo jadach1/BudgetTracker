@@ -6,7 +6,7 @@
     </div>
     <form id="expenseForm" class="p-2 m-4 col-10  bg-primary text-light" asp-action="Index" asp-controller="Expenses">
         <div class="d-flex justify-content-center">
-            <h1>@Model.type @Model.month</h1>
+            <h1>@Model.type Expense for @Model.month</h1>
             <hr>
         </div>
 
@@ -101,6 +101,3 @@
 
     </div>
 </div>
-
-<partial name="../Scripts/Script_CreateEditExpenseForm.cshtml"   />
-<partial name="../Scripts/Script_ExpenseDBCalls.cshtml" />

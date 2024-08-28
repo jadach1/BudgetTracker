@@ -1,7 +1,9 @@
+@using System.Text.Json
 @model DisplayExpenses
 @{
     float weeklyTotal = 0;
 }
+   
 <table class="table table-striped border border-solid border-2 border-primary">
     <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
     <a id="@Model.uniqueIdName" class="btn btn-outline-primary 
@@ -19,30 +21,23 @@
             <td class="col-3 text-center ">Description<i class="bi bi-chat-dots"></i></td>
         </tr>
     </thead>
-    <tbody>
-        @* @foreach(var obj in Model.expenses){
-        using System.ComponentModel.DataAnnotations.Schema;
-        <tr class="row">
-        <td class="col-3 text-center">@obj.category.Name</td>
-        using Microsoft.AspNetCore.Mvc.TagHelpers;
-        <td class="col-3 text-center">$@obj.Amount </td>
-        <td class="col-3 text-center">@obj.Date</td>
-        <td class="col-3 text-center">@obj.Description</td>
-        </tr>
-        } *@
+    <tbody >
         <tr class=@Model.uniqueClassNameStart></tr>
         @foreach (var obj in Model.expenses)
         {
-
-            <tr class="row">
+            var expense_id = "expense" + @obj.Id;
+            var expense_edit_delete_id = "expense_table_edit_and_delete_elements_" + @obj.Id;
+            var jsonString = JsonSerializer.Serialize(obj);
+            
+            <tr id="@expense_id" class="row" onclick="toggle_edit_delete_expense(@obj.Id,@expense_id)">
                 <td class="col-3 text-center">@obj.category.Name</td>
-                <td class="col-3 text-center">@obj.Currency @obj.Amount </td>
+                <td class="col-3 text-center ">@obj.Currency @obj.Amount </td>
                 <td class="col-3 text-center">@obj.Date</td>
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
-
             weeklyTotal += @obj.Amount;
         }
+      
         <tr class="row">
             <td>
                 <hr />
@@ -51,7 +46,7 @@
         <tr class=@Model.uniqueClassNameStop>
             <td class="d-flex justify-content-end">
                 <bold>
-                    <p class="text-secondary ">Total-Spent:  @weeklyTotal</p>
+                    <p class="text-secondary ">Total-Spent: @weeklyTotal</p>
                 </bold>
             </td>
         </tr>
@@ -67,3 +62,4 @@
         HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
     })
 </script>
+

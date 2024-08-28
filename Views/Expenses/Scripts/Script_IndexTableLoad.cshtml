@@ -23,7 +23,7 @@
     createEditExpensesForm.classList.add("d-flex");
 
     //Alter position of form
-    alterPosition();
+    alterPosition("createEditExpensesForm");
 
     //disable buttons
     disableEnableAllButtons(true);
@@ -48,35 +48,40 @@
     disableEnableAllButtons(false);
   })
 
-
-
 </script>
 
 <!-- FUNCTIONS VISIBILITY-->
 <script>
   function disableEnableAllButtons(flag = true) {
     document.getElementById("createEditExpensesFormButton").disabled = flag;
-    document.getElementById("week1CreateExpenseButton").disabled = flag;
     document.getElementById("createExpenseStagingArea").disabled = flag;
     document.getElementById("changeMonthFormButton").disabled = flag;
   }
 
   //alters the left-position of the Create Expense Form
-  function alterPosition() {
+  function alterPosition(name) {
+   
+    // this will get the element based on the string of the modalType
+    let bodyToChange = document.getElementById(name);
+
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
-  @* const bodyHeight = +document.getElementsByTagName('body')[0].clientHeight; *@
     const bodyHeight = +window.innerHeight;
 
     //adjust the height-position
-    let height = (bodyHeight - +createEditExpensesForm.clientHeight) / 2;
+    let height = (bodyHeight - +bodyToChange.clientHeight) / 2;
+
     if (height < 0)
       height = 0;
-    createEditExpensesForm.style.top = height + "px";
+
+    bodyToChange.style.top = height + "px";
+
     // Adjust the width-position
-    let size = (bodySize - +createEditExpensesForm.clientWidth) / 2
+    let size = (bodySize - +bodyToChange.clientWidth) / 2
+
     if (size < 0)
       size = 0;
-    createEditExpensesForm.style.left = size + "px";
+
+    bodyToChange.style.left = size + "px";
   }
 
   //Alter position of the change-month-form
@@ -106,5 +111,4 @@
     $('tr.' + start).nextUntil('tr.' + stop).slideToggle(500);
   }
 </script>
-
 

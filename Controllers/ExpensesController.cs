@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq.Expressions;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
@@ -15,10 +16,14 @@ namespace Budget_Man.Controllers
         // private readonly ApplicationDbContext _db;
         private readonly IUnitOfWork _db;
         private readonly UserManager<IdentityUser> _userManager;
-        public ExpensesController(IUnitOfWork db, UserManager<IdentityUser> userManager)
+
+        private HelperFunctions _helperFunctions;
+
+        public ExpensesController(IUnitOfWork db, UserManager<IdentityUser> userManager, HelperFunctions helperFunctions)
         {
             _db = db;
             _userManager = userManager;
+            _helperFunctions = helperFunctions;
         }
         public async Task<IActionResult> IndexAsync(IFormCollection form)
         {
@@ -44,7 +49,7 @@ namespace Budget_Man.Controllers
 
                 ViewData["month"] = dtfi.GetMonthName(month);
                 ViewData["year"] = year;
-                
+
                 //FETCH, FROM DB, CATEGORIES
                 IEnumerable<Category> categories = _db.categoryRepository.GetAll();
                 ViewData["categories"] = categories;
@@ -54,12 +59,12 @@ namespace Budget_Man.Controllers
 
                 //GET USER  
                 var user = await _userManager.GetUserAsync(User);
-                
+
                 //FETCH, FROM DB, Get Expenses
                 for (int i = 1; i < 6; i++)
                 {
                     string str = "expenses" + i;
-                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month,user.Id);
+                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month, user.Id);
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     ViewData[str] = expenses;
                 }
@@ -83,11 +88,10 @@ namespace Budget_Man.Controllers
                 //GET USER 
                 var user = await _userManager.GetUserAsync(User);
                 int counter = 0;
+
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
-                    Console.WriteLine("come " + item.Currency);
-                    Console.WriteLine(item);
                     Expenses newExpense = new Expenses
                     {
                         Month = ExpensesFormPosting.GetMonthNumber_From_MonthName(item.Month),
@@ -99,7 +103,7 @@ namespace Budget_Man.Controllers
                         MyUserName = user.Id,
                         Currency = item.Currency
                     };
-                     
+
                     counter++;
                     _db.expensesRepository.Add(newExpense);
                 };
@@ -116,9 +120,77 @@ namespace Budget_Man.Controllers
             {
                 ViewData["errorMessage"] = "exception " + e;
                 View("Views/Errors/generalError.cshtml");
-                return this.Ok($"hello world error");
+                return this.Ok(e);
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(Expenses obj)
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                obj.MyUserName = user.Id;
+                _db.expensesRepository.Update(obj);
+                _db.Save();
+                _helperFunctions.toasterTest("Successfully edited expense", 1);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                _helperFunctions.toasterTest("Failed at editing expense", 2);
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+        }
+
+        public async Task<IActionResult> GetOneExpense(int id)
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                Expenses expense = await _db.expensesRepository.GetSingleExpense(id, user.Id);
+                Expression<Func<Category, bool>> filter = o => o.Id == expense.CategoryId;
+                Category category = await _db.categoryRepository.Get(filter);
+                expense.category = category;
+                return this.Ok(expense);
+            }
+            catch (Exception e)
+            {
+                _helperFunctions.toasterTest("Failed at getting expense", 2);
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                bool result = _db.expensesRepository.Remove(id);
+                Console.WriteLine("result " + result);
+                if (result)
+                {
+                    _db.Save();
+                    return this.Ok("successfully deleted expense !" + id);
+                }
+                else
+                {
+                    return this.Ok("Could not delete expense ");
+                }
+
+            }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "error when deleting expense item " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+
+        }
     }
 }
