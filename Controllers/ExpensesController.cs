@@ -33,32 +33,28 @@ namespace Budget_Man.Controllers
                 int month;
 
                 if (!given_month.IsNullOrEmpty())
-                {
                     month = int.Parse(given_month);
-                }
-                else
-                {
+                 else
                     month = DateTime.Today.Month;
-                }
+                
 
                 int year = DateTime.Today.Year;
                 DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
 
                 // integer of the month, for form-submission, in Script_ExpenseDBCalls
                 ViewData["month_number"] = month;
-
                 ViewData["month"] = dtfi.GetMonthName(month);
                 ViewData["year"] = year;
 
+                //GET USER  
+                var user = await _userManager.GetUserAsync(User);
+
                 //FETCH, FROM DB, CATEGORIES
-                IEnumerable<Category> categories = _db.categoryRepository.GetAll();
+                IEnumerable<Category> categories = _db.categoryRepository.GetAll(user.Id);
                 ViewData["categories"] = categories;
 
                 // PREPARE 
                 MasterExpenseList masterExpenseList = new MasterExpenseList();
-
-                //GET USER  
-                var user = await _userManager.GetUserAsync(User);
 
                 //FETCH, FROM DB, Get Expenses
                 for (int i = 1; i < 6; i++)
@@ -167,12 +163,11 @@ namespace Budget_Man.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 bool result = _db.expensesRepository.Remove(id);
-                Console.WriteLine("result " + result);
                 if (result)
                 {
                     _db.Save();

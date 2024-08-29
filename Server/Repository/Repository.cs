@@ -37,7 +37,7 @@ namespace Budget_Man.Repository.Repository
         {
             if (id != 0)
             {
-                T obj = dbSet.Find(id);
+                T obj = dbSet.Find([id]);
                 _db.Remove(obj);
                 return true;
             }

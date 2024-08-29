@@ -63,7 +63,7 @@ function hideDeleteModal(){
     //hide before appending, otherwise user will see the modal transport itself
     $("#delete_expense_modal").hide("fade",function(){
         //We append to the body, because the delete-modal is currently attached to the TableRow potentially to be deleted, meaning, it will also be deleted from the DOM
-    $("body").append($("#delete_expense_modal"));
+    $("body").append($(this));
     });
     
 }

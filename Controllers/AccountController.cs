@@ -179,35 +179,37 @@ public class AccountController : Controller
         return View(model);
     }
 
- [HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> ResetPassword(ResetPasswordModel resetPasswordModel)
-{
-    if (!ModelState.IsValid)
-        return View(resetPasswordModel);
-
-    var user = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
-    
-    if (user == null)
-        RedirectToAction(nameof(ResetPasswordConfirmation));
-
-    var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
-    if(!resetPassResult.Succeeded)
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResetPassword(ResetPasswordModel resetPasswordModel)
     {
-        foreach (var error in resetPassResult.Errors)
+        if (!ModelState.IsValid)
+            return View(resetPasswordModel);
+
+        var user = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
+
+        if (user == null)
+            RedirectToAction(nameof(ResetPasswordConfirmation));
+
+        var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
+        if (!resetPassResult.Succeeded)
         {
-            ModelState.TryAddModelError(error.Code, error.Description);
+            foreach (var error in resetPassResult.Errors)
+            {
+                ModelState.TryAddModelError(error.Code, error.Description);
+            }
+
+            return View();
         }
 
-        return View();
+        return RedirectToAction(nameof(ResetPasswordConfirmation));
     }
-
-    return RedirectToAction(nameof(ResetPasswordConfirmation));
-}
 
     [HttpGet]
     public IActionResult ResetPasswordConfirmation()
     {
         return View();
     }
+
+   
 }

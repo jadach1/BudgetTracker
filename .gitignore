@@ -8,6 +8,18 @@ ToDo.txt
 # or wget:
 # wget --no-check-certificate http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
 
+#Files which annoy me
+bin/Debug/net8.0/'Budget Man.dll'
+bin/Debug/net8.0/'Budget Man.exe'
+bin/Debug/net8.0/'Budget Man.pdb'
+obj/Debug/net8.0/'Budget Man.dll'
+obj/Debug/net8.0/'Budget Man.pdb'
+obj/Debug/net8.0/apphost.exe
+obj/Debug/net8.0/ref/'Budget Man.dll'
+obj/Debug/net8.0/refint/'Budget Man.dll'
+obj/Debug/net8.0/'Budget Man.AssemblyInfo.cs'
+obj/Debug/net8.0/'Budget Man.AssemblyInfoInputs.cache'
+
 # User-specific files
 *.suo
 *.user

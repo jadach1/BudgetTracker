@@ -18,5 +18,11 @@ namespace Budget_Man.Repository
         {
            _db.FixedExpense.Update(obj);
         }
+
+        public IEnumerable<FixedExpense> GetAll(string userid){
+            IQueryable<FixedExpense> query = dbSet;
+            return query.Where(e => e.Userid == userid )
+                        .ToList();
+        }
     }
 }

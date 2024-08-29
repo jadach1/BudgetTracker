@@ -37,8 +37,6 @@
                 console.log("success", x);
                 //remove the element from the DOM
                 hideDeleteModal();
-                // Remove the Expense-table-modal from the element we will delete
-                $("body").append($("#expense_table_modal").hide());
                 $TableRow.effect("explode").delay(300).remove();
             },
 

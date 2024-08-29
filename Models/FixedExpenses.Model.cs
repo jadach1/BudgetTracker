@@ -11,12 +11,14 @@ namespace Budget_Man.Models {
         public float? Amount {get;set;}
         [Required]
         public string? Currency   {get;set;}
+         public string Userid {get;set;}
 
         private ApplicationDbContext? _db;
           public FixedExpense(){
             Name = "";
             Amount = 0;
             Currency = "USD";
+            Userid = "";
         }
 
         public FixedExpense(ApplicationDbContext db){
