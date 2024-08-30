@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Budget_Man.Helper.Library;
 
 namespace Budget_Man.Controllers
 {
@@ -11,10 +12,12 @@ namespace Budget_Man.Controllers
     {
         private readonly IUnitOfWork _dbCentral;
         private readonly UserManager<IdentityUser> _userManager;
-        public CategoryController(IUnitOfWork db, UserManager<IdentityUser> userManager)
+        private HelperFunctions _helperFunctions;
+        public CategoryController(IUnitOfWork db, UserManager<IdentityUser> userManager,HelperFunctions helperFunctions)
         {
             _dbCentral = db;
             _userManager = userManager;
+            _helperFunctions = helperFunctions;
         }
 
         public async Task<IActionResult> Index()
@@ -38,6 +41,7 @@ namespace Budget_Man.Controllers
 
             _dbCentral.categoryRepository.Add(obj);
             _dbCentral.Save();
+            _helperFunctions.toasterTest("New Category Created",1);
             return View();
         }
 
@@ -50,6 +54,7 @@ namespace Budget_Man.Controllers
 
             _dbCentral.categoryRepository.Update(obj);
             _dbCentral.Save();
+            _helperFunctions.toasterTest("Category Edit Successfully",3);
             return RedirectToAction("Index");
         }
 
@@ -62,6 +67,7 @@ namespace Budget_Man.Controllers
             if (flag)
             {
                 _dbCentral.Save();
+                _helperFunctions.toasterTest("Category Deleted",2);
                 return RedirectToAction("Index");
             }
             else

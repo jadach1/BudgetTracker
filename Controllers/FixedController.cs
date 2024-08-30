@@ -1,5 +1,6 @@
 
 using System.Runtime.CompilerServices;
+using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,12 @@ public class FixedExpenses : Controller
 {
     private IUnitOfWork _dbCentral;
     private readonly UserManager<IdentityUser> _userManager;
-   
-    public FixedExpenses(IUnitOfWork db,UserManager<IdentityUser> userManager)
+   private HelperFunctions _helperFunctions;
+    public FixedExpenses(IUnitOfWork db,UserManager<IdentityUser> userManager,HelperFunctions helperFunctions)
     {
         _dbCentral = db;
         _userManager = userManager;
+        _helperFunctions = helperFunctions;
     }
 
     public async Task<IActionResult> Index()
@@ -62,7 +64,7 @@ public class FixedExpenses : Controller
             Console.WriteLine(e);
             Console.WriteLine(" exception");
         }
-
+        _helperFunctions.toasterTest("Created New Fixed-Expense",1);
         return RedirectToAction("Index");
     }
     
@@ -83,6 +85,7 @@ public class FixedExpenses : Controller
             
             _dbCentral.fixedExpensesRepository.Update(fixedExpense);
             _dbCentral.Save();
+             _helperFunctions.toasterTest("Fixed-Expense has been edited",3);
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -100,6 +103,7 @@ public class FixedExpenses : Controller
         if (flag)
         {
             _dbCentral.Save();
+             _helperFunctions.toasterTest("Fixed-Expense has been deleted",2);
             return RedirectToAction("Index");
         }
         else
