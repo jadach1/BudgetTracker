@@ -58,21 +58,20 @@ namespace Budget_Man.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
               //GET USER 
             IdentityUser user = await GetActiveUser();
-
             bool flag = _dbCentral.categoryRepository.Remove(id);
             if (flag)
             {
                 _dbCentral.Save();
                 _helperFunctions.toasterTest("Category Deleted",2);
-                return RedirectToAction("Index");
+                return true;
             }
             else
             {
-                return Content("Id " + id + "not found");
+                return false;
             }
 
         }

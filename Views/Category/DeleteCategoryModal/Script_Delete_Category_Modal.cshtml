@@ -1,0 +1,68 @@
+<script>
+    var DeleteCategoryModal = {
+        check_If_Expenses_Exists: function(category_Id){
+            const URL = '/Expenses/DoesExpenseExist/'+category_Id;
+            const Type = "Get";
+            const ContentType = 'application/x-www-form-urlencoded';
+            const SuccessFn = function (successFlag) {
+                                            if(successFlag)
+                                            {
+                                                $("#delete_category_modal h4").value="Warning.  Deleting this Category will result in all Expenses with this Category to also be Delete.  You have the option to transfer the Expenses to another Category."
+                                                $("#delete_category_modal").show("fade");
+                                            }
+                                            else
+                                                this.Delete_Expense(category_Id);
+                                }
+            const ErrorFn = function (error) {fireNotif("There was a problem with a Category",'error', 5000);}
+            this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
+        },
+        Delete_Expense: function(category_Id){
+            const URL = '/Category/Delete/'+category_Id;
+            const Type = "Post";
+            const ContentType = 'application/x-www-form-urlencoded';
+            const SuccessFn = (result) => { if (result){this.RemoveElementFromUI(category_Id)} }
+            const ErrorFn = function (error) {fireNotif("There was a problem deleting a category",'error', 5000);}
+            this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
+        },
+        Ajax_DB_Call: function(URL, ContentType, Type, SuccessFn,ErrorFn){
+            $.ajax({
+                url: URL,
+                contentType: ContentType,
+                type: Type,
+                success: SuccessFn,
+                error: ErrorFn
+            })
+        },
+        RemoveElementFromUI: function(category_Id){
+            console.log("boom")
+            const RowName = "#displayName"+category_Id;
+            const $RowToDelete = $(RowName);
+            $RowToDelete.effect("explode",function(){$(this).remove()});
+        }
+        
+}
+</script>
+
+<script>
+  
+</script>
+
+<script>
+    //Takes 3 parameters, the name is just the Id, and the flag is whether we want to reveal or hide 
+    function edit_Category_Name(name, flag) {
+
+        let displayName = `displayName${name}`;
+        let editName = `editName${name}`;
+        let editButton = `editButton${name}`;
+
+
+        document.getElementById(displayName).hidden = !flag;
+        document.getElementById(editName).hidden = flag;
+        document.getElementById(editButton).disabled = !flag;
+    }
+
+    @* function editHandler(name) {
+        console.log("edit done");
+        editName();
+    } *@
+</script>

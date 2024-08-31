@@ -141,27 +141,6 @@ namespace Budget_Man.Controllers
                 return this.Ok(e);
             }
         }
-
-        public async Task<IActionResult> GetOneExpense(int id)
-        {
-            try
-            {
-                //GET USER 
-                var user = await _userManager.GetUserAsync(User);
-                Expenses expense = await _db.expensesRepository.GetSingleExpense(id, user.Id);
-                Expression<Func<Category, bool>> filter = o => o.Id == expense.CategoryId;
-                Category category = await _db.categoryRepository.Get(filter);
-                expense.category = category;
-                return this.Ok(expense);
-            }
-            catch (Exception e)
-            {
-                _helperFunctions.toasterTest("Failed at getting expense", 2);
-                ViewData["errorMessage"] = "exception " + e;
-                View("Views/Errors/generalError.cshtml");
-                return this.Ok(e);
-            }
-        }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -187,5 +166,45 @@ namespace Budget_Man.Controllers
             }
 
         }
+        public async Task<IActionResult> GetOneExpense(int id)
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                Expenses expense = await _db.expensesRepository.GetSingleExpense(id, user.Id);
+                Expression<Func<Category, bool>> filter = o => o.Id == expense.CategoryId;
+                Category category = await _db.categoryRepository.Get(filter);
+                expense.category = category;
+                return this.Ok(expense);
+            }
+            catch (Exception e)
+            {
+                _helperFunctions.toasterTest("Failed at getting expense", 2);
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+        }
+        
+        public async Task<bool> DoesExpenseExist(int id){
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                bool result = await _db.expensesRepository.GetExpensesWithCategoryId(id, user.Id);
+                if(result)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "Problem here.  Getting an expense based on a category seems to cause this issue: " + e;
+                View("Views/Errors/generalError.cshtml");
+                return false;
+            }
+        }
+      
     }
 }

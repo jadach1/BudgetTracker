@@ -30,10 +30,29 @@ namespace Budget_Man.Repository
                         .FirstOrDefault();
         }
 
+        public async Task<bool> GetExpensesWithCategoryId(int CategoryId,string userId){
+            IQueryable<Expenses> query = dbSet;
+           Expenses result = query.Where(e => e.CategoryId == CategoryId && e.MyUserName == userId)
+                        .FirstOrDefault();
+           
+            if(result != null)
+                return true;
+             else 
+                return false;
+        }
+
 
         public void Update(Expenses obj)
         {
             _db.Expenses.Update(obj);
+        }
+
+          public void Update_Change_Expense_Category(int newCategory, int oldCategory, string userid){
+            string sql = "'UPDATE [dbo].[Expenses] " + 
+                        "SET [CategoryId] ='" + newCategory + "' "+  
+                        "WHERE [CategoryId]='"+ oldCategory + "' "+  
+                        "AND [Userid]='"+userid+"';";
+            _db.Categories.FromSqlRaw(sql); 
         }
     }
 

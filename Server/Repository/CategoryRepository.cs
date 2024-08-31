@@ -1,6 +1,7 @@
 using Budget_Man.Models;
 using Budget_Man.Repository.Repository;
 using Budget_Man.Server;
+using Microsoft.EntityFrameworkCore;
 
 namespace Budget_Man.Repository {
     public class CategoryRepository : Repository<Category>
@@ -20,5 +21,6 @@ namespace Budget_Man.Repository {
             return query.Where(e => e.Userid == userid )
                         .ToList();
         }
+               
+        }
     }
-}
