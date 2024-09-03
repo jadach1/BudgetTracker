@@ -1,18 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-//Check for notifications
-
-
-if(window.localStorage.getItem('Success'))
-{
-    const msg = window.localStorage.getItem('Success')
-    fireNotif(msg,'success', 5000);
-    window.localStorage.removeItem('Success');
-}
-
-
-//Format 2024-5-2 to Thursday May 2024
+﻿//Format 2024-5-2 to Thursday May 2024
 var listOfMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var listOfDays = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function humanReadableDate(date){    
@@ -26,9 +12,14 @@ function humanReadableDate(date){
 //Returns the height and width of the screen
 function getCurrentScreenSize(){
  const $Screen = $("body");
+ const windowHeight = window.innerHeight;
+ const windowWidth = window.innerWidth;
+ console.log("site.js function getCurrentScreenSize",$Screen)
     return {
             width: $Screen.width(),
-            height: $Screen.height()
+            height: $Screen.height(),
+            windowHeight: windowHeight,
+            windowWidth: windowWidth
         }
 }
 
@@ -38,11 +29,14 @@ function screenSizeCheck(){
     const bbody = document.getElementsByTagName("body");
     
     console.log("width " + size);
-   console.log("height " + height);
-   console.log(bbody);
+    console.log("height " + height);
+   
+    console.log(bbody);
 
    const windowHeight = window.innerHeight;
-   console.log("height " + windowHeight);
+   const windowWidth = window.innerWidth;
+   console.log("window height " + windowHeight);
+   console.log("window width " + windowWidth);
 
    fireNotif('screen size','success', 5000);
 }

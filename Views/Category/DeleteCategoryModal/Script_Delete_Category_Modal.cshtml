@@ -1,26 +1,83 @@
 <script>
+    var count = 0;
+
+    // JQuery Variables for the modal and its buttons
+    const $delete_category_modal_mask = $("#delete_category_modal_mask");
+    const $delete_category_modal = $("#delete_category_modal");
+    const $DeleteCategoryModal_Btn_Transfer = $("#delete_category_modal a").first();
+    const $DeleteCategoryModal_Btn_Delete = $("#delete_category_modal a").last();
+    const $DeleteCategoryModal_Btn_Hide = $("#delete-category-hide-button");
+
+    // JQuery Delete button 
+    $DeleteCategoryModal_Btn_Delete.on("click",function(){
+        //Returns a promise after successful deletion, to destroy the element on the UI
+        DeleteCategoryModal.ToggleDisplayModal().then( (res,rej) => {
+            setTimeout( function(){
+                DeleteCategoryModal.Delete_Expense(); 
+            },1000);
+        }); 
+    })
+
+    //JQuery Hide Delete Category Modal
+     $DeleteCategoryModal_Btn_Hide.on("click",function(){
+        DeleteCategoryModal.ToggleDisplayModal();
+    })
+
+// Object Literal, containing methods and properties for the Category_Delete_Modal
     var DeleteCategoryModal = {
+        //To access this variable via other functions, you need to use this.CategoryId
+        CategoryId: "",
+        CreateModal_FitToScreen: function(){
+            //Gets the height and width of the screen
+            const $ScreenSize = getCurrentScreenSize();
+            height = $ScreenSize.height;
+            width = $ScreenSize.width;
+            
+            $delete_category_modal_mask.css({
+                position: "absolute",
+                zIndex: 2,
+                backgroundColor: "#6f42c1",
+                opacity:"0.8",
+                top: "0px",
+                left: "0px",
+                height: height,
+                width: width,
+            })
+
+            let modalWidth="400px";
+            if(+width < 600){
+                modalWidth="300px";
+            }
+            if(+width > 922){
+                modalWidth="300px";
+            }
+            
+            $delete_category_modal.css({
+                position: "fixed",
+                backgroundColor: "#6f42c1",
+                width: modalWidth,
+            })
+        },
+        //This is the first method to be called, the init
         check_If_Expenses_Exists: function(category_Id){
+            this.CategoryId = category_Id;
             const URL = '/Expenses/DoesExpenseExist/'+category_Id;
             const Type = "Get";
             const ContentType = 'application/x-www-form-urlencoded';
             const SuccessFn = function (successFlag) {
                                             if(successFlag)
-                                            {
-                                                $("#delete_category_modal h4").value="Warning.  Deleting this Category will result in all Expenses with this Category to also be Delete.  You have the option to transfer the Expenses to another Category."
-                                                $("#delete_category_modal").show("fade");
-                                            }
+                                                this.ToggleDisplayModal();
                                             else
-                                                this.Delete_Expense(category_Id);
+                                                this.Delete_Expense();
                                 }
             const ErrorFn = function (error) {fireNotif("There was a problem with a Category",'error', 5000);}
             this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
         },
-        Delete_Expense: function(category_Id){
-            const URL = '/Category/Delete/'+category_Id;
+        Delete_Expense: function(){
+            const URL = '/Category/Delete/'+this.CategoryId;
             const Type = "Post";
             const ContentType = 'application/x-www-form-urlencoded';
-            const SuccessFn = (result) => { if (result){this.RemoveElementFromUI(category_Id)} }
+            const SuccessFn = (result) => { if (result){this.RemoveElementFromUI(this.CategoryId)} }
             const ErrorFn = function (error) {fireNotif("There was a problem deleting a category",'error', 5000);}
             this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
         },
@@ -34,17 +91,22 @@
             })
         },
         RemoveElementFromUI: function(category_Id){
-            console.log("boom")
-            const RowName = "#displayName"+category_Id;
+            const RowName = "#displayName"+this.CategoryId;
             const $RowToDelete = $(RowName);
             $RowToDelete.effect("explode",function(){$(this).remove()});
-        }
-        
+        },
+        ToggleDisplayModal: function(){
+            console.log("toggle display")
+            $delete_category_modal.toggle("fade");
+            $delete_category_modal_mask.toggle("fade");
+            return $.Deferred((x) => {x.resolve()}).promise();
+        }  
 }
 </script>
 
 <script>
-  
+    //Initialisation of the Modal size, fit modal to screen size
+    DeleteCategoryModal.CreateModal_FitToScreen();
 </script>
 
 <script>

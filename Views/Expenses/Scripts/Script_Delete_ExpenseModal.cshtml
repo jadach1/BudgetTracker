@@ -1,10 +1,11 @@
 <script>
+
 function toggle_delete_expense_modal($TableRow, Id){
     
     // Build the JQuery objects
     const $DeleteModal = $("#delete_expense_modal");
     const $DeleteModalMask = $("#delete_expense_modal_mask");
-
+  
     let height =+$TableRow.height()*2;
     let width = +$TableRow.width();
 

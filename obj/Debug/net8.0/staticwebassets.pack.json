@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\js\\currency_library.js"
     },
     {
+      "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\notif-checker-agent.js",
+      "PackagePath": "staticwebassets\\js\\notif-checker-agent.js"
+    },
+    {
       "Id": "C:\\Users\\Jacob\\Desktop\\developmentProjects\\C#\\Budget Man\\wwwroot\\js\\ripple-effect.min.js",
       "PackagePath": "staticwebassets\\js\\ripple-effect.min.js"
     },
