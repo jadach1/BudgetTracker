@@ -2,11 +2,19 @@
     var count = 0;
 
     // JQuery Variables for the modal and its buttons
-    const $delete_category_modal_mask = $("#delete_category_modal_mask");
-    const $delete_category_modal = $("#delete_category_modal");
+    const $Delete_category_modal_mask = $("#delete_category_modal_mask");
+    const $Delete_category_modal = $("#delete_category_modal");
     const $DeleteCategoryModal_Btn_Transfer = $("#delete_category_modal a").first();
     const $DeleteCategoryModal_Btn_Delete = $("#delete_category_modal a").last();
     const $DeleteCategoryModal_Btn_Hide = $("#delete-category-hide-button");
+
+    const $Delete_category_modal_transfer = $("#delete_category_modal_dropdown_list");
+    const $Delete_category_newCategorySelected = $("#selected-category-to-be-transferred");
+    const $Delete_category_modal_transfer_Msg = $("#delete_category_modal_dropdown_list p");
+    const $Delete_category_modal_transfer_ul  = $("#delete_category_modal_dropdown_list ul");
+    const $Delete_category_modal_transfer_ul_a  = $("#delete_category_modal_dropdown_list ul a");
+    const $Delete_category_modal_dropdown_list_Btn_Transfer = $("#delete_category_modal_confirm_Transfer");
+    const $Delete_category_modal_dropdown_list_Btn_Hide = $("#delete_category_modal_dropdown_list a").last();
 
     // JQuery Delete button 
     $DeleteCategoryModal_Btn_Delete.on("click",function(){
@@ -23,6 +31,40 @@
         DeleteCategoryModal.ToggleDisplayModal();
     })
 
+    // JQuery Transfer button 
+    $DeleteCategoryModal_Btn_Transfer.on("click",function(){
+        DeleteCategoryModal.ToggleTransferModal();
+    })
+
+    //JQuery Hide: Delete-Category-Modal-Transfer-Modal
+    $Delete_category_modal_dropdown_list_Btn_Hide.on("click", function(){
+        $Delete_category_newCategorySelected.val("");
+        $Delete_category_modal_transfer_Msg.text(""); 
+        DeleteCategoryModal.ToggleTransferModal();
+    });
+
+
+    $Delete_category_modal_dropdown_list_Btn_Transfer.on("click",function(){
+        
+        console.log($Delete_category_newCategorySelected.val(),"value");
+        const str = $Delete_category_newCategorySelected.val();
+        if(DeleteCategoryModal.CategoryId == str){  
+            DeleteCategoryModal.DisplayError("Cannot Select Same Category");
+        }   
+        if(str == ""){
+            DeleteCategoryModal.DisplayError("Nothing Selected");
+        }
+    });
+    
+    $Delete_category_modal_transfer_ul_a.on("click",function(){
+        const str = $(this).attr("id").split(".")[1];
+        const category = $(this)[0].text;
+         $Delete_category_newCategorySelected.val(str);
+         $Delete_category_newCategorySelected.show();
+         DeleteCategoryModal.DisplayMessage("Selected Category: " + category);
+         console.log($Delete_category_modal_transfer_Msg);
+    });
+
 // Object Literal, containing methods and properties for the Category_Delete_Modal
     var DeleteCategoryModal = {
         //To access this variable via other functions, you need to use this.CategoryId
@@ -33,7 +75,7 @@
             height = $ScreenSize.height;
             width = $ScreenSize.width;
             
-            $delete_category_modal_mask.css({
+            $Delete_category_modal_mask.css({
                 position: "absolute",
                 zIndex: 2,
                 backgroundColor: "#6f42c1",
@@ -49,14 +91,21 @@
                 modalWidth="300px";
             }
             if(+width > 922){
-                modalWidth="300px";
+                modalWidth="500px";
             }
             
-            $delete_category_modal.css({
+            const style = {
                 position: "fixed",
                 backgroundColor: "#6f42c1",
                 width: modalWidth,
-            })
+            };
+
+            $Delete_category_modal.css(style)
+
+            style.height = $Delete_category_modal.height();
+            $Delete_category_modal_transfer.css(style);
+            const newh = $Delete_category_modal.height() / 2;
+            $Delete_category_modal_transfer_ul .css({height: newh});
         },
         //This is the first method to be called, the init
         check_If_Expenses_Exists: function(category_Id){
@@ -96,12 +145,22 @@
             $RowToDelete.effect("explode",function(){$(this).remove()});
         },
         ToggleDisplayModal: function(){
-            console.log("toggle display")
-            $delete_category_modal.toggle("fade");
-            $delete_category_modal_mask.toggle("fade");
+            $Delete_category_modal.toggle("fade");
+            $Delete_category_modal_mask.toggle("fade");
             return $.Deferred((x) => {x.resolve()}).promise();
-        }  
-}
+        },  
+        ToggleTransferModal: function(){
+            $Delete_category_modal_transfer.toggle("fade");
+        },
+        TransferCategory: function(){},
+        DisplayError: function(msg){
+            $Delete_category_modal_transfer_Msg.html(msg);
+            $Delete_category_modal_transfer_Msg.css("backgroundColor", "#e44c55");
+        },
+         DisplayMessage: function(msg){
+            $Delete_category_modal_transfer_Msg.text(msg);
+            $Delete_category_modal_transfer_Msg.css("backgroundColor", "aqua");
+        },}
 </script>
 
 <script>
