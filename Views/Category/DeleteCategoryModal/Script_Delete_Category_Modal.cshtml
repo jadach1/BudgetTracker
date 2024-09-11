@@ -16,6 +16,11 @@
     const $Delete_category_modal_dropdown_list_Btn_Transfer = $("#delete_category_modal_confirm_Transfer");
     const $Delete_category_modal_dropdown_list_Btn_Hide = $("#delete_category_modal_dropdown_list a").last();
 
+    const $Delete_Category_Final_Comfirmation_Modal = $("#delete_category_final_confirmation");
+    const $Delete_Category_Final_Comfirmation_Modal_Message = $("#delete_category_final_confirmation p");
+    const $Delete_Category_Final_Yes = $("#delete_category_final_confirmation div a").first();
+    const $Delete_Category_Final_No = $("#delete_category_final_confirmation div a").last();
+    
     // JQuery Delete button 
     $DeleteCategoryModal_Btn_Delete.on("click",function(){
         //Returns a promise after successful deletion, to destroy the element on the UI
@@ -38,37 +43,42 @@
 
     //JQuery Hide: Delete-Category-Modal-Transfer-Modal
     $Delete_category_modal_dropdown_list_Btn_Hide.on("click", function(){
-        $Delete_category_newCategorySelected.val("");
         $Delete_category_modal_transfer_Msg.text(""); 
         DeleteCategoryModal.ToggleTransferModal();
+        DeleteCategoryModal.ResetSelectedCategory();
     });
 
-
+    //JQuery Attempt Transfer: Attempts to Transfer the selected category
     $Delete_category_modal_dropdown_list_Btn_Transfer.on("click",function(){
-        
-        console.log($Delete_category_newCategorySelected.val(),"value");
-        const str = $Delete_category_newCategorySelected.val();
-        if(DeleteCategoryModal.CategoryId == str){  
-            DeleteCategoryModal.DisplayError("Cannot Select Same Category");
-        }   
-        if(str == ""){
-            DeleteCategoryModal.DisplayError("Nothing Selected");
-        }
+        DeleteCategoryModal.CheckIfValidTransfer();
     });
     
+    @* JQuery List of <a>Category</a>, each time one is pressed 
+    it will update the <input /> field and display the newly 
+    selected category *@
     $Delete_category_modal_transfer_ul_a.on("click",function(){
-        const str = $(this).attr("id").split(".")[1];
-        const category = $(this)[0].text;
-         $Delete_category_newCategorySelected.val(str);
-         $Delete_category_newCategorySelected.show();
-         DeleteCategoryModal.DisplayMessage("Selected Category: " + category);
-         console.log($Delete_category_modal_transfer_Msg);
+        //gets current id, embedded into the element, $(this) references the <a>
+         DeleteCategoryModal.CategoryId_New = $(this).attr("id").split(".")[1];;
+         DeleteCategoryModal.CategoryName_New = $(this)[0].text;;
+         DeleteCategoryModal.DisplayMessage("Selected Category: " + DeleteCategoryModal.CategoryName_New, "#6f42c1");
     });
+
+    @* Final Confirmation Moda, Buttons *@
+    $Delete_Category_Final_Yes.on("click", function(){
+        $Delete_Category_Final_Comfirmation_Modal.toggle();
+            $Delete_category_modal.toggle();
+            $Delete_category_modal_transfer.toggle();
+    })
+    
 
 // Object Literal, containing methods and properties for the Category_Delete_Modal
     var DeleteCategoryModal = {
-        //To access this variable via other functions, you need to use this.CategoryId
-        CategoryId: "",
+        //To access this variable via other functions, you need to use this.CategoryId_Old
+        CategoryId_Old: "",
+        CategoryName_Old: "",
+        CategoryId_New: "",
+        CategoryName_New: "",
+        //Is called first to adjust the size of the modal relative to the screen
         CreateModal_FitToScreen: function(){
             //Gets the height and width of the screen
             const $ScreenSize = getCurrentScreenSize();
@@ -86,30 +96,37 @@
                 width: width,
             })
 
-            let modalWidth="400px";
+            let modalWidth=400;
             if(+width < 600){
-                modalWidth="300px";
+                modalWidth=300;
             }
             if(+width > 922){
-                modalWidth="500px";
+                modalWidth=500;
             }
-            
+
+        //Create style for the main delete category modal
+            const modalPosition = ((+$ScreenSize.width - +modalWidth) / 2);
+
             const style = {
                 position: "fixed",
                 backgroundColor: "#6f42c1",
-                width: modalWidth,
+                width: modalWidth+"px",
+                left: modalPosition+"px",
             };
 
             $Delete_category_modal.css(style)
 
-            style.height = $Delete_category_modal.height();
+            //Now, alter for the sub-modal, which will alert if the expense is tied to an existing catgegory
+            style.fontSize = "18px";
             $Delete_category_modal_transfer.css(style);
+            //Create the height for the list in the sub-modal
             const newh = $Delete_category_modal.height() / 2;
             $Delete_category_modal_transfer_ul .css({height: newh});
         },
         //This is the first method to be called, the init
-        check_If_Expenses_Exists: function(category_Id){
-            this.CategoryId = category_Id;
+        check_If_Expenses_Exists: function(category_Id,category_name){
+            this.CategoryId_Old = category_Id;
+            this.CategoryName_Old = category_name;
             const URL = '/Expenses/DoesExpenseExist/'+category_Id;
             const Type = "Get";
             const ContentType = 'application/x-www-form-urlencoded';
@@ -123,13 +140,14 @@
             this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
         },
         Delete_Expense: function(){
-            const URL = '/Category/Delete/'+this.CategoryId;
+            const URL = '/Category/Delete/'+this.CategoryId_Old;
             const Type = "Post";
             const ContentType = 'application/x-www-form-urlencoded';
-            const SuccessFn = (result) => { if (result){this.RemoveElementFromUI(this.CategoryId)} }
+            const SuccessFn = (result) => { if (result){this.RemoveElementFromUI(this.CategoryId_Old)} }
             const ErrorFn = function (error) {fireNotif("There was a problem deleting a category",'error', 5000);}
             this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
         },
+        //Called by other methods, received parameters, executes ajax call
         Ajax_DB_Call: function(URL, ContentType, Type, SuccessFn,ErrorFn){
             $.ajax({
                 url: URL,
@@ -140,27 +158,49 @@
             })
         },
         RemoveElementFromUI: function(category_Id){
-            const RowName = "#displayName"+this.CategoryId;
+            const RowName = "#displayName"+this.CategoryId_Old;
             const $RowToDelete = $(RowName);
             $RowToDelete.effect("explode",function(){$(this).remove()});
         },
+        //Primary Modal
         ToggleDisplayModal: function(){
             $Delete_category_modal.toggle("fade");
             $Delete_category_modal_mask.toggle("fade");
             return $.Deferred((x) => {x.resolve()}).promise();
         },  
+        //Modal displaying list of categories
         ToggleTransferModal: function(){
             $Delete_category_modal_transfer.toggle("fade");
         },
-        TransferCategory: function(){},
-        DisplayError: function(msg){
-            $Delete_category_modal_transfer_Msg.html(msg);
-            $Delete_category_modal_transfer_Msg.css("backgroundColor", "#e44c55");
+        TransferCategory: function(){
+            console.log("noiw being to transfers")
         },
-         DisplayMessage: function(msg){
+        //Shows a msg for Modal displaying list of categories
+         DisplayMessage: function(msg,color="black"){
             $Delete_category_modal_transfer_Msg.text(msg);
-            $Delete_category_modal_transfer_Msg.css("backgroundColor", "aqua");
-        },}
+            $Delete_category_modal_transfer_Msg.css("backgroundColor", color);
+        },
+        ResetSelectedCategory: function(){
+            this.CategoryId_New = "";
+            this.CategoryName_New = "";
+        },
+        //Checks if the user is not trying to transfer to the existing CategoryId, or has not selected anything
+        CheckIfValidTransfer: function(){
+            if(this.CategoryId_Old == this.CategoryId_New){  
+                this.DisplayMessage("Cannot Select Same Category","#e44c55");
+            }   
+            else if(this.CategoryId_New == ""){
+                this.DisplayMessage("Nothing Selected","#e44c55");
+            } else{
+                $Delete_Category_Final_Comfirmation_Modal.toggle();
+                const msg = "Actions:  Delete " + this.CategoryName_Old + " and Replace with: " + this.CategoryName_New;
+                $Delete_Category_Final_Comfirmation_Modal_Message.html(msg);
+                $Delete_category_modal.toggle();
+                $Delete_category_modal_transfer.toggle();
+                this.TransferCategory();
+            }
+        },
+        }
 </script>
 
 <script>

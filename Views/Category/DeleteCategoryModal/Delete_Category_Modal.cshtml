@@ -20,7 +20,7 @@
                        display: flex;
                        flex-direction: column;
                        margin: 8%;">
-            <input id="selected-category-to-be-transferred" name="name" value="" type="number" style="display: none;"/>
+            @* <input id="selected-category-to-be-transferred" name="name" value="" type="number" style="display: none;"/> *@
              @foreach (var obj in Model.OrderBy(u => u.Name))
             {
 
@@ -29,9 +29,17 @@
                 <a id=@displayName style="border: aqua solid; margin:2%;position: relative;left:-10%;" class="btn btn-outline-light">@obj.Name</a>
             }
     </ul>
-    <p class="text-center text-black" style="margin: 5%;"></p>
+    <p class="text-center text-white" style="margin: 5%;"></p>
     <a id="delete_category_modal_confirm_Transfer" class="btn btn-secondary" style="margin: 5%;margin-left: 25%;">Confirm</a>
     <a  class="btn btn-dark" style="margin: 5%;">Cancel</a>
 </div>
 
+<div id="delete_category_final_confirmation" style="display: none;position: fixed;height: 175px; width: 175px;padding: 5px;border: solid black;z-index: 5;background-color: brown">
+    <h4>Are you sure ?</h4>
+    <p></p>
+    <div>
+        <a class="btn btn-danger">yes</a>
+        <a class="btn btn-light">no</a>
+    </div>
+</div>
 <div id="delete_category_modal_mask" style="display:none;z-index: 2;"></div>
