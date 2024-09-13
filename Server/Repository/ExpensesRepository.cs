@@ -3,7 +3,6 @@ using Budget_Man.Models;
 using Budget_Man.Repository.Repository;
 using Budget_Man.Server;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace Budget_Man.Repository
 {
@@ -47,12 +46,24 @@ namespace Budget_Man.Repository
             _db.Expenses.Update(obj);
         }
 
-          public void Update_Change_Expense_Category(int newCategory, int oldCategory, string userid){
+          public async Task<bool> Update_Change_Expense_Category(string userid, int oldCategory, int newCategory){
             string sql = "'UPDATE [dbo].[Expenses] " + 
                         "SET [CategoryId] ='" + newCategory + "' "+  
                         "WHERE [CategoryId]='"+ oldCategory + "' "+  
                         "AND [Userid]='"+userid+"';";
-            _db.Categories.FromSqlRaw(sql); 
+         
+        var result = await _db.Expenses.Where(e => e.CategoryId == oldCategory && e.MyUserName == userid)
+                           .ExecuteUpdateAsync(
+                                s => s.SetProperty(e => e.CategoryId, e => newCategory));
+          Console.WriteLine("result of sql query is ");
+           Console.WriteLine(result);
+
+          if(result != null){
+            return true;
+          } else {
+            return false;
+          }
+       
         }
     }
 

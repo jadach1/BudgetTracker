@@ -63,13 +63,14 @@
          DeleteCategoryModal.DisplayMessage("Selected Category: " + DeleteCategoryModal.CategoryName_New, "#6f42c1");
     });
 
-    @* Final Confirmation Moda, Buttons *@
+    @* Final Confirmation Modal, Buttons *@
     $Delete_Category_Final_Yes.on("click", function(){
-        $Delete_Category_Final_Comfirmation_Modal.toggle();
-            $Delete_category_modal.toggle();
-            $Delete_category_modal_transfer.toggle();
+        DeleteCategoryModal.TransferCategory();
     })
     
+     $Delete_Category_Final_No.on("click", function(){
+        DeleteCategoryModal.ToggleConfirmModal();
+    })
 
 // Object Literal, containing methods and properties for the Category_Delete_Modal
     var DeleteCategoryModal = {
@@ -122,6 +123,10 @@
             //Create the height for the list in the sub-modal
             const newh = $Delete_category_modal.height() / 2;
             $Delete_category_modal_transfer_ul .css({height: newh});
+
+            //Center the third, confirm modal, modal
+            this.CentreModal($Delete_Category_Final_Comfirmation_Modal);
+            
         },
         //This is the first method to be called, the init
         check_If_Expenses_Exists: function(category_Id,category_name){
@@ -130,6 +135,7 @@
             const URL = '/Expenses/DoesExpenseExist/'+category_Id;
             const Type = "Get";
             const ContentType = 'application/x-www-form-urlencoded';
+            const Data = null;
             const SuccessFn = function (successFlag) {
                                             if(successFlag)
                                                 this.ToggleDisplayModal();
@@ -137,25 +143,31 @@
                                                 this.Delete_Expense();
                                 }
             const ErrorFn = function (error) {fireNotif("There was a problem with a Category",'error', 5000);}
-            this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
+            this.Ajax_DB_Call(URL,ContentType,Type,Data,SuccessFn.bind(this),ErrorFn)
         },
         Delete_Expense: function(){
             const URL = '/Category/Delete/'+this.CategoryId_Old;
             const Type = "Post";
             const ContentType = 'application/x-www-form-urlencoded';
+            const Data = null;
             const SuccessFn = (result) => { if (result){this.RemoveElementFromUI(this.CategoryId_Old)} }
             const ErrorFn = function (error) {fireNotif("There was a problem deleting a category",'error', 5000);}
-            this.Ajax_DB_Call(URL,ContentType,Type,SuccessFn.bind(this),ErrorFn)
+            this.Ajax_DB_Call(URL,ContentType,Type,Data,SuccessFn.bind(this),ErrorFn)
         },
         //Called by other methods, received parameters, executes ajax call
-        Ajax_DB_Call: function(URL, ContentType, Type, SuccessFn,ErrorFn){
-            $.ajax({
+        Ajax_DB_Call: function(URL, ContentType, Type, Data, SuccessFn,ErrorFn){
+            const info = {
                 url: URL,
                 contentType: ContentType,
                 type: Type,
                 success: SuccessFn,
                 error: ErrorFn
-            })
+            };
+
+            if(Data != null)
+                info.data = Data;
+
+            $.ajax(info)
         },
         RemoveElementFromUI: function(category_Id){
             const RowName = "#displayName"+this.CategoryId_Old;
@@ -172,11 +184,44 @@
         ToggleTransferModal: function(){
             $Delete_category_modal_transfer.toggle("fade");
         },
+        //final modal, asking user to confirm after selecting new category to transfer 
+        ToggleConfirmModal: function(){
+            $Delete_Category_Final_Comfirmation_Modal.toggle();
+            $Delete_category_modal.toggle();
+            $Delete_category_modal_transfer.toggle();
+        },
         TransferCategory: function(){
-            console.log("noiw being to transfers")
+            const URL = '/Expenses/ChangeExpenseCategory/';
+            const Type = "Post";
+            const Data = {CategoryId_Old: this.CategoryId_Old,
+                          CategoryId_New: this.CategoryId_New
+                        };
+            const ContentType = 'application/x-www-form-urlencoded';
+            const SuccessFn = function (successFlag) {
+                                            if(successFlag)
+                                                {
+                                                    //show toast
+                                                    fireNotif("Successfully Transferred Category","success",5000);
+                                                    //delete expense
+                                                    this.Delete_Expense();
+                                                    //Reset the category
+                                                    this.ResetSelectedCategory();
+                                                    //hide all modals
+                                                    $Delete_Category_Final_Comfirmation_Modal.toggle();
+                                                    $Delete_category_modal_mask.toggle();
+                                                }
+                                            else{
+                                                //msg, something went wrong
+                                                //show toast
+                                                    fireNotif("Error when trying to Transfer Category","error",5000);
+                                            }
+                                                
+                                }
+            const ErrorFn = function (error) {fireNotif("There was a problem with switching the Category of your expense",'error', 5000);}
+            this.Ajax_DB_Call(URL,ContentType,Type,Data,SuccessFn.bind(this),ErrorFn)
         },
         //Shows a msg for Modal displaying list of categories
-         DisplayMessage: function(msg,color="black"){
+        DisplayMessage: function(msg,color="black"){
             $Delete_category_modal_transfer_Msg.text(msg);
             $Delete_category_modal_transfer_Msg.css("backgroundColor", color);
         },
@@ -192,13 +237,41 @@
             else if(this.CategoryId_New == ""){
                 this.DisplayMessage("Nothing Selected","#e44c55");
             } else{
+                //if everything is okay, show the confirm modal
                 $Delete_Category_Final_Comfirmation_Modal.toggle();
+                //create message
                 const msg = "Actions:  Delete " + this.CategoryName_Old + " and Replace with: " + this.CategoryName_New;
+                //insert message
                 $Delete_Category_Final_Comfirmation_Modal_Message.html(msg);
+                //hide other modals
                 $Delete_category_modal.toggle();
                 $Delete_category_modal_transfer.toggle();
-                this.TransferCategory();
             }
+        },
+        //takes a JQuery object, should be a modal, it is an element, and this function will position the element into the center of the screen
+        CentreModal: function($modal){
+            //Get Screen size
+            const $ScreenSize = getCurrentScreenSize();
+
+            //Get Element Width and height
+            @* const width = $modal.width();
+            const height = $modal.height(); *@
+
+ //Get Element Width and height
+            const width = +$ScreenSize.width * 0.3;
+            const height = +$ScreenSize.height * 0.3;;
+
+            //Calculate the left and top position, based on the height and width of the element
+            const left = (+$ScreenSize.width - +width) / 2;
+            const top = (+$ScreenSize.height - +height) / 2;
+
+            //Set the left and top positions
+            $modal.css({
+                width: width+"px",
+                height: height+"px",
+                left: left+"px",
+                top: top+"px",
+            });
         },
         }
 </script>

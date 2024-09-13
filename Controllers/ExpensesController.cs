@@ -205,6 +205,27 @@ namespace Budget_Man.Controllers
                 return false;
             }
         }
-      
+      [HttpPost]
+       public async Task<bool> ChangeExpenseCategory(int CategoryId_Old, int CategoryId_New){
+            try
+            {
+                Console.WriteLine("I am alive : " + CategoryId_Old + " new => " + CategoryId_New);
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                bool result = await _db.expensesRepository.Update_Change_Expense_Category(user.Id, CategoryId_Old, CategoryId_New);
+                _db.Save();
+                if(result)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "Error, changing expense of one category to another" + e;
+                View("Views/Errors/generalError.cshtml");
+                return false;
+            }
+       }
+         
     }
 }
