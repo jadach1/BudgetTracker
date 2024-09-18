@@ -58,8 +58,8 @@
     selected category *@
     $Delete_category_modal_transfer_ul_a.on("click",function(){
         //gets current id, embedded into the element, $(this) references the <a>
-         DeleteCategoryModal.CategoryId_New = $(this).attr("id").split(".")[1];;
-         DeleteCategoryModal.CategoryName_New = $(this)[0].text;;
+         DeleteCategoryModal.CategoryId_New = $(this).attr("id").split(".")[1];
+         DeleteCategoryModal.CategoryName_New = $(this)[0].text;
          DeleteCategoryModal.DisplayMessage("Selected Category: " + DeleteCategoryModal.CategoryName_New, "#6f42c1");
     });
 
@@ -172,7 +172,7 @@
         RemoveElementFromUI: function(category_Id){
             const RowName = "#displayName"+this.CategoryId_Old;
             const $RowToDelete = $(RowName);
-            $RowToDelete.effect("explode",function(){$(this).remove()});
+            $RowToDelete.effect("explode",function(){$(this).remove();});
         },
         //Primary Modal
         ToggleDisplayModal: function(){

@@ -83,8 +83,13 @@
 
 
 function hide_Expense_Table_Modal($Expense_Table_Modal,$Table_Selected_Row){
-  //Adjust size of modal to screen
-  $Expense_Table_Modal.hide();
+  
+  //hide the screen.  Then, remove the data associated with the JQuery Object
+  $Expense_Table_Modal.hide(()=>{
+        //Remove the Data saying this TR is selected 
+      $Table_Selected_Row.data("I_am_Selected_Tag",false);
+  })
+
   //Revert the Colour Scheme of the TD inside the TR
   colourTDinsideTR($Table_Selected_Row,"white");
   //Remove the class from the parent
