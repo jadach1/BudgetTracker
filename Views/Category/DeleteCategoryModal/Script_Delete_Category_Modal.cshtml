@@ -1,6 +1,4 @@
 <script>
-    var count = 0;
-
     // JQuery Variables for the modal and its buttons
     const $Delete_category_modal_mask = $("#delete_category_modal_mask");
     const $Delete_category_modal = $("#delete_category_modal");
@@ -279,24 +277,4 @@
 <script>
     //Initialisation of the Modal size, fit modal to screen size
     DeleteCategoryModal.CreateModal_FitToScreen();
-</script>
-
-<script>
-    //Takes 3 parameters, the name is just the Id, and the flag is whether we want to reveal or hide 
-    function edit_Category_Name(name, flag) {
-
-        let displayName = `displayName${name}`;
-        let editName = `editName${name}`;
-        let editButton = `editButton${name}`;
-
-
-        document.getElementById(displayName).hidden = !flag;
-        document.getElementById(editName).hidden = flag;
-        document.getElementById(editButton).disabled = !flag;
-    }
-
-    @* function editHandler(name) {
-        console.log("edit done");
-        editName();
-    } *@
 </script>

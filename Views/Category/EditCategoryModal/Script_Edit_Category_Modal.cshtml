@@ -1,0 +1,55 @@
+<script>
+    //get edit modal form
+        let $editCatModal = $("#edit_category_modal_form");
+
+    //Get values for form
+        let $inputs_for_CatModal = $editCatModal.find("input");
+        let $id_for_CatModal = $inputs_for_CatModal.first();
+        let $newName_for_CatModal = $inputs_for_CatModal.eq(1);
+        let $submit_for_CatModal = $editCatModal.find("button");
+        let $back_for_CatModal = $editCatModal.find("a");
+
+   var EditCategoryModal = {
+    anchorModal:  function(id){
+        //get row to edit
+        let $rowToEdit = $("#displayName"+id);
+        //get td element to hide
+        let $name = $rowToEdit.find( "td" ).first();
+        //get element to anchor to
+        let $anchor = $rowToEdit.find( "td" ).eq(1);
+        //get buttons, submit and back
+        let $buttons = $rowToEdit.find( "td" ).eq(2);
+        let $btnEdit = $buttons.find("button").first();
+        let $btnDelete =  $buttons.find("button").last();
+       
+        //hide name
+        $name.toggle();
+        //disable buttons
+        $btnEdit.attr("disabled",true);
+        $btnDelete.attr("disabled",true);
+        //show and anchor modal
+        $anchor.toggle().append($editCatModal);
+        $editCatModal.toggle();
+        
+        //Fill in the form--
+        //set name of our edit field
+        $newName_for_CatModal.val($name.text());
+        
+        //set id of category field
+        $id_for_CatModal.val(id);
+
+        //remove old click listener
+        $back_for_CatModal.off("click");
+
+         //back button
+        $back_for_CatModal.on("click",function(){
+            $editCatModal.toggle();
+            //disable buttons
+            $btnEdit.attr("disabled",false);
+            $btnDelete.attr("disabled",false);
+            $anchor.toggle();
+            $name.toggle();
+        })
+   }, 
+} 
+</script>
