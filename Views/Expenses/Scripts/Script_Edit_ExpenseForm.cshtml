@@ -27,7 +27,6 @@
 
 // This function begins loading the expense form, by each field
     function load_Expense_Form(obj) {
-        console.log("script_edit_expensesForm, load_expense_form function");
         edit_expense_form_load_id(obj.id);
         edit_expense_form_load_week(obj.week);
         edit_expense_form_load_month(obj.month);
@@ -327,6 +326,7 @@
     }
 
 
+//Button for creating One expense, submit button
 $("#expense-form-sibmit-button").on("click", function(event){
   event.preventDefault()
  if($('#editExpenseForm_category').val() == "" ){

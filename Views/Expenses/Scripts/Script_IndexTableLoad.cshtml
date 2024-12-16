@@ -89,6 +89,7 @@ document.getElementById("newExpensesFormButton1").addEventListener("click",() =>
   //alters the left-position of the Create Expense Form
   function alterPosition(name) {
    
+   console.log("name",name)
     // this will get the element based on the string of the modalType
     let bodyToChange = document.getElementById(name);
 
@@ -100,6 +101,10 @@ document.getElementById("newExpensesFormButton1").addEventListener("click",() =>
 
     if (height < 0)
       height = 0;
+
+    //if we are entering the create many expense form, manually adjust the height.
+    if(name == "createEditExpensesForm")
+      bodyToChange.style.height += 25
 
     bodyToChange.style.top = height + "px";
 
