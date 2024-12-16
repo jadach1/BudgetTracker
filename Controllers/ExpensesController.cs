@@ -119,6 +119,26 @@ namespace Budget_Man.Controllers
                 return this.Ok(e);
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateOne(Expenses expense)
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                expense.MyUserName = user.Id;
+                _db.expensesRepository.Add(expense);
+                _db.Save();
+
+                return Redirect("Index");
+            }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "exception creating a new single expense " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Edit(Expenses obj)

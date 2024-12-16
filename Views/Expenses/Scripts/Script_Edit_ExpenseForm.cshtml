@@ -21,11 +21,13 @@
 
 <script>
     var $editExpenseForm_Form = $("#editExpenseForm_Form").first();
+    // flag to check if the buttons for the month changing feature
     var editExpenseForm_LoadFlag = false;
 
 
 // This function begins loading the expense form, by each field
     function load_Expense_Form(obj) {
+        console.log("script_edit_expensesForm, load_expense_form function");
         edit_expense_form_load_id(obj.id);
         edit_expense_form_load_week(obj.week);
         edit_expense_form_load_month(obj.month);
@@ -35,9 +37,8 @@
         edit_expense_form_load_date(obj.date);
         edit_expense_form_load_description(obj.description);
 
-        if(!editExpenseForm_LoadFlag){
+        // This function will create the buttons for the month changing feature
             edit_expense_form_create_events_and_objects();
-        }
     }
 
     /************ID***********/
@@ -309,7 +310,9 @@
     disableEnableAllButtons(false);
   })
 
+    // This function will create the buttons for the month changing feature
   function edit_expense_form_create_events_and_objects(){
+        if(!editExpenseForm_LoadFlag){
             //Prevent duplicate executions
             editExpenseForm_LoadFlag = true;
 
@@ -320,5 +323,28 @@
 
             a_left.on("click", function () { edit_expense_form_change_month(false) });
             a_right.on("click", function () { edit_expense_form_change_month(true) });
-        }
+        }     
+    }
+
+
+$("#expense-form-sibmit-button").on("click", function(event){
+  event.preventDefault()
+ if($('#editExpenseForm_category').val() == "" ){
+    fireNotif("Need to select A category",'error', 5000);
+ }
+ else if($('#edit_expense_date').val() == "" ){
+    fireNotif("Need to select A date",'error', 5000);
+ }
+ else if($('#edit_expense_amount').val() == "" ){
+    fireNotif("Need to enter and amount",'error', 5000);
+ }
+ else if($('#edit_expense_description').val() == "" ){
+    $('#edit_expense_description').val('n/a')
+    $("#editExpenseForm_Form").submit()
+ }
+ else {
+    $("#editExpenseForm_Form").submit()
+ }
+});
+
 </script>

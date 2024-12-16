@@ -1,6 +1,7 @@
 ﻿//Format 2024-5-2 to Thursday May 2024
 var listOfMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var listOfDays = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 function humanReadableDate(date){    
     const d = new Date(date);
     let month = listOfMonths[d.getMonth()];

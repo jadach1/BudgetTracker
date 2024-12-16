@@ -7,7 +7,6 @@
     contentType: 'application/x-www-form-urlencoded',
     type: "Get",
     success: function (data) {
-                console.log(data);
                 // Now that we have gotten our expense, to edit, we will call the function location in: "Scripts_Edit_ExpenseForm" to display our expense
                 toggle_edit_expense_form(data);
             },

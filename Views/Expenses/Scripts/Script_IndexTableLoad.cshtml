@@ -29,6 +29,34 @@
     disableEnableAllButtons(true);
   });
 
+// Create one new Expense Form button
+
+//this will sets change the edit expense form,and alter it to fit the needs of creating a single item
+document.getElementById("newExpensesFormButton1").addEventListener("click",() => {
+        //Redirect the action in the Controller
+        let b = $("#editExpenseForm_Form");
+        b.attr("action","/Expenses/CreateOne")
+        console.log(b.attr("action"),b,"hello");
+
+        let EditExpenseForm = document.getElementById("editExpenseForm");
+        EditExpenseForm.hidden = false;
+        EditExpenseForm.classList.add("d-flex");
+
+        //this will need to be adjusted for current date., maybe in site.js
+        //get today'script month and pass it into the function which sets up the month
+        edit_expense_form_load_month(new Date().getMonth() + 1);
+        edit_expense_form_load_week(1);
+        // This function will create the buttons for the month changing feature
+        edit_expense_form_create_events_and_objects();
+        
+        //Alter position of form
+        alterPosition("editExpenseForm");
+
+        //disable buttons
+        disableEnableAllButtons(true);
+})
+
+
   // Hide-Box for the create-expense-form and change-month-form
   document.getElementById("expense-form-hide-button").addEventListener("click", () => {
     let createEditExpensesForm = document.getElementById("createEditExpensesForm");
