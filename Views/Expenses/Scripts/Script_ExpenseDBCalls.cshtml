@@ -31,11 +31,14 @@
        
             success: function (data) {
                 fireNotif('Successfully Removed Expense', 'Success', 5000);
-                let x = JSON.stringify(data);
-                console.log("success", x);
-                //remove the element from the DOM
-                hideDeleteModal();
-                $TableRow.effect("explode").delay(300).remove();
+                @* let x = JSON.stringify(data);
+                console.log("success", x); *@
+                //hide the element from the DOM
+                 hideDeleteModal();
+                //Reassign the #expense_table_modal element, prevent it from being deleted
+                 $('#expense_table_modal_anchor').append($("#expense_table_modal"));
+                //delete the desired row
+                 $TableRow.effect("explode").delay(300).remove();
             },
 
             // Error handling 
