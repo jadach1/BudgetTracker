@@ -1,5 +1,6 @@
 <script>
 
+//Attaches this modal to a row in a table.
 function toggle_delete_expense_modal($TableRow, Id){
     
     // Build the JQuery objects
@@ -66,6 +67,5 @@ function hideDeleteModal(){
         //We append to the body, because the delete-modal is currently attached to the TableRow potentially to be deleted, meaning, it will also be deleted from the DOM
     $("body").append($(this));
     });
-    
 }
 </script>

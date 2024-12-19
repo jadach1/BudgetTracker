@@ -29,6 +29,14 @@ public class FixedExpenses : Controller
         return View(objCategoryList);
     }
 
+    //Fetch all fixed expenses, async ajax call
+    public async Task<IActionResult> GetAll(){
+         //GET USER 
+        IdentityUser user = await GetActiveUser();
+        IEnumerable<FixedExpense> fixedExpenses = _dbCentral.fixedExpensesRepository.GetAll(user.Id);
+        return this.Ok(fixedExpenses);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(IFormCollection formCollection)
     {

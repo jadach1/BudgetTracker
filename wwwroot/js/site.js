@@ -1,6 +1,8 @@
 ﻿//Format 2024-5-2 to Thursday May 2024
 var listOfMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var listOfDays = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var dictionaryOfMonth = new Map([["january",0], ["february",1],["march",2],["april",3],["may",4],["june",5],["july",6],["august",7],["september",8],["october",9],["november",10],["december",11],])
+
 
 function humanReadableDate(date){    
     const d = new Date(date);
@@ -15,7 +17,6 @@ function getCurrentScreenSize(){
  const $Screen = $("body");
  const windowHeight = window.innerHeight;
  const windowWidth = window.innerWidth;
- console.log("site.js function getCurrentScreenSize",$Screen)
     return {
             width: $Screen.width(),
             height: $Screen.height(),

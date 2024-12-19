@@ -55,8 +55,6 @@ namespace Budget_Man.Repository
         var result = await _db.Expenses.Where(e => e.CategoryId == oldCategory && e.MyUserName == userid)
                            .ExecuteUpdateAsync(
                                 s => s.SetProperty(e => e.CategoryId, e => newCategory));
-          Console.WriteLine("result of sql query is ");
-           Console.WriteLine(result);
 
           if(result != null){
             return true;

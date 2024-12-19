@@ -51,6 +51,7 @@
     }
     function ajaxCallToExpenseController(expense) {
         const obj = JSON.stringify(listOfExpenses);
+        console.log(obj)
         $.ajax({
 
             // Our sample url to make request 
@@ -71,7 +72,7 @@
                 ClearExpenseListItems();
                 const form = document.getElementById("expenseForm");
                 // refresh the form, but keep current month
-                form.submit();
+                //form.submit();
             },
 
             // Error handling 
@@ -81,5 +82,146 @@
                 console.log(error)
             }
         });
+    }
+    
+   // The below functions, all pertain to adding fixed expenses, they all chain together to work seamlessely.
+
+
+    //This takes an array of data - fixed expenses made into strings
+    // a month, string
+    // And a categoryId, associating to the users fixed-expense category id
+    function ajaxCallToExpenseController_CreateFixedExpenses(data, month, categoryId){
+        //list
+        const listOfExpenses = []
+
+        //create a date, for the first of the given month
+        //method, dectionaryOfMonth is found in site.js, converts january to 0
+        let year = new Date().getFullYear()
+        let string = year+"-"+dictionaryOfMonth.get(month)+"-"+1
+        let fixedExpenseDate = new Date(string).toISOString().split("T")[0]  
+
+        //start looping and creating
+        data.forEach( (el) => {
+            //each element is an Expense class, so needs to map perfectly to data types
+            let expense = {
+                Month: dictionaryOfMonth.get(month),
+                Week: 0,
+                CategoryId: +categoryId,
+                Amount: el.amount  === "" ? 0 : el.amount,
+                Date: fixedExpenseDate,
+                Description: "",
+                Currency: dictionaryOfCurrency.get(el.currency),
+                isFixed: true,
+                MyUserName: el.userid
+            }
+
+            //push to list of expenses
+            listOfExpenses.push(expense);
+        })
+
+        //Finally, send a ajax db call with the above objects
+
+        //take the list of expenses, and create them
+        const obj = JSON.stringify(listOfExpenses);
+        
+        $.ajax({
+
+            // Our sample url to make request 
+            url:
+                '/Expenses/CreateFixedExpenses',
+
+            // Type of Request
+            contentType: 'application/json; charset=utf-8',
+            type: "Post",
+            data: obj,
+
+            // Function to call when to
+            // request is ok 
+            success: function (data) {
+                window.localStorage.setItem("Success", "Successfully Added Expenses");
+                let x = JSON.stringify(data);
+                console.log("success", x);
+            },
+
+            // Error handling 
+            error: function (error) {
+                //console.log(`Error ${error}`);
+                fireNotif('There was an Error Adding Expenses', 'error', 5000);
+                console.log(error)
+            }
+        });
+    }
+
+    //Once we have the fixed-expense id, we can start collecting all the fixed expenses in order to make them expense objects
+    function ajaxCallToFixedExpenseController_getFixedExpenses(categoryId){
+        $.ajax({
+            url: '/FixedExpenses/GetAll',
+            contentType: 'application/x-www-form-urlencoded',
+            type: "Get",
+            success: function (data) {
+                        //get current month
+                        let month = @Html.Raw(Json.Serialize(ViewData["month"]));
+                        //get all of our Fixed Expenses and pass them, to Create them
+                        ajaxCallToExpenseController_CreateFixedExpenses(data,month.toLowerCase(),categoryId)
+                    },
+
+                    // Error handling 
+                    error: function (error) {
+                        fireNotif('There was an Error, pertaining to Fixed expenses', 'error', 5000);
+                        console.log(error)
+                    }
+        });
+    }
+
+    // Check if user has a category named, fixed-expenses
+    function ajaxCallToFixedExpenseController_checkIfCategoryExists(){
+        $.ajax({
+            url: '/Category/CheckIfCategoryExists',
+            contentType: 'application/x-www-form-urlencoded',
+            type: "Get",
+            success: function (categoryId) {
+                        //If successfully , id will not be 0
+                        if(categoryId != 0 ){
+                            //proceed to create, get id# from db
+                            ajaxCallToFixedExpenseController_getFixedExpenses(categoryId)
+                        } else {
+                            //Hide original modal
+                            hideIndexModal()
+                            // initiate modal asking user if they wish to create such a category
+                            toggle_index_expense_modal(ajaxCallToFixedExpenseController_CreateCategory,"Do you Wish to Create a category named -Fixed Expenses- in order to proceed?")
+                        }
+                    },
+
+                    // Error handling 
+                    error: function (error) {
+                        fireNotif('There was an Error, pertaining to Fixed expenses', 'error', 5000);
+                        console.log(error)
+                    }
+        });
+    }
+
+    //This is the function passed to the index modal.  Upon clicking yes, we will create a category named fixed-expenses
+    function ajaxCallToFixedExpenseController_CreateCategory(){
+        $.ajax({
+            url: '/Category/CreateCategory',
+            contentType: 'application/x-www-form-urlencoded',
+            type: "Get",
+            success: function (categoryId) {
+                    //hide modal
+                    hideIndexModal()
+                        if(categoryId != 0){
+                            //proceed to create, get id# from db
+                            ajaxCallToFixedExpenseController_getFixedExpenses(categoryId)
+                        } else {
+                            console.log("id was bad ", categoryId);
+                        }
+                    },
+
+                    // Error handling 
+                    error: function (error) {
+                        fireNotif('There was an Error, pertaining to Fixed expenses', 'error', 5000);
+                        console.log(error)
+                    }
+        });     
     }
 </script>

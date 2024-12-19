@@ -1,6 +1,6 @@
 <script>
 
-  // Display CHANGE Month Form, event Listener
+// Display CHANGE Month Form, event Listener
   document.getElementById("changeMonthFormButton").addEventListener("click", () => {
 
     let changeMonthExpensesForm = document.getElementById("changeMonthForm")
@@ -15,8 +15,8 @@
   });
 
 
-  // Display Expense Form, event Listener
-  createEditExpensesFormButton = document.getElementById("createEditExpensesFormButton").addEventListener("click", () => {
+// Display Expense Form, event Listener
+createEditExpensesFormButton = document.getElementById("createEditExpensesFormButton").addEventListener("click", () => {
 
     let createEditExpensesForm = document.getElementById("createEditExpensesForm")
     createEditExpensesForm.hidden = false;
@@ -73,6 +73,18 @@ document.getElementById("newExpensesFormButton1").addEventListener("click",() =>
     changeMonthExpensesForm.hidden = true;
     disableEnableAllButtons(false);
   })
+
+
+//Hide-Box for the expense tables main options : Create new Expense, Switch Month's, Import Fixed Expense
+document.getElementById("ExpenseTablesCaret").addEventListener("click",()=>{
+  console.log("yo")
+    $('div.expenses_options_start').nextUntil("div.expenses_options_finish").slideToggle(500);
+})
+
+//Import Fixed Expenses Button.  Begins the process of creating fixed expenses for current month
+document.getElementById("importFixedExpensesButton").addEventListener("click",()=>{
+     toggle_index_expense_modal(ajaxCallToFixedExpenseController_checkIfCategoryExists, "Do you Wish to Import all fixed expenses for this current month ?")
+})
 
 </script>
 

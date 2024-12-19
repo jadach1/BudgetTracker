@@ -119,6 +119,36 @@ namespace Budget_Man.Controllers
                 return this.Ok(e);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateFixedExpenses([FromBody] IEnumerable<Expenses> expense)
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+                int counter = 0;
+                
+                //Loop through the List of Expenses
+                foreach (var item in expense)
+                {
+           
+                    counter++;
+                    _db.expensesRepository.Add(item);
+                };
+
+                _db.Save();
+                _helperFunctions.toasterTest("Created " + counter + " new expenses",1);
+                return this.Ok($"This many expenses created: " + counter);
+            }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateOne(Expenses expense)
         {
@@ -229,7 +259,6 @@ namespace Budget_Man.Controllers
        public async Task<bool> ChangeExpenseCategory(int CategoryId_Old, int CategoryId_New){
             try
             {
-                Console.WriteLine("I am alive : " + CategoryId_Old + " new => " + CategoryId_New);
                 //GET USER 
                 var user = await _userManager.GetUserAsync(User);
                 bool result = await _db.expensesRepository.Update_Change_Expense_Category(user.Id, CategoryId_Old, CategoryId_New);

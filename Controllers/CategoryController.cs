@@ -28,6 +28,13 @@ namespace Budget_Man.Controllers
             IEnumerable<Category> objCategoryList = _dbCentral.categoryRepository.GetAll(user.Id);
             return View(objCategoryList);
         }
+
+        public async Task<int> CheckIfCategoryExists(){
+            //GET USER 
+            IdentityUser user = await GetActiveUser();
+            var obj = await _dbCentral.categoryRepository.CheckIfCategoryExists("Fixed Expense", user.Id);
+            return obj;
+        }
         public IActionResult Create()
         {
             return View();
@@ -43,6 +50,20 @@ namespace Budget_Man.Controllers
             _dbCentral.Save();
             _helperFunctions.toasterTest("New Category Created",1);
             return View();
+        }
+
+        public async Task<int> CreateCategory(){
+            //GET USER 
+            IdentityUser user = await GetActiveUser();
+            var obj = new Category();
+            obj.Userid = user.Id;
+            obj.Name = "Fixed Expense";
+
+            _dbCentral.categoryRepository.Add(obj);
+            _dbCentral.Save();
+
+            _helperFunctions.toasterTest("New Category Created",1);
+            return obj.Id;
         }
 
         [HttpPost]

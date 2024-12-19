@@ -2,12 +2,48 @@
 
 <h1 class="d-flex justify-content-center my-5">Expenses for @ViewData["month"] @ViewData["year"]</h1>
 
-<!-- CHANGE MONTH FORM BUTTON -->
-<div class="row">
-    <button id="changeMonthFormButton"
-        class="btn btn-outline-light my-3 text-center d-flex justify-content-center ">Switch Month<i
-            class="bi bi-calendar3"></i></button>
+
+<!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
+<a id="ExpenseTablesCaret" class="btn btn-outline-primary 
+                offset-11 d-flex 
+                justify-content-center 
+                customCaret">
+    <i class="bi bi-caret-down-square ">
+    </i>
+</a>
+
+<!--OPTIONS of the EXPENSE SCREEN: CREATE, IMPORT, SWITCH-->
+<div id="expenses_options_start">
+    <!-- CHANGE MONTH FORM BUTTON -->
+    <div class="row">
+        <button id="changeMonthFormButton"
+            class="btn btn-outline-light my-3 text-center d-flex justify-content-center ">Switch Month<i
+                class="bi bi-calendar3"></i></button>
+    </div>
+
+    <!-- CREATE EXPENSE(s) FORM BUTTON -->
+    <div class="row">
+        <button id="createEditExpensesFormButton"
+            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Expense(s) <i
+                class="bi bi-plus-circle"></i></button>
+    </div>
+
+    <!-- CREATE single EXPENSE FORM BUTTON -->
+    <div class="row">
+        <button id="newExpensesFormButton1"
+            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Expense<i
+                class="bi bi-plus-circle"></i></button>
+    </div>
+
+    <!-- Import Fixed Expenses Button -->
+    <div class="row">
+        <button id="importFixedExpensesButton"
+            class="btn btn-outline-light my-2 text-center d-flex justify-content-center">Import Fixed Expenses<i
+                class="bi bi-plus-circle"></i></button>
+    </div>
 </div>
+
+<div id="expenses_options_finish"></div>
 
 <div class="container ">
     <!-- CREATE EXPENSE FORM MODAL -->
@@ -33,19 +69,6 @@
     <!--DELETE EXPENSE MODAL -->
     <partial name="./Partial/DeleteExpenseForm/Delete_ExpenseModal.cshtml" />
 
-    <!-- CREATE EXPENSE(s) FORM BUTTON -->
-    <div class="row">
-        <button id="createEditExpensesFormButton"
-            class="btn btn-outline-light my-5 text-center d-flex justify-content-center ">New Expense(s) <i
-                class="bi bi-plus-circle"></i></button>
-    </div>
-
-    <!-- CREATE single EXPENSE FORM BUTTON -->
-    <div class="row">
-        <button id="newExpensesFormButton1"
-            class="btn btn-outline-light my-5 text-center d-flex justify-content-center ">New Expense<i
-                class="bi bi-plus-circle"></i></button>
-    </div>
 
     <!--EXPENSE TABLES SELECTION MODAL: EDIT, DELETE-->
     <partial name="./Partial/expensesTablesModal.cshtml" />
@@ -62,6 +85,7 @@
 </div>
 
 <!--SCRIPTS-->
+<partial name="./index_modal.cshtml" />
 <partial name="./Scripts/Script_CreateExpenseForm.cshtml"   />
 <partial name="./Scripts/Script_ExpenseDBCalls.cshtml" />
 <partial name="./Scripts/Script_IndexTableLoad" />

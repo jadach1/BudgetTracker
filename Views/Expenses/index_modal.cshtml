@@ -1,0 +1,93 @@
+<!--MODAL SKELETON-->
+<div id="index_expense_modal" style="display: none;">
+    <h3></h3>
+    <div>
+        <a >Yes</a>
+        <a >No</a>
+    </div>
+</div>
+
+<!--USED TO PREVENT USER FROM CLICKING THE BACKGROUND WHEN SELECTING THE DELETE EXPENSE ITEM-->
+<div id="index_expense_modal_mask" style="display: none;"></div>
+
+<script>
+@* 
+Function to create modal above, is passed a function for when user clicks yes.  
+Is passed a caption for title. *@
+
+function toggle_index_expense_modal(yes_function, caption){
+    
+    // Build the JQuery objects
+    const $Modal = $("#index_expense_modal");
+    const $ModalMask = $("#index_expense_modal_mask");
+    const $r = $('#expenses_options_start')
+
+    let height =+$r.height()*1.25;
+    let width = +$r.width();
+
+    //Gets the height and width of the screen
+    const $ScreenSize = getCurrentScreenSize();
+
+
+    $Modal.css({
+        position: "absolute",
+        zIndex: 3,
+        backgroundColor: "#6f42c1",
+        padding: "10%",
+        height: height,
+        width: width,
+        border: "black solid 4px",
+        top: $ScreenSize.windowHeight / 2.5   
+    });
+
+  
+ 
+    $ModalMask.css({
+        position: "absolute",
+        zIndex: 2,
+        backgroundColor: "#6f42c1",
+        opacity:"0.8",
+        top: "0px",
+        left: "0px",
+        height: $ScreenSize.height,
+        width: $ScreenSize.width,
+    })
+
+    const $title = $( "#index_expense_modal h3 " );
+    $title.css({
+        fontSize: "24px",
+    });
+    $title[0].innerHTML = caption
+
+    //Get buttons
+    const $yes_btn = $( "#index_expense_modal div a" ).first();
+    const $no_btn = $("#index_expense_modal div a" ).last();
+
+    //Set Css
+    $yes_btn.addClass("btn btn-secondary m-3");
+    $no_btn.addClass("btn btn-danger m-3");
+    
+    //Remove old click listeners
+    $no_btn.off("click");
+    $yes_btn.off("click");
+
+    
+    $no_btn.on("click", function(){hideIndexModal();});
+    $yes_btn.on("click", function(){yes_function()});
+    $r.append($Modal);
+
+    $Modal.show("fade");
+    $ModalMask.show("fade");
+
+}
+
+function hideIndexModal(){
+    $("#index_expense_modal_mask").hide("fade");
+    //hide before appending, otherwise user will see the modal transport itself
+    $("#index_expense_modal").hide("fade",function(){
+        //We append to the body, because the delete-modal is currently attached to the TableRow potentially to be deleted, meaning, it will also be deleted from the DOM
+    $("body").append($(this));
+    });
+}
+
+</script>

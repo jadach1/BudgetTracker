@@ -20,6 +20,9 @@ namespace Budget_Man.Models
         public IdentityUser myUser { get; set; }
 
         public string Currency { get; set; }
+
+        public bool isFixed {get; set;}
+
     }
 
     public class ExpensesFormPosting {

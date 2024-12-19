@@ -21,6 +21,17 @@ namespace Budget_Man.Repository {
             return query.Where(e => e.Userid == userid )
                         .ToList();
         }
-               
+
+        public async Task<int> CheckIfCategoryExists(string categoryName,string userid){
+            IQueryable<Category> query = dbSet;
+            var obj = query.Where(e => e.Name == categoryName && e.Userid == userid ).FirstOrDefault();
+            if (obj == null){  
+                Console.WriteLine("There is nothing here");
+                return 0;
+            }
+            else {
+                return obj.Id;
+            }
+        }      
         }
     }

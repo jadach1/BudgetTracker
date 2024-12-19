@@ -42,8 +42,6 @@
 
         expense.Currency = formData.currency === "" ? "$" : currency_formatter.format(expense.Amount)[0]
 
-        console.log(expense);
-
         //push to list of expenses
         listOfExpenses.push(expense);
 
@@ -55,7 +53,6 @@
 
     // Not used for UI, but for form-submission
     function getCurrentDate() {
-        const d = new Date();
         const month = d.getMonth() + 1;
         const year = d.getFullYear();
         const day = d.getDate();
@@ -102,17 +99,6 @@
 
         //append the list item
         list.getElementsByTagName("ul")[0].appendChild(element);
-
-        // create edit button
-        @* const buttonEdit = document.createElement("a");
-        buttonEdit.className = "btn";
-        buttonEdit.classList.add("btn-outline-secondary", "btn-lg", "rounded-5", "mx-2");
-        element.appendChild(buttonEdit);
-
-        const iconEdit = document.createElement("span");
-        iconEdit.className = "bi";
-        iconEdit.classList.add("bi-eye-fill");
-        buttonEdit.appendChild(iconEdit); *@
 
         //create delete button
         const buttonDelete = document.createElement("a");
