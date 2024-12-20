@@ -82,6 +82,13 @@
         <partial name="./Partial/expensesTables.cshtml" model="@item" />
     }
 
+    @if(ViewData["FixedExpenses"] == "true"){
+         <div class="row">
+            <h2 class="d-flex justify-content-center"><span class="align-middle">Monthly Fixed Expenses</span></h2>
+            <partial name="./Partial/expensesTables.cshtml" model="@Model.fixedExpenses" />
+        </div>
+        
+    }
 </div>
 
 <!--SCRIPTS-->

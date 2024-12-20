@@ -137,9 +137,12 @@
             // Function to call when to
             // request is ok 
             success: function (data) {
-                window.localStorage.setItem("Success", "Successfully Added Expenses");
                 let x = JSON.stringify(data);
-                console.log("success", x);
+                 //Hide original modal
+                hideIndexModal()
+                delay(500).$ajax({
+                    url: '/Expenses'
+                })
             },
 
             // Error handling 

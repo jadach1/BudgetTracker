@@ -5,6 +5,8 @@ public class MasterExpenseList{
     public Expenses editExpenseform;
     public List<DisplayExpenses> ListOfExpenses;
 
+    public DisplayExpenses fixedExpenses;
+
     public MasterExpenseList(){
         this.ListOfExpenses = new List<DisplayExpenses>();
         this.editExpenseform = new Expenses();
