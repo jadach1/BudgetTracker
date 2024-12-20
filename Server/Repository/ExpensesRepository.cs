@@ -23,6 +23,12 @@ namespace Budget_Man.Repository
                         .ToList();
         }
 
+        public IEnumerable<Expenses> GetFixedExpenses(int month,string userId){
+            IQueryable<Expenses> query = dbSet;
+            return query.Where(e => e.Month == month && e.isFixed == true && e.MyUserName == userId)
+                        .ToList();
+        }
+
         public async Task<Expenses> GetSingleExpense(int id,string userId){
              IQueryable<Expenses> query = dbSet;
             return query.Where(e => e.Id == id && e.MyUserName == userId)
@@ -52,16 +58,14 @@ namespace Budget_Man.Repository
                         "WHERE [CategoryId]='"+ oldCategory + "' "+  
                         "AND [Userid]='"+userid+"';";
          
-        var result = await _db.Expenses.Where(e => e.CategoryId == oldCategory && e.MyUserName == userid)
-                           .ExecuteUpdateAsync(
-                                s => s.SetProperty(e => e.CategoryId, e => newCategory));
-
-          if(result != null){
-            return true;
-          } else {
-            return false;
-          }
-       
+            var result = await _db.Expenses.Where(e => e.CategoryId == oldCategory && e.MyUserName == userid)
+                              .ExecuteUpdateAsync(
+                                    s => s.SetProperty(e => e.CategoryId, e => newCategory));
+            if(result != null){
+              return true;
+            } else {
+              return false;
+            }
         }
     }
 

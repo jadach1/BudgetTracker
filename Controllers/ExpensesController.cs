@@ -59,10 +59,10 @@ namespace Budget_Man.Controllers
                 //FETCH, FROM DB, Get Expenses
                 for (int i = 1; i < 6; i++)
                 {
-                    string str = "expenses" + i;
+                    // string str = "expenses" + i;
                     IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month, user.Id);
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
-                    ViewData[str] = expenses;
+                    // ViewData[str] = expenses;
                 }
 
                 masterExpenseList.appendExpenseForm(categories, dtfi.GetMonthName(month), "Create");
@@ -120,6 +120,8 @@ namespace Budget_Man.Controllers
             }
         }
 
+        //When user wants to import fixed expenses, this will take a list of 
+        //expenses which are based off of the users fixed expenses for the month
         [HttpPost]
         public async Task<IActionResult> CreateFixedExpenses([FromBody] IEnumerable<Expenses> expense)
         {
@@ -132,12 +134,12 @@ namespace Budget_Man.Controllers
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
-           
                     counter++;
                     _db.expensesRepository.Add(item);
                 };
 
                 _db.Save();
+                //Pop up confirmation success
                 _helperFunctions.toasterTest("Created " + counter + " new expenses",1);
                 return this.Ok($"This many expenses created: " + counter);
             }

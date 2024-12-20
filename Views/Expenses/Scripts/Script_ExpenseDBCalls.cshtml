@@ -51,7 +51,6 @@
     }
     function ajaxCallToExpenseController(expense) {
         const obj = JSON.stringify(listOfExpenses);
-        console.log(obj)
         $.ajax({
 
             // Our sample url to make request 
@@ -72,7 +71,7 @@
                 ClearExpenseListItems();
                 const form = document.getElementById("expenseForm");
                 // refresh the form, but keep current month
-                //form.submit();
+                form.submit();
             },
 
             // Error handling 
