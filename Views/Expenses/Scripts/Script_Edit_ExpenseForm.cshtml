@@ -138,8 +138,10 @@
     }
     /************CURRENCY***********/
     function edit_expense_form_load_currency(value) {
+        console.log("load ", value[0], value.charCodeAt(0), typeof(value), "a".charCodeAt(0), "aA".charCodeAt(1))
         const field_elem = document.getElementById("edit_expense_currency");
         field_elem.value = value;
+        //String.fromCharCode(65509);
     }
 
     /************AMOUNT***********/
@@ -175,7 +177,7 @@
 
     }
 
-    // Create of the Exand Button, for the Description Text Area
+    // Create of the Expand Button, for the Description Text Area
     function edit_expense_form__description_create_expand_button(field_elem){
          // Create the Button, to expand the description textArea, this will be hidden by default
         const btn = $("<a>Expand...</a>");
@@ -294,17 +296,21 @@
 <script> 
     // Hide-Box for the edit-expense-form 
   $("#edit-expense-form-hide-button").on("click", () => {
+    console.log("it is i")
     let EditExpensesForm = document.getElementById("editExpenseForm");
     EditExpensesForm.classList.remove("d-flex");
     EditExpensesForm.hidden = true;
     if( $("#edit_expense_form_expand_button").length > 0 ){
-        @* console.log( $("#edit_expense_form_expand_button")) *@
         $("#edit_expense_form_expand_button").remove();
-        @* $(".ui-effects-placeholder").remove(); *@
     }
 
-    //Remove the left and right buttons, for month changing, otherwise: every time we open the form module, we will create the JQuery objects, because we are calling the loading scripts, so the objects methods which are also created repeatedly will stack, and this will end up causing the methods/functions to be executed multiple times.  Basically, don't mix JQuery and Native DOM manipulation.  One of the other
-    // const a_left = $("#editExpenseFormContentsMonth div .row a").remove();
+    //clear form
+    //amount
+    document.getElementById("edit_expense_amount").value = 0;
+    //date
+    document.getElementById("edit_expense_date").value = "";
+    //description
+    $("#edit_expense_description").attr("value", "");
 
     disableEnableAllButtons(false);
   })
@@ -328,23 +334,23 @@
 
 //Button for creating One expense, submit button
 $("#expense-form-sibmit-button").on("click", function(event){
-  event.preventDefault()
- if($('#editExpenseForm_category').val() == "" ){
-    fireNotif("Need to select A category",'error', 5000);
- }
- else if($('#edit_expense_date').val() == "" ){
-    fireNotif("Need to select A date",'error', 5000);
- }
- else if($('#edit_expense_amount').val() == "" ){
-    fireNotif("Need to enter and amount",'error', 5000);
- }
- else if($('#edit_expense_description').val() == "" ){
-    $('#edit_expense_description').val('n/a')
-    $("#editExpenseForm_Form").submit()
- }
- else {
-    $("#editExpenseForm_Form").submit()
- }
+    event.preventDefault()
+    if($('#editExpenseForm_category').val() == "" ){
+        fireNotif("Need to select A category",'error', 5000);
+    }
+    else if($('#edit_expense_date').val() == "" ){
+        fireNotif("Need to select A date",'error', 5000);
+    }
+    else if($('#edit_expense_amount').val() == "" ){
+        fireNotif("Need to enter and amount",'error', 5000);
+    }
+    else if($('#edit_expense_description').val() == "" ){
+        $('#edit_expense_description').val('n/a')
+        $("#editExpenseForm_Form").submit()
+    }
+    else {
+        $("#editExpenseForm_Form").submit()
+    }
 });
 
 </script>

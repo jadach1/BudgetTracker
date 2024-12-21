@@ -90,7 +90,7 @@
 
         //adjust what will be presented based on size of user screen
         const size = +document.getElementsByTagName("body")[0].clientWidth;
-        console.log("console size, inside script_createEditExpenseForm " + size, size > 505)
+        
         if (size > 505)
             element.innerHTML = date + type + amount;
         else
