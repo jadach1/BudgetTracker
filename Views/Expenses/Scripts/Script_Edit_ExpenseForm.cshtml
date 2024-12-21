@@ -294,26 +294,6 @@
 
 @* MISCELLANEOUS SCRIPTS FOR THE EXPENSE FORM.  HIDE.  CREATE CLICK EVENTS BY JQUERY *@
 <script> 
-    // Hide-Box for the edit-expense-form 
-  $("#edit-expense-form-hide-button").on("click", () => {
-    console.log("it is i")
-    let EditExpensesForm = document.getElementById("editExpenseForm");
-    EditExpensesForm.classList.remove("d-flex");
-    EditExpensesForm.hidden = true;
-    if( $("#edit_expense_form_expand_button").length > 0 ){
-        $("#edit_expense_form_expand_button").remove();
-    }
-
-    //clear form
-    //amount
-    document.getElementById("edit_expense_amount").value = 0;
-    //date
-    document.getElementById("edit_expense_date").value = "";
-    //description
-    $("#edit_expense_description").attr("value", "");
-
-    disableEnableAllButtons(false);
-  })
 
     // This function will create the buttons for the month changing feature
   function edit_expense_form_create_events_and_objects(){

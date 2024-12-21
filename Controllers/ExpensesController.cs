@@ -68,13 +68,11 @@ namespace Budget_Man.Controllers
                 //Fetch Fixed expenses, if they exist.
                 IEnumerable<Expenses> fixedexpense = _db.expensesRepository.GetFixedExpenses(month, user.Id);
                 masterExpenseList.fixedExpenses = new DisplayExpenses( fixedexpense , 0, month, dtfi.GetMonthName(month));
-
                 //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
                 if(masterExpenseList.fixedExpenses != null){
                     ViewData["FixedExpenses"] = "true";
                 }
-                Console.WriteLine(month + "is month numeric");
-                Console.WriteLine(masterExpenseList.fixedExpenses.expenses + " is there an expense");
+                
                 //Creates the expense form, via model class MasterExpenseList mehtod
                 masterExpenseList.appendExpenseForm(categories, dtfi.GetMonthName(month), "Create");
                 return View(masterExpenseList);
@@ -151,8 +149,7 @@ namespace Budget_Man.Controllers
 
                 _db.Save();
                 //Pop up confirmation success
-                _helperFunctions.toasterTest("Created " + counter + " new expenses",1);
-                return this.Ok($"This many expenses created: " + counter);
+                return this.Ok($"Successfully added " + counter + " fixed expenses");
             }
             catch (Exception e)
             {
@@ -194,7 +191,7 @@ namespace Budget_Man.Controllers
                 _db.expensesRepository.Update(obj);
                 _db.Save();
                 _helperFunctions.toasterTest("Successfully edited expense", 1);
-                return RedirectToAction("Index");
+                return View("Index");
             }
             catch (Exception e)
             {

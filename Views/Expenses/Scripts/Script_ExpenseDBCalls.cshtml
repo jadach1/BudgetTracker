@@ -140,9 +140,9 @@
                 let x = JSON.stringify(data);
                  //Hide original modal
                 hideIndexModal()
-                delay(500).$ajax({
-                    url: '/Expenses'
-                })
+                window.localStorage.setItem("Success", data);
+                $form = $("<form action='Expenses'></form>").appendTo('body');;
+                $form.submit();
             },
 
             // Error handling 

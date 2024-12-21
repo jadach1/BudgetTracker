@@ -75,6 +75,26 @@ document.getElementById("newExpensesFormButton1").addEventListener("click",() =>
   })
 
 
+    // Hide-Box for the edit-expense-form 
+  $("#edit-expense-form-hide-button").on("click", () => {
+    let EditExpensesForm = document.getElementById("editExpenseForm");
+    EditExpensesForm.classList.remove("d-flex");
+    EditExpensesForm.hidden = true;
+    if( $("#edit_expense_form_expand_button").length > 0 ){
+        $("#edit_expense_form_expand_button").remove();
+    }
+
+    //clear form
+    //amount
+    document.getElementById("edit_expense_amount").value = 0;
+    //date
+    document.getElementById("edit_expense_date").value = "";
+    //description
+    $("#edit_expense_description").attr("value", "");
+
+    disableEnableAllButtons(false);
+  })
+
 //Hide-Box for the expense tables main options : Create new Expense, Switch Month's, Import Fixed Expense
 document.getElementById("ExpenseTablesCaret").addEventListener("click",()=>{
   console.log("yo")
