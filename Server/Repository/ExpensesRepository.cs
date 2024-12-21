@@ -18,7 +18,7 @@ namespace Budget_Man.Repository
 
         public IEnumerable<Expenses> GetWeekOf(int week,int month,string userId){
             IQueryable<Expenses> query = dbSet;
-            return query.Where(e => e.Month == month && e.Week == week && e.MyUserName == userId)
+            return query.Where(e => e.Month == month && e.Week == week && e.MyUserName == userId && e.isFixed == false)
                         .OrderByDescending(s => s.Date)
                         .ToList();
         }
@@ -52,15 +52,21 @@ namespace Budget_Man.Repository
             _db.Expenses.Update(obj);
         }
 
+        // Updates the DB by changing existing expenses to have new categories
           public async Task<bool> Update_Change_Expense_Category(string userid, int oldCategory, int newCategory){
-            string sql = "'UPDATE [dbo].[Expenses] " + 
-                        "SET [CategoryId] ='" + newCategory + "' "+  
-                        "WHERE [CategoryId]='"+ oldCategory + "' "+  
-                        "AND [Userid]='"+userid+"';";
+            // string sql = "'UPDATE [dbo].[Expenses] " + 
+            //             "SET [CategoryId] ='" + newCategory + "' "+
+            //             ", [isFixed] ='" + 0 + "' "+  
+            //             ", [Week] ='" + 1 + "' "+
+            //             "WHERE [CategoryId]='"+ oldCategory + "' "+  
+            //             "AND [Userid]='"+userid+"';";
+            // The above is not actually used.
          
             var result = await _db.Expenses.Where(e => e.CategoryId == oldCategory && e.MyUserName == userid)
                               .ExecuteUpdateAsync(
-                                    s => s.SetProperty(e => e.CategoryId, e => newCategory));
+                                    s => s.SetProperty(e => e.CategoryId, e => newCategory)
+                                          .SetProperty(e => e.isFixed, e => false)
+                                    );
             if(result != null){
               return true;
             } else {
