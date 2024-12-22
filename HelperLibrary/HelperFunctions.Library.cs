@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace Budget_Man.Helper.Library {
@@ -17,6 +18,10 @@ namespace Budget_Man.Helper.Library {
 
         public static float ConvertStringToFloat(string str){
             return Single.Parse(str);
+        }
+
+        public static bool ConvertStringToBool(string str){
+            return Convert.ToBoolean(str);
         }
 
          public void toasterTest(string msg, int type)

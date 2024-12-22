@@ -23,6 +23,8 @@ namespace Budget_Man.Models
 
         public bool isFixed {get; set;}
 
+        public bool isIncome {get; set;}
+
     }
 
     public class ExpensesFormPosting {
@@ -34,6 +36,7 @@ namespace Budget_Man.Models
         public string Date { get; set; }
         public string Description { get; set; }
         public string Currency {get; set; }
+        public bool isIncome {get; set;}
 
          public static int GetMonthNumber_From_MonthName(string monthname)
         {

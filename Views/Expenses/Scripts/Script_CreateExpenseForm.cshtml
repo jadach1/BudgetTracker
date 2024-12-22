@@ -37,7 +37,8 @@
             Type: category[0],
             Amount: formData.amount === "" ? "0" : formData.amount,
             Date: formData.date === "" ? getCurrentDate() : formData.date,
-            Description: formData.description
+            Description: formData.description,
+            isIncome: formData.isIncome === "true" ? true : false
         }
 
         expense.Currency = formData.currency === "" ? "$" : currency_formatter.format(expense.Amount)[0]

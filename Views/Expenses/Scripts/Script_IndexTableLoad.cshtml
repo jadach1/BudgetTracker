@@ -95,17 +95,23 @@ document.getElementById("newExpensesFormButton1").addEventListener("click",() =>
     disableEnableAllButtons(false);
   })
 
-//Hide-Box for the expense tables main options : Create new Expense, Switch Month's, Import Fixed Expense
-document.getElementById("ExpenseTablesCaret").addEventListener("click",()=>{
-  console.log("y2")
-    $('#expenses_options_start').slideToggle(500);
-})
-
 //Import Fixed Expenses Button.  Begins the process of creating fixed expenses for current month
 document.getElementById("importFixedExpensesButton").addEventListener("click",()=>{
      toggle_index_expense_modal(ajaxCallToFixedExpenseController_checkIfCategoryExists, "Do you Wish to Import all fixed expenses for this current month ?")
 })
 
+//Hide-Box for the expense tables main options : Create new Expense, Switch Month's, Import Fixed Expense
+document.getElementById("ExpenseTablesCaret").addEventListener("click",()=>{
+    $('#expenses_options_start').slideToggle(500);
+})
+
+document.getElementById("IncomeTransactionsCaret").addEventListener("click", ()=>{
+       $('#Income_Transactions').slideToggle(500);
+})
+
+document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>{
+       $('#Fixed_Transactions').slideToggle(500);
+})
 </script>
 
 <!-- FUNCTIONS VISIBILITY-->

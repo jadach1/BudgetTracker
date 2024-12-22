@@ -18,7 +18,7 @@ namespace Budget_Man.Repository
 
         public IEnumerable<Expenses> GetWeekOf(int week,int month,string userId){
             IQueryable<Expenses> query = dbSet;
-            return query.Where(e => e.Month == month && e.Week == week && e.MyUserName == userId && e.isFixed == false)
+            return query.Where(e => e.Month == month && e.Week == week && e.MyUserName == userId && e.isFixed == false && e.isIncome == false)
                         .OrderByDescending(s => s.Date)
                         .ToList();
         }
@@ -26,6 +26,12 @@ namespace Budget_Man.Repository
         public IEnumerable<Expenses> GetFixedExpenses(int month,string userId){
             IQueryable<Expenses> query = dbSet;
             return query.Where(e => e.Month == month && e.isFixed == true && e.MyUserName == userId)
+                        .ToList();
+        }
+
+        public IEnumerable<Expenses> GetIncomeExpenses(int month,string userId){
+            IQueryable<Expenses> query = dbSet;
+            return query.Where(e => e.Month == month && e.isIncome == true && e.MyUserName == userId)
                         .ToList();
         }
 

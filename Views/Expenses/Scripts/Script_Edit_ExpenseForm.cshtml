@@ -28,6 +28,7 @@
         edit_expense_form_load_month(obj.month);
         edit_expense_form_load_category(obj.category);
         edit_expense_form_load_currency(obj.currency);
+        edit_expense_form_load_isIncome(obj.isIncome);
         edit_expense_form_load_amount(obj.amount);
         edit_expense_form_load_date(obj.date);
         edit_expense_form_load_description(obj.description);
@@ -134,10 +135,17 @@
     }
     /************CURRENCY***********/
     function edit_expense_form_load_currency(value) {
-        console.log("load ", value[0], value.charCodeAt(0), typeof(value), "a".charCodeAt(0), "aA".charCodeAt(1))
         const field_elem = document.getElementById("edit_expense_currency");
         field_elem.value = value;
-        //String.fromCharCode(65509);
+    }
+
+    /************IS INCOME FLAG***********/
+    function edit_expense_form_load_isIncome(value) {
+        const field_elem = document.getElementById("edit_expense_isIncome");
+        if(value == 1)
+            field_elem.value = "true";
+        else
+            field_elem.value = "false";
     }
 
     /************AMOUNT***********/

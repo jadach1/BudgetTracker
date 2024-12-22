@@ -56,7 +56,7 @@ namespace Budget_Man.Controllers
                 // PREPARE 
                 MasterExpenseList masterExpenseList = new MasterExpenseList();
 
-                //FETCH, FROM DB, Get Expenses
+                //FETCH, FROM DB, Transaction
                 for (int i = 1; i < 6; i++)
                 {
                     // string str = "expenses" + i;
@@ -67,10 +67,18 @@ namespace Budget_Man.Controllers
 
                 //Fetch Fixed expenses, if they exist.
                 IEnumerable<Expenses> fixedexpense = _db.expensesRepository.GetFixedExpenses(month, user.Id);
-                masterExpenseList.fixedExpenses = new DisplayExpenses( fixedexpense , 0, month, dtfi.GetMonthName(month));
+                masterExpenseList.fixedExpenses = new DisplayExpenses( fixedexpense , 0, month, dtfi.GetMonthName(month),false);
                 //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
                 if(masterExpenseList.fixedExpenses != null){
                     ViewData["FixedExpenses"] = "true";
+                }
+
+                 //Fetch Income Transaction, if they exist.
+                IEnumerable<Expenses> income = _db.expensesRepository.GetIncomeExpenses(month, user.Id);
+                masterExpenseList.incomeExpenses = new DisplayExpenses( income , 0, month, dtfi.GetMonthName(month),false);
+                //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
+                if(masterExpenseList.incomeExpenses != null){
+                    ViewData["IncomeExpenses"] = "true";
                 }
                 
                 //Creates the expense form, via model class MasterExpenseList mehtod
@@ -106,7 +114,8 @@ namespace Budget_Man.Controllers
                         Date = item.Date,
                         Description = item.Description,
                         MyUserName = user.Id,
-                        Currency = item.Currency
+                        Currency = item.Currency,
+                       isIncome = item.isIncome
                     };
 
                     counter++;

@@ -67,7 +67,6 @@
             success: function (data) {
                 window.localStorage.setItem("Success", "Successfully Added Expenses");
                 let x = JSON.stringify(data);
-                console.log("success", x);
                 ClearExpenseListItems();
                 const form = document.getElementById("expenseForm");
                 // refresh the form, but keep current month

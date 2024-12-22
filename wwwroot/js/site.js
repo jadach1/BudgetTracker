@@ -30,17 +30,18 @@ function screenSizeCheck(){
     const height = +document.getElementsByTagName("body")[0].clientHeight;
     const bbody = document.getElementsByTagName("body");
     
-    console.log("width " + size);
-    console.log("height " + height);
+    // console.log("width " + size);
+    // console.log("height " + height);
    
-    console.log(bbody);
+    // console.log(bbody);
 
    const windowHeight = window.innerHeight;
    const windowWidth = window.innerWidth;
-   console.log("window height " + windowHeight);
-   console.log("window width " + windowWidth);
+//    console.log("window height " + windowHeight);
+//    console.log("window width " + windowWidth);
 
-   fireNotif('screen size','success', 5000);
+//    fireNotif('screen size','success', 5000);
+    return {clientWidth: size,clientHeight:height,innerHeight: windowHeight,innerWidth: windowWidth}
 }
 
 // For testing purposes, add 100 rows of data to the db

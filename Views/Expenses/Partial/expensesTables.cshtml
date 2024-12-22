@@ -1,21 +1,34 @@
 @using System.Text.Json
 @model DisplayExpenses
 @{
-    float weeklyTotal = 0;
+    float Total = 0;
 }
    
 <table class="table table-striped border border-solid border-2 border-primary">
     <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
-    <a id="@Model.uniqueIdName" class="btn btn-outline-primary 
+    @if(@Model.isWeek == true){
+          <a id="@Model.uniqueIdName" class="btn btn-outline-primary 
                   offset-11 d-flex 
                   justify-content-center 
                   customCaret">
-        <i class="bi bi-caret-down-square ">
-        </i>
-    </a>
+                <i class="bi bi-caret-down-square ">
+                </i>
+             </a>
+
+             <!--FOR CONTROLLING THE ABOVE CARET FOR HIDING AND DISPLAYING A TABLE-->
+            <script>
+                document.getElementById("@Model.uniqueIdName").addEventListener("click", function () {
+                    const fromTheStart_Tr = "@Model.uniqueClassNameStart";
+                    const toTheStop_Tr = "@Model.uniqueClassNameStop";
+                    HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
+                })
+            </script>
+    }
+  
+
     <thead class="border border-3 border-secondary">
         <tr class="row text-light">
-            <td class="col-3 text-center">Expense<i class="bi bi-tag"></i></td>
+            <td class="col-3 text-center">Transaction<i class="bi bi-tag"></i></td>
             <td class="col-3 text-center">Amount <i class="bi bi-cash"></i></td>
             <td class="col-3 text-center">Date <i class="bi bi-calendar-date"></i></td>
             <td class="col-3 text-center ">Description<i class="bi bi-chat-dots"></i></td>
@@ -35,7 +48,7 @@
                 <td class="col-3 text-center">@obj.Date</td>
                 <td class="col-3 text-center">@obj.Description</td>
             </tr>
-            weeklyTotal += @obj.Amount;
+            Total += @obj.Amount;
         }
       
         <tr class="row">
@@ -46,7 +59,7 @@
         <tr class=@Model.uniqueClassNameStop>
             <td class="d-flex justify-content-end">
                 <bold>
-                    <p class="text-secondary ">Total-Spent: @weeklyTotal</p>
+                    <p class="text-secondary ">Total: @Total</p>
                 </bold>
             </td>
         </tr>
@@ -54,12 +67,5 @@
     </tbody>
 </table>
 
-<!--FOR CONTROLLING THE ABOVE CARET FOR HIDING AND DISPLAYING A TABLE-->
-<script>
-    document.getElementById("@Model.uniqueIdName").addEventListener("click", function () {
-        const fromTheStart_Tr = "@Model.uniqueClassNameStart";
-        const toTheStop_Tr = "@Model.uniqueClassNameStop";
-        HideOrDisplayExpenseTable(fromTheStart_Tr, toTheStop_Tr);
-    })
-</script>
+
 

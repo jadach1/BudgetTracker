@@ -12,7 +12,7 @@
     </i>
 </a>
 
-<!--OPTIONS of the EXPENSE SCREEN: CREATE, IMPORT, SWITCH-->
+<!--OPTIONS of the Transaction SCREEN: CREATE, IMPORT, SWITCH-->
 <div id="expenses_options_start">
     <!-- CHANGE MONTH FORM BUTTON -->
     <div class="row">
@@ -21,17 +21,17 @@
                 class="bi bi-calendar3"></i></button>
     </div>
 
-    <!-- CREATE EXPENSE(s) FORM BUTTON -->
+    <!-- CREATE Transaction(s) FORM BUTTON -->
     <div class="row">
         <button id="createEditExpensesFormButton"
-            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Expense(s) <i
+            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Transaction(s) <i
                 class="bi bi-plus-circle"></i></button>
     </div>
 
-    <!-- CREATE single EXPENSE FORM BUTTON -->
+    <!-- CREATE single Transaction FORM BUTTON -->
     <div class="row">
         <button id="newExpensesFormButton1"
-            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Expense<i
+            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Transaction<i
                 class="bi bi-plus-circle"></i></button>
     </div>
 
@@ -44,7 +44,7 @@
 </div>
 
 <div class="container ">
-    <!-- CREATE EXPENSE FORM MODAL -->
+    <!-- CREATE Transaction FORM MODAL -->
     <div id="createEditExpensesForm" hidden class=" bg-primary rounded-5"
         style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
@@ -57,21 +57,21 @@
         <partial name="./Partial/changeMonthForm.cshtml" />
     </div>
 
-    <!-- EDIT EXPENSE FORM MODAL -->
+    <!-- EDIT Transaction FORM MODAL -->
     <div id="editExpenseForm"  hidden class=" bg-primary rounded-5 "
         style="z-index: 3; position: fixed;border: black;border-style:dashed;border-radius:inherit">
         <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
         <partial name="./Partial/EditExpenseForm/EditExpenseForm.cshtml" model="@Model.createExpenseForm" />
     </div>
 
-    <!--DELETE EXPENSE MODAL -->
+    <!--DELETE Transaction MODAL -->
     <partial name="./Partial/DeleteExpenseForm/Delete_ExpenseModal.cshtml" />
 
 
-    <!--EXPENSE TABLES SELECTION MODAL: EDIT, DELETE-->
+    <!--Transaction TABLES SELECTION MODAL: EDIT, DELETE-->
     <partial name="./Partial/expensesTablesModal.cshtml" />
-    
-    <!--5 tables, each denotes a week of expenses-->
+
+    <!--5 TABLES, WEEKLY TRANSACTIONS-->
     @foreach (var item in Model.ListOfExpenses)
     {
         <div class="row">
@@ -80,13 +80,42 @@
         <partial name="./Partial/expensesTables.cshtml" model="@item" />
     }
 
+    <!--FIXED EXPENSES-->
     @if(ViewData["FixedExpenses"] == "true"){
-         <div class="row">
+
+         <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
+            <a id="FixedTransactionsCaret" class="btn btn-outline-primary 
+                            offset-11 d-flex 
+                            justify-content-center 
+                            customCaret">
+                <i class="bi bi-caret-down-square ">
+                </i>
+            </a>
+
+         <div id="Fixed_Transactions" class="row" style="border-color:chocolate; border-style: solid; border-width: 1px;" >
             <h2 class="d-flex justify-content-center"><span class="align-middle">Monthly Fixed Expenses</span></h2>
             <partial name="./Partial/expensesTables.cshtml" model="@Model.fixedExpenses" />
         </div>
         
     }
+
+        <!-- TABLE OF TRANSACTIONS FOR INCOME-->
+    @if(ViewData["IncomeExpenses"] == "true"){
+
+        <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
+            <a id="IncomeTransactionsCaret" class="btn btn-outline-primary 
+                            offset-11 d-flex 
+                            justify-content-center 
+                            customCaret">
+                <i class="bi bi-caret-down-square ">
+                </i>
+            </a>
+
+            <div  id="Income_Transactions" class="row" style="border-color: aqua; border-style: solid; border-width: 1px;">
+                <h2 class="d-flex justify-content-center"><span class="align-middle">Monthly Income</span></h2>
+                <partial name="./Partial/expensesTables.cshtml" model="@Model.incomeExpenses" />
+            </div>  
+        }
 </div>
 
 <!--SCRIPTS-->
