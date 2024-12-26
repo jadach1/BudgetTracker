@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 
+namespace Budget_Man.AuthService.Models;
 public class UserRegistration {
     [Required(ErrorMessage = "Must enter Email.")]
     [EmailAddress]

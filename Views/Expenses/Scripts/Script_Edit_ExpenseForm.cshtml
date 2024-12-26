@@ -24,6 +24,7 @@
 // This function begins loading the expense form, by each field
     function load_Expense_Form(obj) {
         edit_expense_form_load_id(obj.id);
+        edit_expense_form_load_year(obj.year);
         edit_expense_form_load_week(obj.week);
         edit_expense_form_load_month(obj.month);
         edit_expense_form_load_category(obj.category);
@@ -33,6 +34,9 @@
         edit_expense_form_load_date(obj.date);
         edit_expense_form_load_description(obj.description);
 
+        //Change the title of the form
+        $("#editExpenseFormTitle").html("Edit Transaction") 
+
         // This function will create the buttons for the month changing feature
             edit_expense_form_create_events_and_objects();
     }
@@ -41,6 +45,14 @@
     function edit_expense_form_load_id(id) {
         const elem_field = document.getElementById("editExpenseForm_id");
         elem_field.value = id;
+    }
+
+    /************YEAR***********/
+    function edit_expense_form_load_year(Year) {
+        const year_field = document.getElementById("editExpenseForm_year");
+        year_field.value = +Year;
+        const year_div = document.getElementById("editExpenseForm_year_div");
+        year_div.style.display = "block";
     }
 
     /************WEEK***********/

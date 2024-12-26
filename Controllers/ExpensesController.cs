@@ -37,7 +37,6 @@ namespace Budget_Man.Controllers
                  else
                     month = DateTime.Today.Month;
                 
-
                 int year = DateTime.Today.Year;
                 DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
 
@@ -60,13 +59,13 @@ namespace Budget_Man.Controllers
                 for (int i = 1; i < 6; i++)
                 {
                     // string str = "expenses" + i;
-                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month, user.Id);
+                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month,2024, user.Id);
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     // ViewData[str] = expenses;
                 }
 
                 //Fetch Fixed expenses, if they exist.
-                IEnumerable<Expenses> fixedexpense = _db.expensesRepository.GetFixedExpenses(month, user.Id);
+                IEnumerable<Expenses> fixedexpense = _db.expensesRepository.GetFixedExpenses(month,2024, user.Id);
                 masterExpenseList.fixedExpenses = new DisplayExpenses( fixedexpense , 0, month, dtfi.GetMonthName(month),false);
                 //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
                 if(masterExpenseList.fixedExpenses != null){
@@ -74,7 +73,7 @@ namespace Budget_Man.Controllers
                 }
 
                  //Fetch Income Transaction, if they exist.
-                IEnumerable<Expenses> income = _db.expensesRepository.GetIncomeExpenses(month, user.Id);
+                IEnumerable<Expenses> income = _db.expensesRepository.GetIncomeExpenses(month,2024, user.Id);
                 masterExpenseList.incomeExpenses = new DisplayExpenses( income , 0, month, dtfi.GetMonthName(month),false);
                 //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
                 if(masterExpenseList.incomeExpenses != null){
@@ -200,7 +199,7 @@ namespace Budget_Man.Controllers
                 _db.expensesRepository.Update(obj);
                 _db.Save();
                 _helperFunctions.toasterTest("Successfully edited expense", 1);
-                return View("Index");
+               return RedirectToAction("Index");
             }
             catch (Exception e)
             {

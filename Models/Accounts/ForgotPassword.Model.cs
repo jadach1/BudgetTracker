@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+namespace Budget_Man.AuthService.Models;
 
 public class ForgotPasswordModel
 {

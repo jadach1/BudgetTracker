@@ -16,22 +16,22 @@ namespace Budget_Man.Repository
             _db = db;
         }
 
-        public IEnumerable<Expenses> GetWeekOf(int week,int month,string userId){
+        public IEnumerable<Expenses> GetWeekOf(int week,int month,int year,string userId){
             IQueryable<Expenses> query = dbSet;
-            return query.Where(e => e.Month == month && e.Week == week && e.MyUserName == userId && e.isFixed == false && e.isIncome == false)
+            return query.Where(e => e.Year == year && e.Month == month && e.Week == week && e.MyUserName == userId && e.isFixed == false && e.isIncome == false)
                         .OrderByDescending(s => s.Date)
                         .ToList();
         }
 
-        public IEnumerable<Expenses> GetFixedExpenses(int month,string userId){
+        public IEnumerable<Expenses> GetFixedExpenses(int month,int year,string userId){
             IQueryable<Expenses> query = dbSet;
-            return query.Where(e => e.Month == month && e.isFixed == true && e.MyUserName == userId)
+            return query.Where(e => e.Year == year && e.Month == month && e.isFixed == true && e.MyUserName == userId)
                         .ToList();
         }
 
-        public IEnumerable<Expenses> GetIncomeExpenses(int month,string userId){
+        public IEnumerable<Expenses> GetIncomeExpenses(int month,int year,string userId){
             IQueryable<Expenses> query = dbSet;
-            return query.Where(e => e.Month == month && e.isIncome == true && e.MyUserName == userId)
+            return query.Where(e => e.Year == year && e.Month == month && e.isIncome == true && e.MyUserName == userId)
                         .ToList();
         }
 

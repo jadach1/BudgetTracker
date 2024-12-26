@@ -1,0 +1,62 @@
+<script>
+
+    var OverviewTableLoader = {
+        //Initialize the width of the table and the style
+        initialize: function(){
+            
+            //Create the width of the main border surrounding the table
+            
+            //Difference is between left of table and left of div
+            const difference = ( +$("#Overview_table").position().left - +$("#main_body").position().left )
+            
+            //Add 40 at the end, because, it works
+            const ourWidth = $("#Overview_table").width() + difference + 40;
+            $("#main_body").css({
+                width: ourWidth+"px",
+            });
+
+            //Show our label year
+            this.displayYear();
+
+            //Show Form, hide Button 'change'
+            $("#overview_table_ChangeYearButton").on("click",function(){
+                OverviewTableLoader.toggleForm()
+            })
+
+            // Submit Form Button
+             $("#overview_table_ChangeYearForm button").first().on("click", function(event) {
+                event.preventDefault();
+                //Get the year from user input
+                const year = $("#overview_table_ChangeYearForm_input").val();
+                //Site.Js function call
+                setYear(year);
+                //Hide Form
+                OverviewTableLoader.toggleForm();
+                OverviewTableLoader.displayYear();
+            })
+
+            //Cancel Button
+            $("#overview_table_ChangeYearForm button").last().on("click", function(event) {
+                event.preventDefault();
+                 OverviewTableLoader.toggleForm();
+            })
+
+
+            @* console.log(ourWidth);
+            console.log($("#Overview_table").width())
+            screenSizeCheckDisplay() *@
+        },
+
+        toggleForm: function(){
+            $("#overview_table_ChangeYearButton").toggle();
+            $("#overview_table_ChangeYearForm").toggle();
+        },
+
+        displayYear: function(){
+              //Label displaying Year
+            $("#overview_table_ChangeYearLabel").html(
+                getOurWorkingYear()
+            );
+        }
+    }
+</script>
