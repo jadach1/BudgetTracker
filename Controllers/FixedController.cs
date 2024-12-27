@@ -1,5 +1,6 @@
 
 using System.Runtime.CompilerServices;
+using Budget_Man.AuthService.Models;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
@@ -12,9 +13,9 @@ namespace Budget_Man.Controllers;
 public class FixedExpenses : Controller
 {
     private IUnitOfWork _dbCentral;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<MyUser> _userManager;
    private HelperFunctions _helperFunctions;
-    public FixedExpenses(IUnitOfWork db,UserManager<IdentityUser> userManager,HelperFunctions helperFunctions)
+    public FixedExpenses(IUnitOfWork db,UserManager<MyUser> userManager,HelperFunctions helperFunctions)
     {
         _dbCentral = db;
         _userManager = userManager;

@@ -26,6 +26,10 @@ namespace Budget_Man.Models
 
         public bool isIncome {get; set;}
 
+        public int dishout(){
+            return 10;
+        }
+
     }
 
     public class ExpensesFormPosting {

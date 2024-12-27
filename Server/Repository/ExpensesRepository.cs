@@ -79,6 +79,9 @@ namespace Budget_Man.Repository
               return false;
             }
         }
+     public int dishout(){return 10;}
+    
     }
 
+   
 }

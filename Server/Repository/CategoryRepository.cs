@@ -26,7 +26,7 @@ namespace Budget_Man.Repository {
             IQueryable<Category> query = dbSet;
             var obj = query.Where(e => e.Name == categoryName && e.Userid == userid ).FirstOrDefault();
             if (obj == null){  
-                Console.WriteLine("There is nothing here");
+                Console.WriteLine("There is no category here");
                 return 0;
             }
             else {

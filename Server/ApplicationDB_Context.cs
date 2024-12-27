@@ -1,11 +1,11 @@
 using Budget_Man.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Budget_Man.AuthService.Models;
 
 namespace Budget_Man.Server
 {
-    public class ApplicationDbContext :  IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext :  IdentityDbContext<MyUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -22,6 +22,8 @@ namespace Budget_Man.Server
             // modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.Entity<Category>();
             modelBuilder.Entity<FixedExpense>();
+            modelBuilder.Entity<Expenses>();
+           
             // modelBuilder.Entity<Category>().HasData(
             //  new Category { Id = 1, Name = "Food" },
             //  new Category { Id = 2, Name = "Fuel" },

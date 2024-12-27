@@ -4,6 +4,7 @@ using Budget_Man.Server.IUnitWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Budget_Man.Helper.Library;
+using Budget_Man.AuthService.Models;
 
 namespace Budget_Man.Controllers
 {
@@ -11,9 +12,9 @@ namespace Budget_Man.Controllers
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _dbCentral;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MyUser> _userManager;
         private HelperFunctions _helperFunctions;
-        public CategoryController(IUnitOfWork db, UserManager<IdentityUser> userManager,HelperFunctions helperFunctions)
+        public CategoryController(IUnitOfWork db, UserManager<MyUser> userManager,HelperFunctions helperFunctions)
         {
             _dbCentral = db;
             _userManager = userManager;

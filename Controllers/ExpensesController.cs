@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Linq.Expressions;
+using Budget_Man.AuthService.Models;
 using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Server.IUnitWork;
@@ -15,11 +16,11 @@ namespace Budget_Man.Controllers
     {
         // private readonly ApplicationDbContext _db;
         private readonly IUnitOfWork _db;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MyUser> _userManager;
 
         private HelperFunctions _helperFunctions;
 
-        public ExpensesController(IUnitOfWork db, UserManager<IdentityUser> userManager, HelperFunctions helperFunctions)
+        public ExpensesController(IUnitOfWork db, UserManager<MyUser> userManager, HelperFunctions helperFunctions)
         {
             _db = db;
             _userManager = userManager;

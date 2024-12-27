@@ -1,4 +1,5 @@
 using AutoMapper;
+using Budget_Man.AuthService.Models;
 using Budget_Man.Controllers;
 using Budget_Man.Helper.Library;
 using EmailService;
@@ -12,12 +13,12 @@ public class AccountController : Controller
     // mapper, user by AutoMapper, to map the IdentityUser class to our local UserRegistration model class
     private readonly IMapper _mapper;
     // UserManager is a class maintained by ASP.NET and has many helper methods for handling user submission into DB, and also methods for verifcation
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<MyUser> _userManager;
+    private readonly SignInManager<MyUser> _signInManager;
     private readonly IEmailSender _emailSender;
     public HelperFunctions _helperFunctions;
 
-    public AccountController(SignInManager<IdentityUser> signInManager, HelperFunctions helperFunctions, IMapper mapper, UserManager<IdentityUser> userManager, IEmailSender emailSender)
+    public AccountController(SignInManager<MyUser> signInManager, HelperFunctions helperFunctions, IMapper mapper, UserManager<MyUser> userManager, IEmailSender emailSender)
     {
         _mapper = mapper;
         _userManager = userManager;
@@ -38,12 +39,15 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid)
         {
-            Console.WriteLine("model state is not valid nor safe");
+            Console.WriteLine("model state is not valid nor safe, coming from Register method in AccountController");
             return View(model);
         }
         try
         {
-            var user = _mapper.Map<IdentityUser>(model);
+            MyUser user = _mapper.Map<MyUser>(model);
+            user.year = 2024;
+            Console.WriteLine("user: " + user.DisplayName + " mail: " + user.Email + " year: " + user.year);
+            
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
