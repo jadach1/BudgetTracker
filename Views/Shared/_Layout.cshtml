@@ -26,91 +26,11 @@
 <body>
     
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Budget_Man @test_expenses.dishout()<p id="selectYearLabel"></p></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Expenses"
-                                asp-action="Index">Expenses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="FixedExpenses"
-                                asp-action="Index">Fixed Expenses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category"
-                                asp-action="Index">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="selectYearLabel2" class="nav-link text-dark" asp-area="" asp-controller="Category"
-                                asp-action="Index">Year 2024</a>
-                        </li>
-                             
-                        <li>
-                            <a class="btn" onclick="screenSizeCheckDisplay()">Screen Size</a>
-                        </li>
-
-                         @if (SignInManager.IsSignedIn(User))
-                        {
-                            <div style="border: 1px green solid;" >
-                                 <li>
-                                  <div class="d-flex">
-                                    <label for="" class="text-dark">Currency: </label>
-                                    <p id="currency_selected" class="text-dark mx-3"></p>
-                                  </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <label for="currencySelection" class="text-dark">Select Currency</label>
-                                        <select class="" onchange="currencyChange()" name="currencySelection" id="currencySelection" >
-                                            <option id="currency_option_usd" value="USD">$</option>
-                                            <option id="currency_option_gbp" value="GBP" >£</option>
-                                            <option id="currency_option_jpy" value="JPY">￥</option>
-                                            <option id="currency_option_eur" value="EUR">€</option>
-                                        </select>
-                                    </div>
-                                </li>  
-                            </div>
-                           
-                            @* <li id="loadErUp" onclick="loadErUp()">Load er Up</li> *@
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" 
-                                    title="Welcome">Welcome @User.Identity.Name!</a>
-                            </li>
-                            <li class="nav-item">
-                                <form class="form-inline" asp-controller="Account" asp-action="Logout">
-                                    <button type="submit" class="nav-link btn btn-link text-info">Logout</button>
-                                </form>
-                            </li>
-                        }
-                    else {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
-                                    asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
-                                    asp-action="Register">Register</a>
-                            </li>
-                    }       
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <partial name="../Nav/Navigation.cshtml"   />
     </header>
     
     <div class="container">
-        <main id="main_body" role="main" class="p-3 container border border-3 border-primary rounded-3">
+        <main id="main_body" role="main" class="p-3  border border-3 border-primary rounded-3">
             @RenderBody()
         </main>
     </div>
@@ -127,7 +47,7 @@
     <script src="~/js/ripple-effect.min.js"></script>
     <script src="~/js/simple-notif.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/currency_library.js" asp-append-version="true"></script>
+     <script src="~/js/currency_library.js" asp-append-version="true"></script>
    <script src="~/js/notif-checker-agent.js" asp-append-version="true"></script>
     <script>
         //set ripple effect for deleting elements
@@ -136,7 +56,7 @@
         });
 
        //Display current Date for user
-        $("#selectYearLabel").html(new Date().toDateString()
+        $("#selectYearLabel").html(new Date().toDateString())
 
        //Set to the year saved or load current year
        setYear(-1);

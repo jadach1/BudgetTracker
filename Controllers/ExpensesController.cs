@@ -107,6 +107,7 @@ namespace Budget_Man.Controllers
                 {
                     Expenses newExpense = new Expenses
                     {
+                        Year = HelperFunctions.ConvertStringToInt(item.Year),
                         Month = ExpensesFormPosting.GetMonthNumber_From_MonthName(item.Month),
                         Week = HelperFunctions.ConvertStringToInt(item.Week),
                         CategoryId = HelperFunctions.ConvertStringToInt(item.Type),

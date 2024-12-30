@@ -11,9 +11,20 @@
             
             //Add 40 at the end, because, it works
             const ourWidth = $("#Overview_table").width() + difference + 40;
+           
+           //Border around our table, located in main view
             $("#main_body").css({
                 width: ourWidth+"px",
+                //width: "1000px"
             });
+
+            //Table 
+             $("#Overview_table td").css({
+                border: "2px rgba(111,66,193,1) solid",
+            });
+
+            //Set the Currency
+            $("Overview_table td p").html("$");
 
             //Show our label year
             this.displayYear();
@@ -42,9 +53,9 @@
             })
 
 
-            @* console.log(ourWidth);
+            console.log(ourWidth);
             console.log($("#Overview_table").width())
-            screenSizeCheckDisplay() *@
+            screenSizeCheckDisplay()
         },
 
         toggleForm: function(){
@@ -57,6 +68,9 @@
             $("#overview_table_ChangeYearLabel").html(
                 getOurWorkingYear()
             );
+        },
+        getCurrentCurrency: function getCurrentCurrency(){
+                    return "$"
         }
     }
 </script>

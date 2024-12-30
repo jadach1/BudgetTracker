@@ -1,46 +1,39 @@
-<div class="container">
-    <div class="m-3">
-        <div class="row">
-             <h4 id="overview_table_ChangeYearLabel" class="col-2">2024</h4>
-            <button id="overview_table_ChangeYearButton" class="col-2 btn btn-primary">Change <i class="bi bi-pencil"></i></button>
-        </div>
-        <form id="overview_table_ChangeYearForm" style="display: none;" action="changeYear">
-            <label for="">Year: </label>
-            <input id="overview_table_ChangeYearForm_input" type="number" name="year" >
-            <button class="btn btn-primary">Go <i class="bi bi-arrow-down-left-square"></i></button>
-            <button class="btn btn-dark">Cancel <i class="bi bi-ban"></i></button>
-        </form>
-        
-    </div>
-    
+@model MasterOverviewList;
+
+<div>
+
+ <partial name="./ChangeMonth.cshtml" />
+
     <table id="Overview_table" class="table table-striped">
         <thead>
             <tr>
-                <td style="border: 2px rgba(111,66,193,1) solid;">Month</td>
-                <td style="border: 2px rgba(111,66,193,1) solid;">Week 1</td>
-                <td style="border: 1px white solid;">Week 2</td>
-                <td style="border: 1px white solid;">Week 3</td>
-                <td style="border: 1px white solid;">Week 4</td>
-                <td style="border: 1px white solid;">Week 5</td>
-                <td style="border: 1px white solid;">Total Expenses</td>
-                <td style="border: 1px white solid;">Total Fixed Expenses</td>
-                <td style="border: 1px white solid;">Total Income</td>
-                <td style="border: 1px white solid;">Difference</td>
+                <td >Month</td>
+                <td >Week 1</td>
+                <td >Week 2</td>
+                <td >Week 3</td>
+                <td >Week 4</td>
+                <td >Week 5</td>
+                <td >Total Expenses</td>
+                <td >Total Fixed Expenses</td>
+                <td >Total Income</td>
+                <td >Difference</td>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td style="border: 1px white solid;">1</td>
-                <td style="border: 1px white solid;">2</td>
-                <td style="border: 1px white solid;">3</td>
-                <td style="border: 1px white solid;"></td>
-                <td style="border: 1px white solid;"></td>
-                <td style="border: 1px white solid;"></td>
-                <td style="border: 1px white solid;"></td>
-                <td style="border: 1px white solid;"></td>
-                <td style="border: 1px white solid;"></td>
-            </tr>
+                 @foreach(var monthlyTransaction in Model.monthlyTransactions){
+                    <tr>
+                        <td >@monthlyTransaction.getMonth()</td>
+                        @foreach(var weeklyTransactions in monthlyTransaction.getWeeklyTransactions()){
+                            <td > @weeklyTransactions</td>
+                        }
+                        <td > @monthlyTransaction.getTotalWeeklyTransactions()</td>
+                        <td > @monthlyTransaction.getFixedExpenses()</td>
+                        <td > @monthlyTransaction.getIncomeExpenses()</td>
+                        <td > @monthlyTransaction.getDifference()</td>
+                    </tr>
+                }
+                
+           
         </tbody>
     </table>
 </div>
@@ -48,5 +41,5 @@
 <partial name="../Script/LoadOverviewTable.cshtml"/>
 
 <script>
-    OverviewTableLoader.initialize()
+     OverviewTableLoader.initialize()
 </script>

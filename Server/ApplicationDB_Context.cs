@@ -2,6 +2,7 @@ using Budget_Man.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Budget_Man.AuthService.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Budget_Man.Server
 {
@@ -19,7 +20,7 @@ namespace Budget_Man.Server
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.Entity<Category>();
             modelBuilder.Entity<FixedExpense>();
             modelBuilder.Entity<Expenses>();

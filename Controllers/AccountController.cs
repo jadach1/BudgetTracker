@@ -45,9 +45,7 @@ public class AccountController : Controller
         try
         {
             MyUser user = _mapper.Map<MyUser>(model);
-            user.year = 2024;
-            Console.WriteLine("user: " + user.DisplayName + " mail: " + user.Email + " year: " + user.year);
-            
+            user.year = DateTime.Now.Year;
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
@@ -93,6 +91,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(UserLoginModel userModel, string returnUrl = null)
     {
+        Console.WriteLine("user: " + userModel.Email + " mail: " + userModel.Password );
         if (!ModelState.IsValid)
         {
             return View(userModel);
@@ -113,6 +112,7 @@ public class AccountController : Controller
 
         //     return RedirectToLocal(returnUrl);
         // }
+
         var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
         if (result.Succeeded)
         {

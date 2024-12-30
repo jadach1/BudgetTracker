@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Budget_Man.AuthService.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Budget_Man.Models
@@ -18,7 +19,7 @@ namespace Budget_Man.Models
         public string MyUserName { get; set; }
         
         [ForeignKey("MyUserName")]
-        public IdentityUser myUser { get; set; }
+        public MyUser myUser { get; set; }
 
         public string Currency { get; set; }
 
@@ -26,14 +27,11 @@ namespace Budget_Man.Models
 
         public bool isIncome {get; set;}
 
-        public int dishout(){
-            return 10;
-        }
-
     }
 
     public class ExpensesFormPosting {
         public string Id { get; set; }
+        public string Year {get; set;}
         public string Month { get; set; }
         public string Week { get; set; }
         public string Type { get; set; }

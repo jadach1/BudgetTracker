@@ -26,6 +26,11 @@
         //extract the data
         const formData = Object.fromEntries(new FormData(form));
 
+        //Check if there is a category type
+        if(!formData.type){
+            fireNotif("Need to have a Category Selected to proceed","error",5000)
+        }
+
         //modify the category/type selected, 1.food = 1 food
         const category = formData.type.split(".");
 
