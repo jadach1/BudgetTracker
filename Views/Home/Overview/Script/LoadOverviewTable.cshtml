@@ -39,11 +39,20 @@
                 event.preventDefault();
                 //Get the year from user input
                 const year = $("#overview_table_ChangeYearForm_input").val();
-                //Site.Js function call
-                setYear(year);
-                //Hide Form
-                OverviewTableLoader.toggleForm();
-                OverviewTableLoader.displayYear();
+                
+                //Validate user input
+                if(year == ""){
+                    fireNotif("Need to enter a value",'error', 5000);
+                } else {
+                     //Site.Js function call
+                    setYear(year);
+                    //Hide Form
+                    OverviewTableLoader.toggleForm();
+                    OverviewTableLoader.displayYear();
+                    $(this).parent().submit();
+                }
+               
+
             })
 
             //Cancel Button
@@ -52,10 +61,18 @@
                  OverviewTableLoader.toggleForm();
             })
 
+            //Yearly Totals, buttons functionality
+                $("#yearTotalsRow").on("click", function(){
+                    $("#yearlyTotals").toggle(500).after($("#yearlyTotalsPlaceHolder").toggle(500));
+                })
 
+                $("#yearTotalsRowHidden").on("click", function(){
+                    $("#yearlyTotalsPlaceHolder").toggle(500).after($("#yearlyTotals").toggle(500));
+                })
+@* 
             console.log(ourWidth);
             console.log($("#Overview_table").width())
-            screenSizeCheckDisplay()
+            screenSizeCheckDisplay() *@
         },
 
         toggleForm: function(){
@@ -68,9 +85,6 @@
             $("#overview_table_ChangeYearLabel").html(
                 getOurWorkingYear()
             );
-        },
-        getCurrentCurrency: function getCurrentCurrency(){
-                    return "$"
         }
     }
 </script>

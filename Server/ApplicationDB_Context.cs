@@ -17,6 +17,8 @@ namespace Budget_Man.Server
         public DbSet<FixedExpense> FixedExpense { get; set; }
         public DbSet<Expenses> Expenses { get; set; }
 
+         public DbSet<MyUser> User { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -24,6 +26,7 @@ namespace Budget_Man.Server
             modelBuilder.Entity<Category>();
             modelBuilder.Entity<FixedExpense>();
             modelBuilder.Entity<Expenses>();
+            modelBuilder.Entity<MyUser>();
            
             // modelBuilder.Entity<Category>().HasData(
             //  new Category { Id = 1, Name = "Food" },

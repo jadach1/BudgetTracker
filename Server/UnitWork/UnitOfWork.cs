@@ -11,6 +11,7 @@ namespace Budget_Man.Server.UnitWork
         public CategoryRepository categoryRepository { get; set; }
         public ExpensesRepository expensesRepository { get; set; }
 
+        public IUserRepository userRepository {get; set;}
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -18,6 +19,7 @@ namespace Budget_Man.Server.UnitWork
             fixedExpensesRepository = new FixedExpensesRepository(db);
             categoryRepository = new CategoryRepository(db);
             expensesRepository = new ExpensesRepository(db);
+            userRepository = new UserRepository(db);
         }
 
         public void Save()

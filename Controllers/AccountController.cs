@@ -2,6 +2,7 @@ using AutoMapper;
 using Budget_Man.AuthService.Models;
 using Budget_Man.Controllers;
 using Budget_Man.Helper.Library;
+using Budget_Man.Server.IUnitWork;
 using EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,16 @@ public class AccountController : Controller
     private readonly SignInManager<MyUser> _signInManager;
     private readonly IEmailSender _emailSender;
     public HelperFunctions _helperFunctions;
+    private readonly IUnitOfWork _db;
 
-    public AccountController(SignInManager<MyUser> signInManager, HelperFunctions helperFunctions, IMapper mapper, UserManager<MyUser> userManager, IEmailSender emailSender)
+    public AccountController(IUnitOfWork db,SignInManager<MyUser> signInManager, HelperFunctions helperFunctions, IMapper mapper, UserManager<MyUser> userManager, IEmailSender emailSender)
     {
         _mapper = mapper;
         _userManager = userManager;
         _helperFunctions = helperFunctions;
         _signInManager = signInManager;
         _emailSender = emailSender;
+        _db = db;
     }
 
     [HttpGet]
@@ -91,7 +94,6 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(UserLoginModel userModel, string returnUrl = null)
     {
-        Console.WriteLine("user: " + userModel.Email + " mail: " + userModel.Password );
         if (!ModelState.IsValid)
         {
             return View(userModel);
@@ -215,5 +217,40 @@ public class AccountController : Controller
         return View();
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ChangeYear(int year){
+       try { 
+                //Get user data to display for user
+                var name = User.Identity.Name;
+
+                if(name != null){
+                    var user = await _userManager.FindByEmailAsync(name);
+                
+                    if(user != null){
+                        //Returns number of rows changed
+                        var result = _db.userRepository.ChangeYear(user.Id,year);
+                        
+                        if(result.Result > 0){
+                            _db.Save();
+                            _helperFunctions.toasterTest("Successfully Switched Year", 1);
+                            return RedirectToAction("Index","Home");
+                        } else {
+                            _helperFunctions.toasterTest("Unsuccessfully Switched Year", 2);
+                            return RedirectToAction("Index","Home");
+                        }
+                        
+                    } 
+                }
+                //If we make it here, we failed to fetch a user
+                throw new Exception("Could not find user while Changing year");
+            }  
+        catch (Exception e)
+            {
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+    }
    
 }

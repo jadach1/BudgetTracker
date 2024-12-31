@@ -60,7 +60,9 @@ public class HomeController : Controller
 
                         //get transactions for each week of the month
                         for(int k = 1; k <= 5; k++){
-                             weeklySum = weeklySum.Append(_db.expensesRepository.GetSumOfWeeksOf(k,i, year, user.Id).Result );
+                            float sum = _db.expensesRepository.GetSumOfWeeksOf(k,i, year, user.Id).Result;
+                            masterOverviewList.yearlyTotals.addToIndex(sum,k);
+                             weeklySum = weeklySum.Append(sum);
                         }
 
                         //Get month name , as string
@@ -69,7 +71,12 @@ public class HomeController : Controller
                         float FixedSum =  await _db.expensesRepository.GetSumOfFixedExpenses(i,year, user.Id);
                         //Get Income sum
                         float IncomeSum = await _db.expensesRepository.GetSumOfIncome(i,year,user.Id);
-                       
+
+                        //Set Yearly Totals
+                        masterOverviewList.yearlyTotals.addToIndex(FixedSum,6);
+                        masterOverviewList.yearlyTotals.addToIndex(IncomeSum,7);
+                        masterOverviewList.yearlyTotals.setAllExpenses();
+                        
                         masterOverviewList.AddNew(weeklySum,FixedSum,IncomeSum,month);
                         
                     }

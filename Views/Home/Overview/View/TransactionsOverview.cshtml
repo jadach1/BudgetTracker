@@ -2,7 +2,7 @@
 
 <div>
 
- <partial name="./ChangeMonth.cshtml" />
+ <partial name="./ChangeYear.cshtml" />
 
     <table id="Overview_table" class="table table-striped">
         <thead>
@@ -33,9 +33,12 @@
                     </tr>
                 }
                 
+                <partial name="./yearlyTotals.cshtml" />
            
         </tbody>
     </table>
+
+
 </div>
 
 <partial name="../Script/LoadOverviewTable.cshtml"/>

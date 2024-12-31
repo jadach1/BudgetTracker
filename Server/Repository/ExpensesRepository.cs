@@ -106,26 +106,18 @@ namespace Budget_Man.Repository
 
         // Updates the DB by changing existing expenses to have new categories
           public async Task<bool> Update_Change_Expense_Category(string userid, int oldCategory, int newCategory){
-            // string sql = "'UPDATE [dbo].[Expenses] " + 
-            //             "SET [CategoryId] ='" + newCategory + "' "+
-            //             ", [isFixed] ='" + 0 + "' "+  
-            //             ", [Week] ='" + 1 + "' "+
-            //             "WHERE [CategoryId]='"+ oldCategory + "' "+  
-            //             "AND [Userid]='"+userid+"';";
-            // The above is not actually used.
-         
+
             var result = await _db.Expenses.Where(e => e.CategoryId == oldCategory && e.MyUserName == userid)
                               .ExecuteUpdateAsync(
                                     s => s.SetProperty(e => e.CategoryId, e => newCategory)
-                                          .SetProperty(e => e.isFixed, e => false)
-                                    );
+                                          .SetProperty(e => e.isFixed, e => false));
+            //Check to make sure something happened
             if(result != null){
               return true;
             } else {
               return false;
             }
         }
-     public int dishout(){return 10;}
     
     }
 

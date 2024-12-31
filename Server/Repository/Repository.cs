@@ -46,5 +46,6 @@ namespace Budget_Man.Repository.Repository
                 return false;
             }
         }
+
     }
 }

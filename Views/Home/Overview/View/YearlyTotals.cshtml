@@ -1,0 +1,17 @@
+    <tr id="yearlyTotals" style="display: none;">
+        @{
+            var element = Model.yearlyTotals;
+        }
+        <td id="yearTotalsRow" style="word-wrap: normal;">Total:  (click to hide)</td>
+        <td>@element.getWeek1()</td>
+        <td>@element.getWeek2()</td>
+        <td>@element.getWeek3()</td>
+        <td>@element.getWeek4()</td>
+        <td>@element.getWeek5()</td>
+        <td>@element.getAllWeeks()</td>
+        <td>@element.getAllFixedExpenses()</td>
+        <td>@element.getAllIncome()</td>
+        <td>@element.getAllDifference()</td>
+    </tr>
+
+    <tr id="yearlyTotalsPlaceHolder" ><td id="yearTotalsRowHidden">show totals</td></tr>
