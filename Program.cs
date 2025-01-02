@@ -5,6 +5,7 @@ using Budget_Man.Helper.Library;
 using Budget_Man.Models;
 using Budget_Man.Repository;
 using Budget_Man.Server;
+using Budget_Man.Server.IRepository;
 using Budget_Man.Server.IUnitWork;
 using Budget_Man.Server.UnitWork;
 using EmailService;
@@ -38,7 +39,7 @@ builder.Services.AddIdentity<MyUser, IdentityRole>(opt =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ExpensesRepository, ExpensesRepository>();
-builder.Services.AddScoped<Expenses, Expenses>();
+
 //Simply tells the controller instantiating HelperFunctions class that it exists.
 builder.Services.AddScoped<HelperFunctions, HelperFunctions>();
 //builder.Services.AddScoped<IFixedExpensesRepository,FixedExpensesRepository>();

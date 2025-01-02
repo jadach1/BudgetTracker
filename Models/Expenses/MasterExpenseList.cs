@@ -33,4 +33,14 @@ public class MasterExpenseList{
     public float sumOfDifferences(){
         return this.sumOfIncome - ( this.sumOfExpenses + this.sumOfFixedExpenses);
     }
+
+    //Getters
+    public float GetSumOfExpenses(){return this.sumOfExpenses;}
+    public float GetSumOfFixedExpenses(){return this.sumOfFixedExpenses;}
+    public float GetSumOfIncome(){return this.sumOfIncome;}
+    //Setters
+    public void setSumOfExpenses(float val){this.sumOfExpenses = val;}
+    public void setSumOfFixedExpenses(float val){this.sumOfFixedExpenses = val;}
+    public void setSumOfIncome(float val){this.sumOfIncome = val;}
+
 }

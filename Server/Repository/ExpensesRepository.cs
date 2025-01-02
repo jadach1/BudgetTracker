@@ -30,6 +30,13 @@ namespace Budget_Man.Repository
                         .SumAsync(t => t.Amount);       
         }
 
+        //returns a sum of all weeks for a month of a specific year
+          public async Task<float> GetSumOfAllsWeeksOf(int month,int year,string userId){
+            IQueryable<Expenses> query = dbSet;
+            return await query.Where(e => e.Year == year && e.Month == month && e.MyUserName == userId && e.isFixed == false && e.isIncome == false)
+                        .SumAsync(t => t.Amount);       
+        }
+
         //    public async Task<List<float>> GetSumOfWeeks(int month,int year,string userId){
         //      IQueryable<Expenses> query = dbSet;
         //     var weeks =  await query   .Where(e => e.Year == year && 

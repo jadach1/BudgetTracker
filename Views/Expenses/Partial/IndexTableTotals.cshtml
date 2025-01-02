@@ -7,9 +7,9 @@
             <th style="border: 2px rgba(111,66,193,1) solid;">Difference</th>
         </tr>
         <tr>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfExpenses</td>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfFixedExpenses</td>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfIncome</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.GetSumOfExpenses()</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.GetSumOfFixedExpenses()</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.GetSumOfIncome()</td>
             <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfDifferences()</td>
         </tr>
     </table>

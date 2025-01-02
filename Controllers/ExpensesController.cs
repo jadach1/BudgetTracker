@@ -84,7 +84,33 @@ namespace Budget_Man.Controllers
                 if(masterExpenseList.incomeExpenses != null){
                     ViewData["IncomeExpenses"] = "true";
                 }
-                
+
+                /****************************************************/
+                //GETTING/SETTING TOTALS FOR THE MONTH
+
+                //Get value for total of all expenses
+                float sum = _db.expensesRepository.GetSumOfAllsWeeksOf(month, year, user.Id).Result;
+                 //convert to 2 dec places
+                sum = (float)Decimal.Round((decimal)sum,2);
+                //Set value
+                masterExpenseList.setSumOfExpenses(sum);
+
+                //Get FIXED EXPENSES
+                sum = _db.expensesRepository.GetSumOfFixedExpenses(month, year, user.Id).Result;
+                 //convert to 2 dec places
+                sum = (float)Decimal.Round((decimal)sum,2);
+                //Set value
+                masterExpenseList.setSumOfFixedExpenses(sum);
+
+                //GET INCOME
+                sum = _db.expensesRepository.GetSumOfIncome(month, year, user.Id).Result;
+                 //convert to 2 dec places
+                sum = (float)Decimal.Round((decimal)sum,2);
+                //Set value
+                masterExpenseList.setSumOfIncome(sum);
+
+                /****************************************************/
+
                 //Creates the expense form, via model class MasterExpenseList mehtod
                 masterExpenseList.appendExpenseForm(categories, dtfi.GetMonthName(month), "Create");
                 return View(masterExpenseList);
@@ -133,7 +159,7 @@ namespace Budget_Man.Controllers
                 IEnumerable<Expenses> expenses = _db.expensesRepository.GetAll();
                 ViewData["expenses"] = expenses;
 
-                return this.Ok($"hello world" + counter);
+                return this.Ok($"Created this many: " + counter);
             }
             catch (Exception e)
             {

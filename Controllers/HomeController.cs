@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Budget_Man.Models;
 using Budget_Man.AuthService.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -60,9 +58,14 @@ public class HomeController : Controller
 
                         //get transactions for each week of the month
                         for(int k = 1; k <= 5; k++){
+                            //get value
                             float sum = _db.expensesRepository.GetSumOfWeeksOf(k,i, year, user.Id).Result;
+                            //convert to 2 dec places
+                            sum = (float)Decimal.Round((decimal)sum,2);
+                            //set for the overview table, bottom row
                             masterOverviewList.yearlyTotals.addToIndex(sum,k);
-                             weeklySum = weeklySum.Append(sum);
+                            // month/week rows
+                            weeklySum = weeklySum.Append(sum);
                         }
 
                         //Get month name , as string

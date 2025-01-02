@@ -1,5 +1,6 @@
 using Budget_Man.Models;
 
+//The MasteOverviewList class homes the two other classes on this file
 public class MasterOverviewList {
    
    public IEnumerable<MonthlyTransactions> monthlyTransactions {get; set;}
@@ -100,7 +101,7 @@ public class YearlyTotals {
     }
 
     // GETTERS
-    public float getWeek1(){return this.TotalforWeek1;}
+    public decimal getWeek1(){return Decimal.Round((decimal)this.TotalforWeek1,2);}
     public float getWeek2(){return this.TotalforWeek2;}
     public float getWeek3(){return this.TotalforWeek3;}
     public float getWeek4(){return this.TotalforWeek4;}
