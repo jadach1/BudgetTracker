@@ -53,7 +53,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureApplicationCookie(o => o.ExpireTimeSpan = System.TimeSpan.FromHours(1));
 
 // toast package
-builder.Services.AddNotyf(config=> { config.DurationInSeconds = 5;config.IsDismissable = true;config.Position = NotyfPosition.BottomCenter; });
+builder.Services.AddNotyf(config=> { config.DurationInSeconds = 5;config.IsDismissable = true;config.Position = NotyfPosition.TopCenter; });
 
 // SMPT email server.  For sending emails when someone registers
 var emailConfig = builder.Configuration .GetSection("EmailConfiguration") 
