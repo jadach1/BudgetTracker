@@ -2,6 +2,8 @@
 @model DisplayExpenses
 @{
     float Total = 0;
+    var user = await UserManager.GetUserAsync(User);
+    var currency = user.currency;
 }
    
 <table class="table table-striped border border-solid border-2 border-primary">
@@ -59,7 +61,7 @@
         <tr class=@Model.uniqueClassNameStop>
             <td class="d-flex justify-content-end">
                 <bold>
-                    <p class="text-secondary ">Total:<p></p> @Decimal.Round((decimal)Total,2)</p>
+                    <p class="text-secondary ">Total: @currency @Decimal.Round((decimal)Total,2)</p>
                 </bold>
             </td>
         </tr>

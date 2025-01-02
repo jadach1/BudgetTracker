@@ -13,7 +13,15 @@ namespace Budget_Man.Repository
             _db = db;
         }
 
-      public async Task<int> ChangeYear(string userid,int year){
+        public async Task<int> ChangeCurrency(string userid, string currency)
+        {
+           var result = await _db.User.Where(e => e.Id == userid)
+                              .ExecuteUpdateAsync(
+                                    s => s.SetProperty(e => e.currency, e => currency));
+          return result;
+        }
+
+        public async Task<int> ChangeYear(string userid,int year){
          var result = await _db.User.Where(e => e.Id == userid)
                               .ExecuteUpdateAsync(
                                     s => s.SetProperty(e => e.year, e => year));

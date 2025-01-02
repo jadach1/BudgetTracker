@@ -1,3 +1,8 @@
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var currency = user.currency;
+}
+
 <div id="shenanigans" class="mb-2" style="display: flex;justify-content: center;font-size:large;">
     <table>
         <tr>
@@ -7,10 +12,10 @@
             <th style="border: 2px rgba(111,66,193,1) solid;">Difference</th>
         </tr>
         <tr>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.GetSumOfExpenses()</td>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.GetSumOfFixedExpenses()</td>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.GetSumOfIncome()</td>
-            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfDifferences()</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@currency @Model.GetSumOfExpenses()</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@currency @Model.GetSumOfFixedExpenses()</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@currency @Model.GetSumOfIncome()</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@currency @Model.sumOfDifferences()</td>
         </tr>
     </table>
 </div>

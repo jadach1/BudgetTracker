@@ -1,6 +1,7 @@
     <tr id="yearlyTotals" style="display: none;">
         @{
             var element = Model.yearlyTotals;
+            @model MasterOverviewList;
         }
         <td id="yearTotalsRow" style="word-wrap: normal;">Total:  (click to hide)</td>
         <td>@element.getWeek1()</td>

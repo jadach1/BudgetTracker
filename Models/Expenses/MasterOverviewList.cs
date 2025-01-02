@@ -41,7 +41,7 @@ public class MonthlyTransactions {
         foreach(float sum in this.SumOf_weeklyTransactions){
             total += sum;
         }
-        return total;
+        return (float)Decimal.Round((decimal)total,2);
     }
     public float getDifference(){
         return this.getIncomeExpenses() - (this.getFixedExpenses() + this.getTotalWeeklyTransactions());
@@ -97,19 +97,21 @@ public class YearlyTotals {
     }
 
     public void setAllExpenses(){
-        this.TotalforExpenses += this.TotalforWeek1 + this.TotalforWeek2 + this.TotalforWeek3 + this.TotalforWeek4 + this.TotalforWeek5;
+        this.TotalforExpenses = this.TotalforWeek1 + this.TotalforWeek2 + this.TotalforWeek3 + this.TotalforWeek4 + this.TotalforWeek5;
     }
 
     // GETTERS
     public decimal getWeek1(){return Decimal.Round((decimal)this.TotalforWeek1,2);}
-    public float getWeek2(){return this.TotalforWeek2;}
-    public float getWeek3(){return this.TotalforWeek3;}
-    public float getWeek4(){return this.TotalforWeek4;}
-    public float getWeek5(){return this.TotalforWeek5;}
+    public decimal getWeek2(){return Decimal.Round((decimal)this.TotalforWeek2,2);}
+    public decimal getWeek3(){return Decimal.Round((decimal)this.TotalforWeek3,2);}
+    public decimal getWeek4(){return Decimal.Round((decimal)this.TotalforWeek4,2);}
+    public decimal getWeek5(){return Decimal.Round((decimal)this.TotalforWeek5,2);}
 
-    public float getAllWeeks() {return this.TotalforExpenses;}
-    public float getAllFixedExpenses(){return this.TotalforFixedExpenses;}
-    public float getAllIncome(){return this.TotalforIncome;} 
-    public float getAllDifference(){return this.TotalforIncome - this.TotalforExpenses;}
+    public decimal getAllWeeks() {return Decimal.Round((decimal)this.TotalforExpenses,2);}
+    public decimal getAllFixedExpenses(){return Decimal.Round((decimal)this.TotalforFixedExpenses,2);}
+    public decimal getAllIncome(){return Decimal.Round((decimal)this.TotalforIncome,2);} 
+    public decimal getAllDifference(){
+        float sum = this.TotalforIncome -( this.TotalforExpenses + this.TotalforFixedExpenses);
+        return Decimal.Round((decimal)sum,2);}
 
 }

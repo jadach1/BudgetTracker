@@ -108,7 +108,7 @@
                 CategoryId: +categoryId,
                 Amount: el.amount  === "" ? 0 : el.amount,
                 Date: fixedExpenseDate,
-                Description: "",
+                Description: el.name,
                 Currency: dictionaryOfCurrency.get(el.currency),
                 isFixed: true,
                 MyUserName: el.userid

@@ -24,12 +24,12 @@
                     <tr>
                         <td >@monthlyTransaction.getMonth()</td>
                         @foreach(var weeklyTransactions in monthlyTransaction.getWeeklyTransactions()){
-                            <td > @weeklyTransactions</td>
+                            <td >@weeklyTransactions</td>
                         }
-                        <td > @monthlyTransaction.getTotalWeeklyTransactions()</td>
-                        <td > @monthlyTransaction.getFixedExpenses()</td>
-                        <td > @monthlyTransaction.getIncomeExpenses()</td>
-                        <td > @monthlyTransaction.getDifference()</td>
+                        <td >@monthlyTransaction.getTotalWeeklyTransactions()</td>
+                        <td >@monthlyTransaction.getFixedExpenses()</td>
+                        <td >@monthlyTransaction.getIncomeExpenses()</td>
+                        <td >@monthlyTransaction.getDifference()</td>
                     </tr>
                 }
                 

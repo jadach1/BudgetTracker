@@ -49,6 +49,7 @@ public class AccountController : Controller
         {
             MyUser user = _mapper.Map<MyUser>(model);
             user.year = DateTime.Now.Year;
+            user.currency = "$";
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
@@ -253,4 +254,39 @@ public class AccountController : Controller
             }
     }
    
+    [HttpPost]
+   
+    public async Task<IActionResult> ChangeCurrency(string currency){
+         try { 
+                Console.WriteLine("currency is " + currency);
+                //Get user data to display for user
+                var name = User.Identity.Name;
+
+                if(name != null){
+                    var user = await _userManager.FindByEmailAsync(name);
+                
+                    if(user != null){
+                        //Returns number of rows changed
+                        var result = _db.userRepository.ChangeCurrency(user.Id,currency);
+                        
+                        if(result.Result > 0){
+                            _db.Save();
+                            _helperFunctions.toasterTest("Successfully Switched Currencies", 1);
+                            return this.Ok(result.Result);
+                        } else {
+                            _helperFunctions.toasterTest("Unsuccessfully Switched Currencies", 2);
+                           return this.Ok(-1);
+                        }
+                    } 
+                }
+                //If we make it here, we failed to fetch a user
+                throw new Exception("Could not find user while Changing year");
+            }  
+        catch (Exception e)
+            {
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
+            }
+    }
 }

@@ -172,6 +172,7 @@ namespace Budget_Man.Controllers
         //When user wants to import fixed expenses, this will take a list of 
         //expenses which are based off of the users fixed expenses for the month
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateFixedExpenses([FromBody] IEnumerable<Expenses> expense)
         {
             try
@@ -200,6 +201,7 @@ namespace Budget_Man.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateOne(Expenses expense)
         {
             try
@@ -209,7 +211,7 @@ namespace Budget_Man.Controllers
                 expense.MyUserName = user.Id;
                 _db.expensesRepository.Add(expense);
                 _db.Save();
-
+                _helperFunctions.toasterTest("Added new transaction",1);
                 return Redirect("Index");
             }
             catch (Exception e)
@@ -221,6 +223,7 @@ namespace Budget_Man.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Expenses obj)
         {
             try
@@ -242,6 +245,7 @@ namespace Budget_Man.Controllers
             }
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -306,6 +310,7 @@ namespace Budget_Man.Controllers
             }
         }
       [HttpPost]
+      [ValidateAntiForgeryToken]
        public async Task<bool> ChangeExpenseCategory(int CategoryId_Old, int CategoryId_New){
             try
             {
