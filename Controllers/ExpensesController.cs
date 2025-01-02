@@ -30,6 +30,9 @@ namespace Budget_Man.Controllers
         {
             try
             {
+                 //GET USER  
+                var user = await _userManager.GetUserAsync(User);
+
                 var given_month = form["month_number"];
                 int month;
 
@@ -38,7 +41,9 @@ namespace Budget_Man.Controllers
                  else
                     month = DateTime.Today.Month;
                 
-                int year = DateTime.Today.Year;
+              
+                int year = (int)user.year;
+                
                 DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
 
                 // integer of the month, for form-submission, in Script_ExpenseDBCalls
@@ -46,8 +51,7 @@ namespace Budget_Man.Controllers
                 ViewData["month"] = dtfi.GetMonthName(month);
                 ViewData["year"] = year;
 
-                //GET USER  
-                var user = await _userManager.GetUserAsync(User);
+               
 
                 //FETCH, FROM DB, CATEGORIES
                 IEnumerable<Category> categories = _db.categoryRepository.GetAll(user.Id);
@@ -60,13 +64,13 @@ namespace Budget_Man.Controllers
                 for (int i = 1; i < 6; i++)
                 {
                     // string str = "expenses" + i;
-                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month,2024, user.Id);
+                    IEnumerable<Expenses> expenses = _db.expensesRepository.GetWeekOf(i, month,year, user.Id);
                     masterExpenseList.appendExpenses(expenses, i, month, dtfi.GetMonthName(month));
                     // ViewData[str] = expenses;
                 }
 
                 //Fetch Fixed expenses, if they exist.
-                IEnumerable<Expenses> fixedexpense = _db.expensesRepository.GetFixedExpenses(month,2024, user.Id);
+                IEnumerable<Expenses> fixedexpense = _db.expensesRepository.GetFixedExpenses(month,year, user.Id);
                 masterExpenseList.fixedExpenses = new DisplayExpenses( fixedexpense , 0, month, dtfi.GetMonthName(month),false);
                 //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
                 if(masterExpenseList.fixedExpenses != null){
@@ -74,7 +78,7 @@ namespace Budget_Man.Controllers
                 }
 
                  //Fetch Income Transaction, if they exist.
-                IEnumerable<Expenses> income = _db.expensesRepository.GetIncomeExpenses(month,2024, user.Id);
+                IEnumerable<Expenses> income = _db.expensesRepository.GetIncomeExpenses(month,year, user.Id);
                 masterExpenseList.incomeExpenses = new DisplayExpenses( income , 0, month, dtfi.GetMonthName(month),false);
                 //If the user has imported fixed expenses for this month, then set the flag to true, so it will appear in the expenses table
                 if(masterExpenseList.incomeExpenses != null){

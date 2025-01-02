@@ -1,0 +1,16 @@
+<div id="shenanigans" class="mb-2" style="display: flex;justify-content: center;font-size:large;">
+    <table>
+        <tr>
+            <th style="border: 2px rgba(111,66,193,1) solid;">Total Expenses</th>
+            <th style="border: 2px rgba(111,66,193,1) solid;">Fixed Expenses</th>
+            <th style="border: 2px rgba(111,66,193,1) solid;">Income</th>
+            <th style="border: 2px rgba(111,66,193,1) solid;">Difference</th>
+        </tr>
+        <tr>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfExpenses</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfFixedExpenses</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfIncome</td>
+            <td style="border: 2px rgba(111,66,193,1) solid;text-align: center;">@Model.sumOfDifferences()</td>
+        </tr>
+    </table>
+</div>

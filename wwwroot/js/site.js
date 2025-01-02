@@ -12,27 +12,6 @@ function humanReadableDate(date){
     return day+" "+month+" "+year;
 }
 
-//Change or Load the year we are working in
-function setYear(year){
-    //If we are just loading the app
-    if(year == -1){
-        const Year = getOurWorkingYear()
-        $("#selectYearLabel2").html("Year " + Year)
-    } 
-    // Or, we are trying to manually change the year
-    else {
-        localStorage.setItem("year",year);
-        $("#selectYearLabel2").html("Year " + year)
-    }
-}
-
-function getOurWorkingYear(){
-    const Year = localStorage.getItem("year");
-        if(Year == null)
-            Year = new Date().getFullYear()
-    return Year
-}
-
 //Returns the height and width of the screen
 function getCurrentScreenSize(){
  const $Screen = $("body");
@@ -44,6 +23,18 @@ function getCurrentScreenSize(){
             windowHeight: windowHeight,
             windowWidth: windowWidth
         }
+}
+
+function setOurWorkingYear(year){
+    localStorage.setItem("year",year);
+}
+
+function getOurWorkingYear(){
+    let year = localStorage.getItem("year");
+    if(year == "")
+        return 0;
+    else
+        return year;
 }
 
 function screenSizeCheck(){

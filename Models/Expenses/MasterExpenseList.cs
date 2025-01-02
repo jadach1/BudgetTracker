@@ -9,9 +9,16 @@ public class MasterExpenseList{
 
     public DisplayExpenses incomeExpenses;
 
+    public float sumOfExpenses;
+    public float sumOfFixedExpenses;
+    public float sumOfIncome;
+
     public MasterExpenseList(){
         this.ListOfExpenses = new List<DisplayExpenses>();
         this.editExpenseform = new Expenses();
+        this.sumOfExpenses = 0;
+        this.sumOfFixedExpenses = 0;
+        this.sumOfIncome = 0;
     }
 
     public void appendExpenses(IEnumerable<Expenses> expenses,int week,int month,string monthName){
@@ -21,5 +28,9 @@ public class MasterExpenseList{
 
     public void appendExpenseForm(IEnumerable<Category> categories, string month, string type){
         this.createExpenseForm = new createExpenseForm(categories, month, type);
+    }
+
+    public float sumOfDifferences(){
+        return this.sumOfIncome - ( this.sumOfExpenses + this.sumOfFixedExpenses);
     }
 }

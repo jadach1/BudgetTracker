@@ -1,0 +1,26 @@
+  <!-- CREATE Transaction FORM MODAL -->
+    <div id="createEditExpensesForm" hidden class=" bg-primary rounded-5"
+        style="z-index: 1; position: relative;border: black;border-style:dashed;border-radius:inherit">
+        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
+        <partial name="./createExpensesForm.cshtml" model="@Model.createExpenseForm" />
+    </div>
+
+    <!-- CHANGE MONTH FORM MODAL -->
+    <div id="changeMonthForm" hidden class=" bg-primary rounded-5"
+        style="z-index: 1; position: relative;border: black;border-style:dashed;border-radius:inherit">
+        <partial name="./changeMonthForm.cshtml" />
+    </div>
+
+    <!-- EDIT Transaction FORM MODAL -->
+    <div id="editExpenseForm"  hidden class=" bg-primary rounded-5 "
+        style="z-index: 3; position: relative;border: black;border-style:dashed;border-radius:inherit">
+        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
+        <partial name="./EditExpenseForm/EditExpenseForm.cshtml" model="@Model.createExpenseForm" />
+    </div>
+
+    <!--DELETE Transaction MODAL -->
+    <partial name="./DeleteExpenseForm/Delete_ExpenseModal.cshtml" />
+
+
+    <!--Transaction TABLES SELECTION MODAL: EDIT, DELETE-->
+    <partial name="./expensesTablesModal.cshtml" />

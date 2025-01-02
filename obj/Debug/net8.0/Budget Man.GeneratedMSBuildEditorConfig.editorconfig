@@ -138,6 +138,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxleHBlbnNlc1RhYmxlc01vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/IndexModalForms.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxJbmRleE1vZGFsRm9ybXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/IndexOptionButtons.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxJbmRleE9wdGlvbkJ1dHRvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Partial/IndexTableTotals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcUGFydGlhbFxJbmRleFRhYmxlVG90YWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Expenses/Scripts/Script_CreateExpenseForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZXNcU2NyaXB0c1xTY3JpcHRfQ3JlYXRlRXhwZW5zZUZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -200,6 +212,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Nav/Navigation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmF2XE5hdmlnYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Nav/NavigationBrand.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmF2XE5hdmlnYXRpb25CcmFuZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Nav/NavigationCurrency.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmF2XE5hdmlnYXRpb25DdXJyZW5jeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Nav/NavigationTabs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmF2XE5hdmlnYXRpb25UYWJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Jacob/Desktop/developmentProjects/C\#/Budget Man/Views/Shared/Error.cshtml]

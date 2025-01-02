@@ -1,7 +1,12 @@
 @model MasterExpenseList
+@{var user = await UserManager.GetUserAsync(User);}
 
-<h1 class="d-flex justify-content-center my-5">Expenses for @ViewData["month"] @ViewData["year"]</h1>
+<h1 class="d-flex justify-content-center my-5">Expenses for @ViewData["month"] @user.year</h1>
 
+<partial name="./Partial/IndexModalForms.cshtml" model="@Model" />
+
+<!--Table Displaying Totals for this month-->
+<partial name="./Partial/IndexTableTotals.cshtml" />
 
 <!--DROPDOWN CARET BUTTON, FUNCTION DEFINED BELOW IN SCRIPT-->
 <a id="ExpenseTablesCaret" class="btn btn-outline-primary 
@@ -13,63 +18,10 @@
 </a>
 
 <!--OPTIONS of the Transaction SCREEN: CREATE, IMPORT, SWITCH-->
-<div id="expenses_options_start">
-    <!-- CHANGE MONTH FORM BUTTON -->
-    <div class="row">
-        <button id="changeMonthFormButton"
-            class="btn btn-outline-light my-3 text-center d-flex justify-content-center ">Switch Month<i
-                class="bi bi-calendar3"></i></button>
-    </div>
+<partial name="./Partial/IndexOptionButtons.cshtml"  />
 
-    <!-- CREATE Transaction(s) FORM BUTTON -->
-    <div class="row">
-        <button id="createEditExpensesFormButton"
-            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Transaction(s) <i
-                class="bi bi-plus-circle"></i></button>
-    </div>
-
-    <!-- CREATE single Transaction FORM BUTTON -->
-    <div class="row">
-        <button id="newExpensesFormButton1"
-            class="btn btn-outline-light my-2 text-center d-flex justify-content-center ">New Transaction<i
-                class="bi bi-plus-circle"></i></button>
-    </div>
-
-    <!-- Import Fixed Expenses Button -->
-    <div class="row">
-        <button id="importFixedExpensesButton"
-            class="btn btn-outline-light my-2 text-center d-flex justify-content-center">Import Fixed Expenses<i
-                class="bi bi-plus-circle"></i></button>
-    </div>
-</div>
 
 <div class="container ">
-    <!-- CREATE Transaction FORM MODAL -->
-    <div id="createEditExpensesForm" hidden class=" bg-primary rounded-5"
-        style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
-        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
-        <partial name="./Partial/createExpensesForm.cshtml" model="@Model.createExpenseForm" />
-    </div>
-
-    <!-- CHANGE MONTH FORM MODAL -->
-    <div id="changeMonthForm" hidden class=" bg-primary rounded-5"
-        style="z-index: 1; position: fixed;border: black;border-style:dashed;border-radius:inherit">
-        <partial name="./Partial/changeMonthForm.cshtml" />
-    </div>
-
-    <!-- EDIT Transaction FORM MODAL -->
-    <div id="editExpenseForm"  hidden class=" bg-primary rounded-5 "
-        style="z-index: 3; position: fixed;border: black;border-style:dashed;border-radius:inherit">
-        <!-- await Html.PartialAsync("./Partial/createEditExpensesForm.cshtml", model)-->
-        <partial name="./Partial/EditExpenseForm/EditExpenseForm.cshtml" model="@Model.createExpenseForm" />
-    </div>
-
-    <!--DELETE Transaction MODAL -->
-    <partial name="./Partial/DeleteExpenseForm/Delete_ExpenseModal.cshtml" />
-
-
-    <!--Transaction TABLES SELECTION MODAL: EDIT, DELETE-->
-    <partial name="./Partial/expensesTablesModal.cshtml" />
 
     <!--5 TABLES, WEEKLY TRANSACTIONS-->
     @foreach (var item in Model.ListOfExpenses)

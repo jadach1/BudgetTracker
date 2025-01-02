@@ -23,12 +23,6 @@
                 border: "2px rgba(111,66,193,1) solid",
             });
 
-            //Set the Currency
-            $("Overview_table td p").html("$");
-
-            //Show our label year
-            this.displayYear();
-
             //Show Form, hide Button 'change'
             $("#overview_table_ChangeYearButton").on("click",function(){
                 OverviewTableLoader.toggleForm()
@@ -44,15 +38,10 @@
                 if(year == ""){
                     fireNotif("Need to enter a value",'error', 5000);
                 } else {
-                     //Site.Js function call
-                    setYear(year);
                     //Hide Form
                     OverviewTableLoader.toggleForm();
-                    OverviewTableLoader.displayYear();
                     $(this).parent().submit();
                 }
-               
-
             })
 
             //Cancel Button
@@ -79,12 +68,5 @@
             $("#overview_table_ChangeYearButton").toggle();
             $("#overview_table_ChangeYearForm").toggle();
         },
-
-        displayYear: function(){
-              //Label displaying Year
-            $("#overview_table_ChangeYearLabel").html(
-                getOurWorkingYear()
-            );
-        }
     }
 </script>
