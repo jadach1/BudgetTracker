@@ -123,7 +123,7 @@ public class FixedExpenses : Controller
         
     }
         
-    public async Task<IdentityUser> GetActiveUser()
+    public async Task<MyUser> GetActiveUser()
         {
             try
             {
@@ -137,7 +137,7 @@ public class FixedExpenses : Controller
             }
             catch (Exception e)
             {
-                ViewData["errorMessage"] = "exception " + e;
+                ViewData["errorMessage"] = "There was a problem getting the current user";
                 View("Views/Errors/generalError.cshtml");
                 return null;
             }

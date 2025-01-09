@@ -77,8 +77,8 @@ public class AccountController : Controller
         {
             Console.WriteLine(ex);
             ViewData["errorMessage"] = "exception " + ex;
-            View("Views/Errors/generalError.cshtml");
-            return this.Ok($"hello world error");
+            return View("Views/Errors/generalError.cshtml");
+            //return this.Ok($"hello world error");
         }
 
 
@@ -95,36 +95,42 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(UserLoginModel userModel, string returnUrl = null)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(userModel);
-        }
+        try{
+                if (!ModelState.IsValid)
+                {
+                    return View(userModel);
+                }
 
-        // Other way of signing in
+                // Other way of signing in
 
-        // var user = await _userManager.FindByEmailAsync(userModel.Email);
-        // if (user != null &&
-        //     await _userManager.CheckPasswordAsync(user, userModel.Password))
-        // {
-        //     var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-        //     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-        //     identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                // var user = await _userManager.FindByEmailAsync(userModel.Email);
+                // if (user != null &&
+                //     await _userManager.CheckPasswordAsync(user, userModel.Password))
+                // {
+                //     var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
+                //     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                //     identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
 
-        //     await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
-        //         new ClaimsPrincipal(identity));
+                //     await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
+                //         new ClaimsPrincipal(identity));
 
-        //     return RedirectToLocal(returnUrl);
-        // }
+                //     return RedirectToLocal(returnUrl);
+                // }
 
-        var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
-        if (result.Succeeded)
-        {
-            return RedirectToLocal(returnUrl);
-        }
-        else
-        {
-            ModelState.AddModelError("", "Invalid UserName or Password");
-            return View();
+                var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid UserName or Password");
+                    return View();
+                }
+        } catch (Exception e){
+                ViewData["errorMessage"] = "exception " + e;
+                View("Views/Errors/generalError.cshtml");
+                return this.Ok(e);
         }
     }
 
@@ -258,7 +264,6 @@ public class AccountController : Controller
    
     public async Task<IActionResult> ChangeCurrency(string currency){
          try { 
-                Console.WriteLine("currency is " + currency);
                 //Get user data to display for user
                 var name = User.Identity.Name;
 

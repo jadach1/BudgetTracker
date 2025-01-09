@@ -19,7 +19,7 @@ builder.Services.AddControllersWithViews();
 
 // we wish to add dbContext to the project, and we need to inform the extension which class in our project will have the dbcontext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionConnection2")));
 
 //IDENTITY
 builder.Services.AddIdentity<MyUser, IdentityRole>(opt =>
@@ -39,6 +39,7 @@ builder.Services.AddIdentity<MyUser, IdentityRole>(opt =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ExpensesRepository, ExpensesRepository>();
+builder.Services.AddScoped<IDBInitialiser,DBInitialiser>();
 
 //Simply tells the controller instantiating HelperFunctions class that it exists.
 builder.Services.AddScoped<HelperFunctions, HelperFunctions>();
@@ -84,9 +85,17 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseNotyf();
-
+SeedDB();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();
+
+
+// Function to initialise our DB over azure, that is, if not tables exist on azure we will migrate them
+void SeedDB(){
+    using(var scope = app.Services.CreateScope()){
+        var dbInitialiser = scope.ServiceProvider.GetRequiredService<IDBInitialiser>();
+        dbInitialiser.Initialise();
+    }
+}

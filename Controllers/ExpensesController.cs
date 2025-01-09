@@ -132,6 +132,7 @@ namespace Budget_Man.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 int counter = 0;
 
+                
                 //Loop through the List of Expenses
                 foreach (var item in expense)
                 {
@@ -331,5 +332,25 @@ namespace Budget_Man.Controllers
             }
        }
          
+        //Retrieves, or tries, the active user's details
+    public async Task<MyUser> GetActiveUser()
+        {
+            try
+            {
+                //GET USER 
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user == null) throw new Exception("There was a problem getting the current user");
+
+                return user;
+
+            }
+            catch (Exception e)
+            {
+                ViewData["errorMessage"] = e;
+                View("Views/Errors/generalError.cshtml");
+                return null;
+            }
+        }
     }
 }
