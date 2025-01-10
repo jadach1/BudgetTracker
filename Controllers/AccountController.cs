@@ -261,7 +261,7 @@ public class AccountController : Controller
     }
    
     [HttpPost]
-   
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> ChangeCurrency(string currency){
          try { 
                 //Get user data to display for user
@@ -276,8 +276,8 @@ public class AccountController : Controller
                         
                         if(result.Result > 0){
                             _db.Save();
-                            _helperFunctions.toasterTest("Successfully Switched Currencies", 1);
-                            return this.Ok(result.Result);
+                            _helperFunctions.toasterTest("Successfully Switched Currencies, reload page", 1);
+                            return this.Ok(-1);
                         } else {
                             _helperFunctions.toasterTest("Unsuccessfully Switched Currencies", 2);
                            return this.Ok(-1);

@@ -1,5 +1,4 @@
 <script>
-
 // Display CHANGE Month Form, event Listener
   document.getElementById("changeMonthFormButton").addEventListener("click", () => {
 
@@ -9,6 +8,7 @@
 
     //Alter position of form
     //alterPositionChangeMonthForm();
+    alterPosition("changeMonthForm");
 
     //disable buttons
     disableEnableAllButtons(true);
@@ -23,7 +23,7 @@ createEditExpensesFormButton = document.getElementById("createEditExpensesFormBu
     createEditExpensesForm.classList.add("d-flex");
 
     //Alter position of form
-    //alterPosition("createEditExpensesForm");
+    alterPosition("createEditExpensesForm");
 
     //disable buttons
     disableEnableAllButtons(true);
@@ -56,7 +56,7 @@ document.getElementById("newExpensesFormButton1").addEventListener("click",() =>
         $("#editExpenseFormTitle").html("Create Transaction") 
         
         //Alter position of form
-        @* alterPosition("editExpenseForm"); *@
+        alterPosition("editExpenseForm");
 
         //disable buttons
         disableEnableAllButtons(true);
@@ -76,6 +76,7 @@ document.getElementById("importFixedExpensesButton").addEventListener("click",()
     changeMonthExpensesForm.classList.remove("d-flex");
     changeMonthExpensesForm.hidden = true;
     disableEnableAllButtons(false);
+    $('#index_expense_modal_mask').toggle();
   })
 
   // Hide-Box for the create-expense-form and change-month-form
@@ -84,6 +85,7 @@ document.getElementById("importFixedExpensesButton").addEventListener("click",()
     changeMonthExpensesForm.classList.remove("d-flex");
     changeMonthExpensesForm.hidden = true;
     disableEnableAllButtons(false);
+    $('#index_expense_modal_mask').toggle();
   })
 
   // Hide-Box for the edit-expense-form 
@@ -95,7 +97,7 @@ document.getElementById("importFixedExpensesButton").addEventListener("click",()
         $("#edit_expense_form_expand_button").remove();
     }
 
-    //clear form
+    //clear form, otherwise next transaction to be edited may have another transaction
     //amount
     document.getElementById("edit_expense_amount").value = 0;
     //date
@@ -104,6 +106,7 @@ document.getElementById("importFixedExpensesButton").addEventListener("click",()
     $("#edit_expense_description").attr("value", "");
 
     disableEnableAllButtons(false);
+    $('#index_expense_modal_mask').toggle();
   })
 
 //Hide-Box for the expense tables main options : Create new Expense, Switch Month's, Import Fixed Expense
@@ -131,54 +134,49 @@ document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>
     document.getElementById("newExpensesFormButton1").disabled = flag;
     document.getElementById("importFixedExpensesButton").disabled = flag;
   }
+  
+  //Create Form, Edit Form, Changemonth Form.
+  //This will set the position, size, and background modal
+  function alterPosition(name){
+    
+    let screenSize = getCurrentScreenSize();
+    let $navBar = $('#main_navigation_bar');
+    const $modal = $('#'+name);
+    const $modal_mask = $('#index_expense_modal_mask');
 
-  //alters the left-position of the Create Expense Form. Height is in CSS file.
-  @* function alterPosition(name) {
-   
-    // this will get the element based on the string of the modalType
-    let bodyToChange = document.getElementById(name);
+    const top = $navBar.height();
+    const width = screenSize.windowWidth * 0.8;
+    const left = (screenSize.windowWidth - width) / 2;
+    
+    //edit main modal size
+    $modal.css({
+      top: top+"px",
+      width:  width+"px",
+      position: "absolute",
+      left: left+"px",
+    })
 
-    const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
-    const bodyHeight = +window.innerHeight;
+    //edit modal mask, which goes behind
+    $modal_mask.css({
+      top: top+"px",
+      height: screenSize.height+"px",
+      width:  screenSize.windowWidth+"px",
+      position: "absolute",
+      left: "0px",
+      @* display: "flex", *@
+      backgroundColor: "Indigo",
+      Opacity: "0.8",
+      zIndex: "2",
+    })
 
-    //adjust the height-position
-    let height = (bodyHeight - +bodyToChange.clientHeight) / 2;
+    window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+    });
 
-    if (height < 0)
-      height = 0;
-
-    bodyToChange.style.top = height + "px";
-
-    // Adjust the width-position
-    let size = (bodySize - +bodyToChange.clientWidth) / 2
-
-    if (size < 0)
-      size = 0;
-
-    bodyToChange.style.left = size + "px";
-  } *@
-@* 
-  //Alter position of the change-month-form
-  function alterPositionChangeMonthForm() {
-    const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
-    const bodyHeight = +window.innerHeight;
-    let changeMonthExpensesForm = document.getElementById("changeMonthForm")
-
-    //adjust the height-position
-    let height = (bodyHeight - +changeMonthExpensesForm.clientHeight) / 2;
-
-    if (height < 0)
-      height = 0;
-
-    changeMonthExpensesForm.style.top = height + "px";
-
-    // Adjust the width-position
-    let size = (bodySize - +changeMonthExpensesForm.clientWidth) / 2
-
-    if (size < 0)
-      size = 0;
-    changeMonthExpensesForm.style.left = size + "px";
-  }  *@
+    $modal_mask.toggle();
+  }
 
   //hides or displays a table - table is located in the expensesTables.cshtml
   function HideOrDisplayExpenseTable(start, stop) {

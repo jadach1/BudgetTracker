@@ -179,7 +179,6 @@ namespace Budget_Man.Controllers
         {
             try
             {
-                Console.WriteLine("hello world");
                 //GET USER 
                 var user = await GetActiveUser();
                 int counter = 0;
