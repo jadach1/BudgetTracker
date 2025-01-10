@@ -132,8 +132,8 @@ document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>
     document.getElementById("importFixedExpensesButton").disabled = flag;
   }
 
-  @* //alters the left-position of the Create Expense Form. Height is in CSS file.
-  function alterPosition(name) {
+  //alters the left-position of the Create Expense Form. Height is in CSS file.
+  @* function alterPosition(name) {
    
     // this will get the element based on the string of the modalType
     let bodyToChange = document.getElementById(name);
@@ -156,8 +156,8 @@ document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>
       size = 0;
 
     bodyToChange.style.left = size + "px";
-  }
-
+  } *@
+@* 
   //Alter position of the change-month-form
   function alterPositionChangeMonthForm() {
     const bodySize = +document.getElementsByTagName('body')[0].clientWidth;
@@ -178,7 +178,7 @@ document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>
     if (size < 0)
       size = 0;
     changeMonthExpensesForm.style.left = size + "px";
-  } *@
+  }  *@
 
   //hides or displays a table - table is located in the expensesTables.cshtml
   function HideOrDisplayExpenseTable(start, stop) {

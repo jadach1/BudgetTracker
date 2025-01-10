@@ -31,7 +31,7 @@ namespace Budget_Man.Controllers
             try
             {
                  //GET USER  
-                var user = await _userManager.GetUserAsync(User);
+                var user = await GetActiveUser();
 
                 var given_month = form["month_number"];
                 int month;
@@ -129,7 +129,7 @@ namespace Budget_Man.Controllers
             try
             {
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
+                var user = await GetActiveUser();
                 int counter = 0;
 
                 
@@ -173,13 +173,15 @@ namespace Budget_Man.Controllers
         //When user wants to import fixed expenses, this will take a list of 
         //expenses which are based off of the users fixed expenses for the month
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
+        //No ValidateAntiForgeryToken because cannot figure out how to pass token and exepnses object to controller method
         public async Task<IActionResult> CreateFixedExpenses([FromBody] IEnumerable<Expenses> expense)
         {
             try
             {
+                Console.WriteLine("hello world");
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
+                var user = await GetActiveUser();
                 int counter = 0;
                 
                 //Loop through the List of Expenses
@@ -208,8 +210,8 @@ namespace Budget_Man.Controllers
             try
             {
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
-                expense.MyUserName = user.Id;
+                var user = await GetActiveUser();
+                expense.MyUserName = user.Id.ToString();
                 _db.expensesRepository.Add(expense);
                 _db.Save();
                 _helperFunctions.toasterTest("Added new transaction",1);
@@ -230,9 +232,14 @@ namespace Budget_Man.Controllers
             try
             {
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
-                obj.MyUserName = user.Id;
-                _db.expensesRepository.Update(obj);
+                var user = await GetActiveUser();
+                obj.MyUserName = user.Id.ToString();
+                try{
+                    _db.expensesRepository.Update(obj);
+                } catch(Exception e) {
+                    throw new Exception("Failed at editing this expense");
+                }
+                
                 _db.Save();
                 _helperFunctions.toasterTest("Successfully edited expense", 1);
                return RedirectToAction("Index");
@@ -240,7 +247,7 @@ namespace Budget_Man.Controllers
             catch (Exception e)
             {
                 _helperFunctions.toasterTest("Failed at editing expense", 2);
-                ViewData["errorMessage"] = "exception " + e;
+                ViewData["errorMessage"] =  e;
                 View("Views/Errors/generalError.cshtml");
                 return this.Ok(e);
             }
@@ -255,7 +262,7 @@ namespace Budget_Man.Controllers
                 if (result)
                 {
                     _db.Save();
-                    return this.Ok("successfully deleted expense !" + id);
+                    return this.Ok("successfully deleted expense !");
                 }
                 else
                 {
@@ -276,8 +283,8 @@ namespace Budget_Man.Controllers
             try
             {
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
-                Expenses expense = await _db.expensesRepository.GetSingleExpense(id, user.Id);
+                var user = await GetActiveUser();
+                Expenses expense = await _db.expensesRepository.GetSingleExpense(id, user.Id.ToString());
                 Expression<Func<Category, bool>> filter = o => o.Id == expense.CategoryId;
                 Category category = await _db.categoryRepository.Get(filter);
                 expense.category = category;
@@ -296,8 +303,8 @@ namespace Budget_Man.Controllers
             try
             {
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
-                bool result = await _db.expensesRepository.GetExpensesWithCategoryId(id, user.Id);
+                var user = await GetActiveUser();
+                bool result = await _db.expensesRepository.GetExpensesWithCategoryId(id, user.Id.ToString());
                 if(result)
                     return true;
                 else
@@ -310,13 +317,13 @@ namespace Budget_Man.Controllers
                 return false;
             }
         }
-      [HttpPost]
-      [ValidateAntiForgeryToken]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
        public async Task<bool> ChangeExpenseCategory(int CategoryId_Old, int CategoryId_New){
             try
             {
                 //GET USER 
-                var user = await _userManager.GetUserAsync(User);
+                var user = await GetActiveUser();
                 bool result = await _db.expensesRepository.Update_Change_Expense_Category(user.Id, CategoryId_Old, CategoryId_New);
                 _db.Save();
                 if(result)
@@ -333,7 +340,7 @@ namespace Budget_Man.Controllers
        }
          
         //Retrieves, or tries, the active user's details
-    public async Task<MyUser> GetActiveUser()
+        public async Task<MyUser> GetActiveUser()
         {
             try
             {

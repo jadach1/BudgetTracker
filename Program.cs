@@ -19,7 +19,7 @@ builder.Services.AddControllersWithViews();
 
 // we wish to add dbContext to the project, and we need to inform the extension which class in our project will have the dbcontext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionConnection2")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection2")));
 
 //IDENTITY
 builder.Services.AddIdentity<MyUser, IdentityRole>(opt =>

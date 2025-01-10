@@ -1,35 +1,50 @@
 
 
 <script>
+    function getAntiForgeryToken(){
+        //returns a input field element, which is the token
+        let rawtoken = '@Html.AntiForgeryToken()';
+        //get the value
+        let token = $(rawtoken).val();
+        console.log(token);
+        return token;
+    }
     function ajaxCallToExpenseController_GetExpense(Id){
-  $.ajax({
-    url: '/Expenses/GetOneExpense/'+Id,
-    contentType: 'application/x-www-form-urlencoded',
-    type: "Get",
-    success: function (data) {
-                // Now that we have gotten our expense, to edit, we will call the function location in: "Scripts_Edit_ExpenseForm" to display our expense
-                toggle_edit_expense_form(data);
-            },
+        $.ajax({
+            url: '/Expenses/GetOneExpense/'+Id,
+            contentType: 'application/x-www-form-urlencoded',
+            type: "Get",
+            success: function (data) {
+                        // Now that we have gotten our expense, to edit, we will call the function location in: "Scripts_Edit_ExpenseForm" to display our expense
+                        toggle_edit_expense_form(data);
+                    },
 
-            // Error handling 
-            error: function (error) {
-                //console.log(`Error ${error}`);
-                fireNotif('There was an Error fetching an Expense', 'error', 5000);
-                console.log(error)
-            }
-    });
-}
+                    // Error handling 
+                    error: function (error) {
+                        //console.log(`Error ${error}`);
+                        fireNotif('There was an Error fetching an Expense', 'error', 5000);
+                        console.log(error)
+                    }
+            });
+    }
     function ajaxCallToExpenseController_Delete(Id,$TableRow){
-        let Data = {id: Id};
+        
+        //Pass object with the transaction ID and our anti forgery token
+        let Data = {
+                    id: Id,
+                    __RequestVerificationToken:getAntiForgeryToken() 
+                    };
+
+        //Actual ajax call
         $.ajax({
             url: '/Expenses/Delete',
-            contentType: 'application/x-www-form-urlencoded',
-         // this will not pass the data
-         //   contentType: 'application/json; charset=utf-8',
+            //contentType: 'application/x-www-form-urlencoded',
+            // this will not pass the data
+            //   contentType: 'application/json; charset=utf-8',
             type: "Post",
             data: Data,
        
-            success: function (data) {
+            success: function (data,token) {
                 fireNotif('Successfully Removed Expense', 'Success', 5000);
                 @* let x = JSON.stringify(data);
                 console.log("success", x); *@
@@ -85,7 +100,7 @@
    // The below functions, all pertain to adding fixed expenses, they all chain together to work seamlessely.
 
 
-    //This takes an array of data - fixed expenses made into strings
+    //This takes an array of data - that is -> <fixed expenses> made into strings
     // a month, string
     // And a categoryId, associating to the users fixed-expense category id
     function ajaxCallToExpenseController_CreateFixedExpenses(data, month, categoryId){
@@ -102,7 +117,7 @@
         data.forEach( (el) => {
             //each element is an Expense class, so needs to map perfectly to data types
             let expense = {
-                Year: getOurWorkingYear(),
+                Year: +getOurWorkingYear(),
                 Month: dictionaryOfMonth.get(month),
                 Week: 1,
                 CategoryId: +categoryId,
@@ -111,7 +126,6 @@
                 Description: el.name,
                 Currency: dictionaryOfCurrency.get(el.currency),
                 isFixed: true,
-                isIncome: false,
                 MyUserName: el.userid
             }
 

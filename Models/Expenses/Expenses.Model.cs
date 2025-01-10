@@ -49,5 +49,16 @@ namespace Budget_Man.Models
         }
     }
 
-   
+   public class bsFixed{
+                public int Year;
+                public int Month;
+                public int Week;
+                public int CategoryId;
+                public int Amount;
+                public string? Date;
+                public string? Description;
+                public string? Currency;                
+                public bool isFixed;
+                public string? MyUserName;
+   }
 }
