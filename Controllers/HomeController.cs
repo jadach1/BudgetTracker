@@ -32,7 +32,11 @@ public class HomeController : Controller
         dtfi = new DateTimeFormatInfo();
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index(){
+        return View();
+    }
+    
+    public async Task<IActionResult> YearlyOverview()
     {
         try {
                 //Get user data to display for user

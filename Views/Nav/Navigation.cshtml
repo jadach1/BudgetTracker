@@ -24,9 +24,10 @@
                         title="Welcome">Welcome @user.DisplayName !</a>
                 </li>
                 <li class="nav-item">
-                    <form class="form-inline" asp-controller="Account" asp-action="Logout">
+                    @* <form class="form-inline" asp-controller="Account" asp-action="Logout">
                         <button type="submit" class="nav-link btn btn-link text-info">Logout</button>
-                    </form>
+                    </form> *@
+                    <button class="nav-link" style="font-size:x-large; border: black solid 1px" onclick="toggle_logout_modal()">Logout</button>
                 </li>         
             }
         else 

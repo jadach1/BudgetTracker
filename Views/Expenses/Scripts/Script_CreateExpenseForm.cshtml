@@ -55,6 +55,9 @@
         // update tue ul list
         updateExpenseList(expense, category[1]);
 
+        //Send prompt for user to see item added to list
+        fireNotif("Successfully Added transaction to list. Click 'view list' to view pending transactions.","success",5000);
+
         clearExpenseListForm();
     }
 
@@ -197,7 +200,6 @@
         // clear actual expense list UI
         //Grab all the p elements
         const tempExpenseList = list.getElementsByTagName("ul")[0].getElementsByTagName("p");
-        console.log(tempExpenseList[0]);
       
         //Because every time we delete an element from the collection, this will dynamically change the list size,
         //Every time we remove a child, tempExpenseList.length is shortened.

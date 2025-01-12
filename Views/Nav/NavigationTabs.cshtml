@@ -1,20 +1,20 @@
 @model int
 
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+<li class="nav-item" style="border: black solid 1px">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="YearlyOverview">Yearly Overview</a>
 </li>
-<li class="nav-item">
+<li class="nav-item" style="border: black solid 1px">
     <a class="nav-link text-dark" asp-area="" asp-controller="Expenses"
-        asp-action="Index">Expenses</a>
+        asp-action="Index">Transactions</a>
 </li>
-<li class="nav-item">
+<li class="nav-item" style="border: black solid 1px">
     <a class="nav-link text-dark" asp-area="" asp-controller="FixedExpenses"
         asp-action="Index">Fixed Expenses</a>
 </li>
-<li class="nav-item">
+<li class="nav-item" style="border: black solid 1px">
     <a class="nav-link text-dark" asp-area="" asp-controller="Category"
         asp-action="Index">Categories</a>
 </li>
-<li class="nav-item">
-    <a id="selectYearLabel2" class="nav-link text-secondary">Year @Model</a>
+<li class="nav-item" >
+    <a id="selectYearLabel2" class="nav-link text-secondary">Working Year @Model</a>
 </li>

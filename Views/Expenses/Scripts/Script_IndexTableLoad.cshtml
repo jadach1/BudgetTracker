@@ -104,7 +104,7 @@ document.getElementById("importFixedExpensesButton").addEventListener("click",()
     document.getElementById("edit_expense_date").value = "";
     //description
     $("#edit_expense_description").attr("value", "");
-
+    
     disableEnableAllButtons(false);
     $('#index_expense_modal_mask').toggle();
   })
@@ -167,6 +167,7 @@ document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>
       backgroundColor: "Indigo",
       Opacity: "0.8",
       zIndex: "2",
+      display: "flex",
     })
 
     window.scroll({
@@ -174,8 +175,6 @@ document.getElementById("FixedTransactionsCaret").addEventListener("click", ()=>
         left: 0, 
         behavior: 'smooth' 
     });
-
-    $modal_mask.toggle();
   }
 
   //hides or displays a table - table is located in the expensesTables.cshtml

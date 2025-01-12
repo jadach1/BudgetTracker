@@ -1,0 +1,76 @@
+<div id="logout_form" style="display: none;z-index: 3;" style="margin-bottom: 5Rem;">
+    <form class="form-inline" asp-controller="Account" asp-action="Logout">
+        <h3 class="" >Are you sure you wish to log out ?</h3>
+        <div class="row">
+            <button  type="submit" class="btn btn-lg bg-danger col-4 text-black text-center">Logout</button>
+            <button  id="logout_form_cancel" class="btn btn-lg bg-info offset-2 col-4 text-black text-center">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div id="logout_form_mask" style="z-index: 2;">
+
+</div>
+
+<script>
+    //Attaches this modal to a row in a table.
+    function toggle_logout_modal(){
+        
+        // Build the JQuery objects
+        const $LogOutModal = $("#logout_form");
+        const $LogOutModalMask = $("#logout_form_mask");
+        const screenSize = getCurrentScreenSize();
+        console.log(screenSize)
+
+        const height = 200;
+        const width = +screenSize.width * 0.75;
+        const left = (screenSize.width - width) / 2;
+        const top = (screenSize.height / 2)
+        console.log("left" + left,"top"+ top)
+        $LogOutModal.css({
+            position: "absolute",
+            zIndex: 3,
+            backgroundColor: "#6f42c1",
+            padding: "10%",
+            height: height,
+            width: width,
+            border: "black solid 4px",
+            top: "100px",
+            left: left+"px",
+        });
+    
+    $LogOutModalMask.css({
+        position: "absolute",
+        zIndex: 2,
+        backgroundColor: "#6f42c1",
+        opacity:"0.8",
+        top: "0px",
+        left: "0px",
+        height: screenSize.height,
+        width: screenSize.width,
+    })
+
+        $LogOutModal.show("fade");
+        $LogOutModalMask.show("fade");
+
+        @* const $yes_btn = $( "#delete_expense_modal div a" ).first();
+        const $no_btn = $("#delete_expense_modal div a" ).last();
+
+        $yes_btn.addClass("btn btn-secondary m-3");
+        $no_btn.addClass("btn btn-danger m-3");
+        
+        //Remove old click listeners
+        $no_btn.off("click");
+        $yes_btn.off("click");
+
+        $no_btn.on("click", function(){hideDeleteModal();});
+        $yes_btn.on("click", function(){ajaxCallToExpenseController_Delete(Id,$TableRow)});
+        $TableRow.append($DeleteModal); *@
+    }
+    document.getElementById("logout_form_cancel").addEventListener("click", (event)=> {
+        event.preventDefault();
+        $("#logout_form").hide("fade");
+        $("#logout_form_mask").hide("fade");
+    })
+
+</script>
